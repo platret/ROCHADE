@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "ROCHADE",
+    "slug": "rochade",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "rochade",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "ch.rochade.app",
+      "supportsTablet": false,
+      "icon": {
+        "light": "./assets/images/icon.png",
+        "dark": "./assets/images/icon-dark.png",
+        "tinted": "./assets/images/icon-tinted.png"
+      }
+    },
+    "android": {
+      "package": "ch.rochade.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F26A1B",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "monochromeImage": "./assets/images/icon-tinted.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FAF8F5",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 120,
+          "dark": {
+            "backgroundColor": "#14191B",
+            "image": "./assets/images/splash-icon-dark.png"
+          }
+        }
+      ],
+      "expo-sqlite"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
