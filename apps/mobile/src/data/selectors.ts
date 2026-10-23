@@ -1,0 +1,32 @@
+import type { Assignment, Flat, Household, Phase } from '@rochade/shared'
+import { useIdentity } from './IdentityProvider'
+import { useProject } from './ProjectProvider'
+
+export type MyHousehold = {
+  household: Household
+  homeFlat: Flat | null
+  assignment: Assignment | null
+  tempFlat: Flat | null
+  phase: Phase | null
+}
+
+export const useMyHousehold = (): MyHousehold | null => {
+  const { identity } = useIdentity()
+  const project = useProject()
+  if (identity?.kind !== 'household' || project.status !== 'ready') return null
+  const { households, flats, assignments, phases } = project.data
+  const household = households.find((candidate) => candidate.id === identity.householdId)
+  if (!household) return null
+  const homeFlat = flats.find((flat) => flat.id === household.home_flat_id) ?? null
+  const assignment = assignments.find((candidate) => candidate.household_id === household.id) ?? null
+  const tempFlatId = assignment?.temp_flat_id ?? null
+  const tempFlat = tempFlatId ? (flats.find((flat) => flat.id === tempFlatId) ?? null) : null
+  const phase = homeFlat ? (phases.find((candidate) => candidate.building === homeFlat.building) ?? null) : null
+  return { household, homeFlat, assignment, tempFlat, phase }
+}
+
+export const usePhaseForBuilding = (building: string): Phase | null => {
+  const project = useProject()
+  if (project.status !== 'ready') return null
+  return project.data.phases.find((phase) => phase.building === building) ?? null
+}

@@ -11,5 +11,9 @@
     "mobile": "npm run start -w apps/mobile",
     "web": "npm run dev -w apps/web",
     "seed:sql": "npm run seed:sql -w packages/shared"
+  },
+  "overrides": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   }
 }
