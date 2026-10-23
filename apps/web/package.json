@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "tokens": "tsx scripts/tokens-css.ts",
+    "predev": "npm run tokens",
+    "prebuild": "npm run tokens",
+    "pretypecheck": "npm run tokens"
   },
   "dependencies": {
     "@rochade/shared": "*",
