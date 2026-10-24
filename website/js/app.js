@@ -23,7 +23,7 @@ const VIEWS = [
   { id: 'haushalte', name: 'Haushalte' },
 ];
 const PLAY_INTERVAL_MS = 1100;
-const IDLE_SEARCH = Object.freeze({ status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null });
+const IDLE_SEARCH = Object.freeze({ status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null, open: true });
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const defaultStarts = () => Object.fromEntries(PROJECT.phases.map((p) => [p.id, p.start]));
@@ -65,6 +65,7 @@ let state = {
   lastChanged: null,
   playing: false,
   search: IDLE_SEARCH,
+  needsOpen: true,
 };
 let timer = null;
 let stage = null;
@@ -170,7 +171,7 @@ function render() {
   const key = focusKey(document.activeElement);
   renderOverview();
   els.phases.innerHTML = renderPhases(state.project, state.applied, state.draft, state.plan);
-  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { search: state.search });
+  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { search: state.search, needsOpen: state.needsOpen });
   renderTabs();
   renderScrubber();
   renderContent();
@@ -208,7 +209,7 @@ async function runSearch() {
   try {
     const result = await searchFlatfox(state.project, { minRooms });
     if (seq !== searchSeq) return;
-    setState({ search: { status: 'ready', items: result.items, loaded: result.loaded, error: null, source: 'flatfox', fetchedAt: Date.now() } });
+    setState({ search: { status: 'ready', items: result.items, loaded: result.loaded, error: null, source: 'flatfox', fetchedAt: Date.now(), open: true } });
   } catch (err) {
     if (seq !== searchSeq) return;
     console.warn('Flatfox-Suche fehlgeschlagen', err);
@@ -280,7 +281,9 @@ document.addEventListener('click', (e) => {
   if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), state.project.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
   if (action.dataset.action === 'search') runSearch();
-  if (action.dataset.action === 'search-demo') setState({ search: { status: 'ready', items: LISTINGS, loaded: LISTINGS.length, error: null, source: 'demo', fetchedAt: Date.now() } });
+  if (action.dataset.action === 'search-demo') setState({ search: { status: 'ready', items: LISTINGS, loaded: LISTINGS.length, error: null, source: 'demo', fetchedAt: Date.now(), open: true } });
+  if (action.dataset.action === 'search-close') setState({ search: { ...state.search, open: false } });
+  if (action.dataset.action === 'search-open') setState({ search: { ...state.search, open: true } });
   if (action.dataset.action === 'copy-prompt') {
     const text = searchPrompt(state.project, needsFor(state.project, state.plan));
     const done = () => { action.textContent = 'Kopiert'; setTimeout(() => { action.textContent = 'KI-Suchauftrag kopieren'; }, 1800); };
@@ -319,6 +322,11 @@ document.addEventListener('change', (e) => {
   if (e.target.matches('input[data-lift]')) setProject(setLift(state.project, e.target.dataset.lift, e.target.checked));
   if (e.target.matches('input[data-renovate]')) setProject(setRenovate(state.project, e.target.dataset.renovate, e.target.checked));
 });
+
+/* The needs list is a native <details>; remember its state across re-renders without re-rendering. */
+document.addEventListener('toggle', (e) => {
+  if (e.target.matches && e.target.matches('details.needs-wrap')) state = { ...state, needsOpen: e.target.open };
+}, true);
 
 document.addEventListener('input', (e) => {
   if (e.target.id === 'month-range') { stopPlaying(); setState({ month: Number(e.target.value) }); }

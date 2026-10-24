@@ -5,7 +5,7 @@ import { suggestStart } from '../planner.js';
 import { needsFor, findListings, searchPrompt, searchLinks } from '../listings.js';
 import { SEARCH_RADIUS_KM } from '../flatfox.js';
 
-const IDLE = { status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null };
+const IDLE = { status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null, open: true };
 
 function conflictItem(project, plan, c) {
   const h = project.households.find((x) => x.id === c.householdId);
@@ -50,18 +50,21 @@ function searchResults(project, plan, search) {
   const hits = findListings(project, plan, search.items);
   const live = search.source === 'flatfox';
   const head = live
-    ? `<b>${hits.length} von ${search.loaded}</b> Inseraten im Umkreis von ${SEARCH_RADIUS_KM} km passen zum Bedarf <span class="muted">· flatfox.ch, Stand ${timeLabel(search.fetchedAt)}</span>`
-    : `<b>${hits.length}</b> Beispieltreffer <span class="muted">· fiktiv, ohne Internet</span>`;
+    ? `<span><b>${hits.length} von ${search.loaded}</b> Inseraten im Umkreis von ${SEARCH_RADIUS_KM} km passen zum Bedarf <span class="muted">· flatfox.ch, Stand ${timeLabel(search.fetchedAt)}</span></span>`
+    : `<span><b>${hits.length}</b> Beispieltreffer <span class="muted">· fiktiv, ohne Internet</span></span>`;
+  const toggle = search.open
+    ? '<button type="button" class="btn btn-sm btn-ghost" data-action="search-close">Treffer einklappen</button>'
+    : '<button type="button" class="btn btn-sm btn-primary" data-action="search-open">Treffer anzeigen</button>';
   const list = hits.length
     ? `<ul class="listings" aria-label="Gefundene Wohnungen">${hits.map((l) => listingItem(project, l)).join('')}</ul>`
     : `<p class="body-sm muted">Keines der ${search.loaded} geladenen Inserate passt zu diesem Bedarf. Nutzen Sie den KI-Suchauftrag oder die Links; sobald neue Inserate erscheinen, lohnt sich «Neu laden».</p>`;
   const note = live
     ? '<p class="body-sm muted">Echte Inserate aus der öffentlichen Flatfox-Schnittstelle, gefiltert nach Zimmerzahl, Hindernisfreiheit (Lift, rollstuhlgängig oder Parterre), Verfügbarkeit und Distanz zur Siedlung. Ob eine befristete Vermietung möglich ist, klärt die Genossenschaft mit der Anbieterin.</p>'
     : '<p class="body-sm muted">Beispieltreffer, fiktiv. Mit Internet lädt ROCHADE hier echte Inserate von Flatfox.</p>';
-  return `<p class="search-meta">${head} <button type="button" class="btn btn-sm btn-ghost" data-action="search">Neu laden</button></p>${list}${note}`;
+  return `<p class="search-meta">${head} ${toggle} <button type="button" class="btn btn-sm btn-ghost" data-action="search">Neu laden</button></p>${search.open ? list + note : ''}`;
 }
 
-export function renderStatus(project, plan, applied, diff, lastChanged, { search = IDLE } = {}) {
+export function renderStatus(project, plan, applied, diff, lastChanged, { search = IDLE, needsOpen = true } = {}) {
   const n = plan.conflicts.length;
   const changedList = diff && diff.affected.length
     ? `<details class="affected" ${diff.affected.length <= 12 ? 'open' : ''}><summary>${plural(diff.affected.length, 'Haushalt betroffen', 'Haushalte betroffen')} durch die letzte Änderung</summary>
@@ -99,7 +102,7 @@ export function renderStatus(project, plan, applied, diff, lastChanged, { search
     <ul class="suggestions">${suggestions}</ul>
     <div class="search"${search.status === 'loading' ? ' aria-busy="true"' : ''}>
       <p class="label">Lösung 2 · Wohnungen ausserhalb der Genossenschaft</p>
-      <ul class="needs">${needList}</ul>
+      <details class="needs-wrap" ${needsOpen ? 'open' : ''}><summary>Bedarf: ${plural(n, 'Haushalt', 'Haushalte')} in ${plural(needs.length, 'Gruppe', 'Gruppen')}</summary><ul class="needs">${needList}</ul></details>
       <div class="search-actions">
         ${search.status === 'idle' ? '<button type="button" class="btn btn-primary btn-sm" data-action="search">Inserate auf Flatfox suchen</button>' : ''}
         <button type="button" class="btn btn-sm" data-action="copy-prompt">KI-Suchauftrag kopieren</button>
