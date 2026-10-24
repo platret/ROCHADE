@@ -1,9 +1,13 @@
-import { formatPeriod, statusLabels } from '@rochade/shared'
+import { formatDate, formatPeriod, statusLabels, type Period } from '@rochade/shared'
 import { splitFlatLabel } from '@/lib/flats'
 import type { OverviewRow } from './overview'
 
 export const noHomeFlat = 'Ohne eigene Wohnung'
 export const tempFlatPending = 'Wohnung folgt'
+
+const enDash = '–'
+
+export const periodRange = (period: Period) => `${formatDate(period.start)} ${enDash} ${formatDate(period.end)}`
 
 const flatNumber = (label: string) => splitFlatLabel(label).number
 

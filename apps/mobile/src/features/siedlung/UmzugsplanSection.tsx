@@ -26,7 +26,7 @@ export const UmzugsplanSection = ({ data, ownHouseholdId, today }: UmzugsplanSec
       />
       {planned ? (
         <>
-          <Timeline rows={rows} range={range} runningPhase={runningPhase(data.phases, today)} />
+          <Timeline rows={rows} range={range} runningPhase={runningPhase(data.phases, today)} today={today} />
           <Legend showConflict={rows.some((row) => row.conflict)} highlightOwn={rows.some((row) => row.own)} />
         </>
       ) : (

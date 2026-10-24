@@ -1,7 +1,7 @@
 import { gutter, spacing } from '@rochade/shared'
 import { View } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
-import { Button } from '@/ui/Button'
+import { SaveButton } from './SaveButton'
 import { SaveError } from './SaveError'
 import type { SavePhase } from './useWishesForm'
 
@@ -13,11 +13,8 @@ export type SaveFooterProps = {
   bottomInset: number
 }
 
-const noop = () => undefined
-
 export const SaveFooter = ({ dirty, phase, error, onSave, bottomInset }: SaveFooterProps) => {
   const { colors } = useTheme()
-  const saved = phase === 'saved'
   return (
     <View
       style={{
@@ -31,13 +28,7 @@ export const SaveFooter = ({ dirty, phase, error, onSave, bottomInset }: SaveFoo
       }}
     >
       {error !== null && <SaveError message={error} />}
-      <Button
-        label={saved ? 'Gespeichert' : 'Speichern'}
-        icon={saved ? 'checkmark' : undefined}
-        loading={phase === 'saving'}
-        disabled={!dirty && phase === 'idle'}
-        onPress={saved ? noop : onSave}
-      />
+      <SaveButton dirty={dirty} phase={phase} onSave={onSave} />
     </View>
   )
 }

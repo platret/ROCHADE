@@ -3,6 +3,7 @@ import type { SFSymbol } from 'expo-symbols'
 import { Linking, View } from 'react-native'
 import type { CalendarEntry } from '@/lib/calendar'
 import { Button } from '@/ui/Button'
+import { Squeeze } from '@/ui/Squeeze'
 import { Text } from '@/ui/Text'
 import { ActionNotice } from './ActionNotice'
 import { useCalendarExport } from './useCalendarExport'
@@ -33,7 +34,9 @@ export const CalendarAction = ({ householdId, entries }: CalendarActionProps) =>
   if (entries.length === 0) {
     return (
       <View style={{ gap: spacing.sm }}>
-        <Button label={addLabel} icon={addIcon} disabled onPress={noop} />
+        <Squeeze disabled>
+          <Button label={addLabel} icon={addIcon} disabled onPress={noop} />
+        </Squeeze>
         <Hint>Sobald die Termine feststehen, kannst du sie in deinen Kalender eintragen.</Hint>
       </View>
     )
@@ -66,12 +69,14 @@ export const CalendarAction = ({ householdId, entries }: CalendarActionProps) =>
       {retry && (
         <ActionNotice alert symbol="exclamationmark.triangle.fill" color="danger" title="Eintragen hat nicht geklappt." body={error ?? undefined} />
       )}
-      <Button
-        label={retry ? 'Erneut versuchen' : stale ? 'Kalender aktualisieren' : addLabel}
-        icon={retry ? 'arrow.clockwise' : stale ? 'arrow.triangle.2.circlepath' : addIcon}
-        loading={status === 'working'}
-        onPress={run}
-      />
+      <Squeeze disabled={status === 'working'}>
+        <Button
+          label={retry ? 'Erneut versuchen' : stale ? 'Kalender aktualisieren' : addLabel}
+          icon={retry ? 'arrow.clockwise' : stale ? 'arrow.triangle.2.circlepath' : addIcon}
+          loading={status === 'working'}
+          onPress={run}
+        />
+      </Squeeze>
       <Hint>{hintLine(entries.length, stale)}</Hint>
     </View>
   )

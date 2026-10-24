@@ -1,8 +1,9 @@
 import { spacing } from '@rochade/shared'
 import { View } from 'react-native'
 import { Icon } from '@/ui/Icon'
+import { PopIn } from '@/ui/PopIn'
 import { Text } from '@/ui/Text'
-import { checkboxSize } from './ChecklistRow'
+import { checkboxSize } from './Checkbox'
 import { ResetButton } from './ResetButton'
 
 export type AllDoneRowProps = { onReset: () => void }
@@ -19,7 +20,9 @@ export const AllDoneRow = ({ onReset }: AllDoneRowProps) => (
       paddingHorizontal: spacing.lg,
     }}
   >
-    <Icon name="checkmark.circle.fill" size={checkboxSize} color="ink" />
+    <PopIn from={0.5}>
+      <Icon name="checkmark.circle.fill" size={checkboxSize} color="ink" />
+    </PopIn>
     <Text weight={600} style={{ flex: 1 }}>
       Alles erledigt
     </Text>

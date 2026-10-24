@@ -1,38 +1,37 @@
 import { formatDate, spacing, type ColorName } from '@rochade/shared'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
-import { Icon } from '@/ui/Icon'
+import { Tactile } from '@/ui/Tactile'
 import { Text } from '@/ui/Text'
+import { Checkbox, checkboxSize } from './Checkbox'
 import { dueLabel, type ChecklistItem } from './items'
+import { StrikeText } from './StrikeText'
 
 export type ChecklistRowProps = { item: ChecklistItem; done: boolean; overdue: boolean; onToggle: () => void }
 
-export const checkboxSize = 24
 const dividerInset = spacing.lg + checkboxSize + spacing.md
 
 export const ChecklistRow = ({ item, done, overdue, onToggle }: ChecklistRowProps) => {
-  const { colors } = useTheme()
   const late = overdue && !done
   const dateColor: ColorName = late ? 'danger' : 'inkMuted'
   return (
-    <Pressable
+    <Tactile
       onPress={onToggle}
       accessibilityRole="checkbox"
       accessibilityState={{ checked: done }}
       accessibilityLabel={`${item.title}, ${dueLabel(item)}${late ? ', überfällig' : ''}`}
-      style={({ pressed }) => ({
+      style={{
         minHeight: 64,
         flexDirection: 'row',
         alignItems: 'center',
         gap: spacing.md,
         paddingVertical: spacing.md,
         paddingHorizontal: spacing.lg,
-        backgroundColor: pressed ? colors.surfaceSunken : 'transparent',
-      })}
+      }}
     >
-      <Icon name={done ? 'checkmark.circle.fill' : 'circle'} size={checkboxSize} color={done ? 'ink' : 'lineStrong'} />
+      <Checkbox checked={done} />
       <View style={{ flex: 1, gap: spacing.xs }}>
-        <Text color={done ? 'inkMuted' : 'ink'}>{item.title}</Text>
+        <StrikeText struck={done}>{item.title}</StrikeText>
         <Text variant="bodySm" color={dateColor}>
           {`${item.kind} `}
           <Text variant="monoSm" color={dateColor}>
@@ -40,7 +39,7 @@ export const ChecklistRow = ({ item, done, overdue, onToggle }: ChecklistRowProp
           </Text>
         </Text>
       </View>
-    </Pressable>
+    </Tactile>
   )
 }
 

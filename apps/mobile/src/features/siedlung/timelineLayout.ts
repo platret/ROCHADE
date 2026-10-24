@@ -9,9 +9,10 @@ export const timelineLayout = {
   outlineWidth: 1.5,
   segmentGap: 2,
   minSegmentWidth: 4,
-  bandOutset: 4,
   minLabelColumn: 28,
   swatchWidth: 20,
   swatchHeight: 12,
   swatchRadius: 3,
+  todayLabelWidth: 48,
+  todayRowHeight: 20,
 } as const

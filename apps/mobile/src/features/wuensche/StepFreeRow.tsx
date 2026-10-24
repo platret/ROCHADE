@@ -9,12 +9,14 @@ export type StepFreeRowProps = {
   disabled?: boolean
 }
 
+const switchBox = 32
+
 export const StepFreeRow = ({ value, onChange, disabled = false }: StepFreeRowProps) => {
   const { colors } = useTheme()
   return (
     <View
       style={{
-        minHeight: 64,
+        minHeight: 72,
         flexDirection: 'row',
         alignItems: 'center',
         gap: spacing.md,
@@ -28,13 +30,15 @@ export const StepFreeRow = ({ value, onChange, disabled = false }: StepFreeRowPr
           Keine Treppen, Zugang mit Rollator oder Rollstuhl
         </Text>
       </View>
-      <Switch
-        value={value}
-        onValueChange={onChange}
-        disabled={disabled}
-        trackColor={{ true: colors.orangeStrong }}
-        accessibilityLabel="Hindernisfreie Wohnung"
-      />
+      <View style={{ height: switchBox, justifyContent: 'center' }}>
+        <Switch
+          value={value}
+          onValueChange={onChange}
+          disabled={disabled}
+          trackColor={{ true: colors.orangeStrong }}
+          accessibilityLabel="Hindernisfreie Wohnung"
+        />
+      </View>
     </View>
   )
 }

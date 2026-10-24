@@ -25,9 +25,8 @@ export const VerwaltungSkeleton = () => (
           <View
             key={row}
             style={{
-              minHeight: 64,
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               gap: spacing.md,
               paddingVertical: spacing.md,
               paddingHorizontal: spacing.lg,
@@ -35,7 +34,8 @@ export const VerwaltungSkeleton = () => (
           >
             <View style={{ flex: 1, gap: spacing.sm }}>
               <Skeleton width="55%" height={16} />
-              <Skeleton width="70%" height={14} />
+              <Skeleton width="45%" height={14} />
+              <Skeleton width="60%" height={14} />
             </View>
             <Skeleton width={88} height={24} />
           </View>

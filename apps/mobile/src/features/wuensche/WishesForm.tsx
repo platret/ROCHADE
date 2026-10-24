@@ -15,7 +15,7 @@ import { StepFreeRow } from './StepFreeRow'
 import { useDiscardGuard } from './useDiscardGuard'
 import { useWishesForm } from './useWishesForm'
 
-const closeDelayMs = 600
+const closeDelayMs = 800
 
 export type WishesFormProps = { household: Household }
 
@@ -59,7 +59,7 @@ export const WishesForm = ({ household }: WishesFormProps) => {
             optional
             value={form.schoolDistrict}
             onChangeText={(text) => update('schoolDistrict', text)}
-            placeholder="z. B. Waidberg"
+            placeholder={'z.\u00A0B.\u00A0Waidberg'}
             helper="Nur relevant, wenn Kinder im Haushalt zur Schule gehen."
             maxLength={schoolDistrictMaxLength}
             autoCapitalize="words"

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { View } from 'react-native'
 import { sharePlan } from '@/lib/share'
 import { Button } from '@/ui/Button'
+import { Squeeze } from '@/ui/Squeeze'
 import { Text } from '@/ui/Text'
 import type { WohnungPlan } from './plan'
 
@@ -18,7 +19,9 @@ export const ShareButton = ({ plan }: ShareButtonProps) => {
 
   return (
     <View style={{ gap: spacing.sm }}>
-      <Button variant="secondary" label="Plan teilen" icon="square.and.arrow.up" onPress={share} />
+      <Squeeze>
+        <Button variant="secondary" label="Plan teilen" icon="square.and.arrow.up" onPress={share} />
+      </Squeeze>
       {failed && (
         <Text variant="bodySm" color="danger" accessibilityRole="alert">
           Teilen hat nicht geklappt. Versuche es erneut.

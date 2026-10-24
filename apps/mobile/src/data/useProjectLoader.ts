@@ -14,6 +14,9 @@ type LoadMode = 'initial' | 'refresh' | 'silent'
 
 const realtimeDebounceMs = 300
 const loadTimeoutMs = 10_000
+const refreshTimeoutMs = 6_000
+
+const timeoutFor = (mode: LoadMode) => (mode === 'refresh' ? refreshTimeoutMs : loadTimeoutMs)
 
 const loadProject = async (client: RochadeClient, knownId: string | null) => {
   const id = knownId ?? (await fetchProjects(client))[0]?.id
@@ -67,7 +70,7 @@ export const useProjectLoader = (): ProjectContextValue => {
     const isCurrent = () => mounted.current && requestId === requestCounter.current
     if (mode === 'initial') setError(null)
     if (mode === 'refresh') setRefreshing(true)
-    const attempt = () => withTimeout(loadProject(client, knownProjectId.current), loadTimeoutMs)
+    const attempt = () => withTimeout(loadProject(client, knownProjectId.current), timeoutFor(mode))
     const surfaceAndRetry = (caught: unknown) => {
       showError(caught)
       return isConnectionFailure(caught)

@@ -2,18 +2,41 @@ import { formatDate, formatFloor, roomsLabel, spacing, type Flat, type ISODate }
 import { View } from 'react-native'
 import { splitFlatLabel } from '@/lib/flats'
 import { Chip } from '@/ui/Chip'
+import { CountUp } from '@/ui/CountUp'
 import { Text } from '@/ui/Text'
+import type { Countdown } from './steps'
 
-export type DateHeroProps = { date: ISODate | null; fallback: string }
+export const datePlaceholder = '--.--.----'
 
-export const DateHero = ({ date, fallback }: DateHeroProps) =>
+export const DateHero = ({ date }: { date: ISODate | null }) =>
   date ? (
     <Text variant="monoLarge">{formatDate(date)}</Text>
   ) : (
-    <Text weight={600} color="inkMuted">
-      {fallback}
+    <Text variant="monoLarge" color="lineStrong">
+      {datePlaceholder}
     </Text>
   )
+
+export type CountdownTextProps = { parts: Countdown; hero?: boolean; playKey: number | null }
+
+export const CountdownText = ({ parts, hero = false, playKey }: CountdownTextProps) => {
+  const variant = hero ? 'h2' : 'body'
+  const color = hero ? 'ink' : 'inkMuted'
+  if ('word' in parts) {
+    return (
+      <Text variant={variant} color={color}>
+        {parts.word}
+      </Text>
+    )
+  }
+  return (
+    <Text variant={variant} color={color}>
+      {parts.prefix}
+      <CountUp key={playKey ?? 'mount'} value={parts.days} duration={600} pad variant={hero ? 'monoLarge' : 'mono'} color={color} />
+      {parts.suffix}
+    </Text>
+  )
+}
 
 export const FlatHero = ({ flat }: { flat: Flat }) => {
   const { prefix, number } = splitFlatLabel(flat.label)
