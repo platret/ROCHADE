@@ -2,6 +2,7 @@
 import { PROJECT } from './data.js';
 import { planRochade, diffPlans, validateProject } from './planner.js';
 import { injectIcons } from './icons.js';
+import { initMenu, CHEVRON_LEFT, CHEVRON_RIGHT } from './chrome.js';
 import { esc, icon, month, plural } from './views/format.js';
 import { renderTimeline, TIMELINE_LEGEND } from './views/timeline.js';
 import { renderMoves, BUILDINGS_LEGEND } from './views/buildings.js';
@@ -91,12 +92,22 @@ function renderTabs() {
 function renderScrubber() {
   if (state.view !== 'gebaeude') { els.scrub.hidden = true; els.scrub.innerHTML = ''; return; }
   els.scrub.hidden = false;
-  const max = PROJECT.timeline.months - 1;
+  const months = PROJECT.timeline.months;
+  const max = months - 1;
+  const bands = PROJECT.phases.map((p) => { const b = PROJECT.buildings.find((x) => x.id === p.building); return `<span style="left:${(p.start / months) * 100}%;width:${(p.duration / months) * 100}%"><b>${esc(p.name)}</b> · ${esc(b.name)}</span>`; }).join('');
+  const axis = [0, 5, 10, 15, max].map((i) => `<span style="left:${(i / max) * 100}%">${esc(month(PROJECT, i, 'short'))}</span>`).join('');
   els.scrub.innerHTML = `
-    <button type="button" class="btn btn-icon" data-action="play" aria-label="${state.playing ? 'Pause' : 'Abspielen'}" aria-pressed="${state.playing}">${icon(state.playing ? 'i-pause' : 'i-play')}</button>
-    <label class="scrub-label" for="month-range"><span class="label">Monat</span><output class="data" for="month-range" aria-live="off">${esc(month(PROJECT, state.month))}</output></label>
-    <input id="month-range" type="range" min="0" max="${max}" value="${state.month}" aria-valuetext="${esc(month(PROJECT, state.month))}">
-    <div class="scrub-ticks" aria-hidden="true">${PROJECT.phases.map((p) => `<i style="left:${(p.start / max) * 100}%;width:${(p.duration / max) * 100}%"></i>`).join('')}</div>`;
+    <div class="scrub-buttons">
+      <button type="button" class="btn btn-sm btn-icon" data-action="step" data-delta="-1" aria-label="Einen Monat zurück" ${state.month <= 0 ? 'disabled' : ''}>${CHEVRON_LEFT}</button>
+      <button type="button" class="btn btn-sm btn-icon" data-action="play" aria-label="${state.playing ? 'Pause' : 'Abspielen'}" aria-pressed="${state.playing}">${icon(state.playing ? 'i-pause' : 'i-play')}</button>
+      <button type="button" class="btn btn-sm btn-icon" data-action="step" data-delta="1" aria-label="Einen Monat weiter" ${state.month >= max ? 'disabled' : ''}>${CHEVRON_RIGHT}</button>
+    </div>
+    <label class="scrub-label" for="month-range"><span class="k">Monat ${state.month + 1} von ${months}</span><output class="data" for="month-range" aria-live="off">${esc(month(PROJECT, state.month))}</output></label>
+    <div class="scrub-track">
+      <div class="phase-bands" aria-hidden="true">${bands}</div>
+      <input id="month-range" type="range" min="0" max="${max}" value="${state.month}" aria-valuetext="${esc(month(PROJECT, state.month))}">
+      <div class="scrub-axis data" aria-hidden="true">${axis}</div>
+    </div>`;
 }
 
 function renderContent() {
@@ -106,7 +117,7 @@ function renderContent() {
     els.legend.innerHTML = TIMELINE_LEGEND;
   } else if (state.view === 'gebaeude') {
     if (!stage || !els.content.contains(stage.root)) {
-      els.content.innerHTML = '<div id="stage-root"></div><div id="stage-moves"></div>';
+      els.content.innerHTML = '<div class="stage-frame"><div id="stage-root"></div></div><div id="stage-moves"></div>';
       const root = els.content.querySelector('#stage-root');
       stage = { root, api: createStage(root, PROJECT, { plan: state.plan, reducedMotion }) };
       stage.api.setMonth(state.month, { animate: false });
@@ -201,6 +212,7 @@ document.addEventListener('click', (e) => {
   if (action.dataset.action === 'discard') setState({ draft: state.applied });
   if (action.dataset.action === 'reset') recalc(defaultStarts(), null);
   if (action.dataset.action === 'play') (state.playing ? stopPlaying() : startPlaying());
+  if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), PROJECT.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
 });
 
@@ -236,6 +248,7 @@ if (errors.length) {
   els.status.innerHTML = `<div class="status-panel is-conflict" role="alert"><p class="status-title">Beispieldaten ungültig</p><ul>${errors.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`;
 } else {
   injectIcons();
+  initMenu();
   render();
   if (!reducedMotion && state.view === 'gebaeude' && state.month === 0) startPlaying();
 }

@@ -2,6 +2,7 @@
 import { PROJECT } from './data.js';
 import { planRochade, diffPlans, suggestStart, monthLabel, stateAt } from './planner.js';
 import { injectIcons } from './icons.js';
+import { initMenu } from './chrome.js';
 import { createStage } from './stage.js';
 import { esc, icon, householdNeed, flatLabelOf } from './views/format.js';
 
@@ -15,18 +16,7 @@ const buildingName = (id) => (PROJECT.buildings.find((b) => b.id === id) || {}).
 const awayCount = (plan, m) => { const s = stateAt(PROJECT, plan, m); return s.apartments.filter((a) => a.status === 'temp').length + s.external.filter((e) => e.status === 'temp').length; };
 
 /* Header: mobile menu */
-const header = document.getElementById('site-header');
-const menuBtn = header && header.querySelector('.menu-btn');
-if (menuBtn) {
-  const setOpen = (open) => {
-    header.classList.toggle('is-open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü öffnen');
-  };
-  menuBtn.addEventListener('click', () => setOpen(!header.classList.contains('is-open')));
-  header.querySelectorAll('.nav a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-}
+initMenu();
 
 /* Hero: the real plan with play controls and a month scrubber */
 const heroRoot = document.getElementById('hero-visual');
