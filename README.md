@@ -8,11 +8,15 @@ ZentralHack 2026, EntrepreneurSkills Challenge, SDG 11. Final pitch and MVP uplo
 
 ## Stand (für Francesco)
 
-Alles liegt auf `main`, jede Änderung ist gepusht. Alle Checks grün: `npm run typecheck`, `npm test` (23 Solver-Tests), Web-Build, iOS-Bundle.
+Alles liegt auf `main`, jede Änderung ist gepusht. Alle Checks grün: `npm run typecheck`, `npm test` (24 Tests), Web-Build, iOS-Bundle.
 
-- **Supabase**: Schema und Seed sind im gehosteten Projekt eingespielt (11 Haushalte, Etappe 3 = 01.09.–30.11.2027, Herr Brunner im Konflikt). Keys stehen bei Alex in `apps/mobile/.env` und `apps/web/.env` (nicht im Repo). `schema.sql` und `seed.sql` dürfen jederzeit neu eingespielt werden.
-- **Shared** (`packages/shared`): Solver (`solve`, `replan`), Typen, Supabase-Queries, Design-Tokens, Demo-Fixture.
-- **App** (`apps/mobile`): fertig und auf dem iOS-Simulator gegen die echte Datenbank verifiziert. Anmelden-Picker, Mein Umzug (Statuskarte, Ablauf, Live-Banner mit altem und neuem Datum, Haptik, Checkliste), Meine Wünsche (natives Formular-Sheet), Siedlung (Etappen, Umzugsplan-Timeline), Rochade-Wohnung-Sheet mit Kalenderexport und Teilen, Verwaltungs-Übersicht, Offline-Cache, Dark Mode, Dynamic Type.
+- **Supabase**: Schema, Seed und die Migration `supabase/migrations/20261024_invite_codes.sql` sind im gehosteten Projekt eingespielt (11 Haushalte mit Zugangscode, Verwaltungscode `V7Q3KD`, Etappe 3 = 01.09.–30.11.2027, Herr Brunner im Konflikt). Keys stehen bei Alex in `apps/mobile/.env` und `apps/web/.env` (nicht im Repo).
+- **Zwei Rollen**: Die Verwaltung (Vermieter) plant im Web. Mietende nutzen die App: Einführung, dann Zugangscode aus dem Brief eingeben, «Willkommen, Herr Brunner» bestätigen, fertig. Kein Konto, kein Passwort.
+- **Demo-Codes**: Herr Brunner `B3H7QK` (Konflikt), Familie Keller `7KW4PD` (zugeteilt), Verwaltung `V7Q3KD` (Übersicht). Alle Codes in `docs/web-handoff.md`. Ohne Code: «Demo-Haushalt wählen».
+- **Shared** (`packages/shared`): Solver (`solve`, `replan`), Typen, Supabase-Queries inkl. `fetchHouseholdByInviteCode` und `fetchProjectByAdminCode`, Design-Tokens, Demo-Fixture.
+- **App** (`apps/mobile`): fertig und gegen die echte Datenbank verifiziert, als Release-Build auf Alex' iPhone installiert. Einführung, Zugangscode, Willkommen-Bestätigung, Mein Umzug (Statuskarte, Ablauf, Live-Banner mit altem und neuem Datum, Haptik, Checkliste), Profil «Mein Haushalt» mit Abmelden, Meine Wünsche (natives Formular-Sheet), Siedlung («Deine Etappe», Umzugsplan-Timeline), Rochade-Wohnung-Sheet mit Kalenderexport und Teilen, Verwaltungs-Übersicht, Offline-Cache, Dark Mode, Dynamic Type. Neues Logo (König und Turm) als App-Icon, Splash und Marke.
+- **App im Browser** (für die Jury): `cd apps/mobile && npm run export:web`, dann `cd dist && vercel deploy --prod --yes`. Kalender und Haptik fehlen im Browser, alles andere läuft.
+- **App aufs iPhone** (Release, ohne Metro): siehe «Native build on a device» weiter unten.
 - **Web** (`apps/web`): `/` ist die animierte Startseite (3D-Marke, Shader-Hintergrund, «Der Moment»-Animation, Live-Zahlen aus Supabase). `/verwaltung` ist das Dashboard-Skelett: Etappen mit −1/+1 Woche, Replan, Live-Tabelle der Zuteilungen. Dein Spielfeld ist `apps/web/src/verwaltung` und `apps/web/src/components`; Farben nur über die Tailwind-Tokens (`bg-paper`, `text-ink`, …), keine Hex-Werte.
 - **Nächste Schritte Web**: Dashboard-Design, Haushalte und Wohnungen bearbeiten, Datumspicker für Etappen, Konfliktliste mit Vorschlägen.
 - **Übergabe Web**: [`docs/web-handoff.md`](docs/web-handoff.md) mit Verbindung, `.env`, Datenbank, Vertrag mit der App (`shiftPhase` plus `replan`), Demo-Codes, Prompt für den Coding-Assistenten und Checkliste vor der Demo.
@@ -153,6 +157,18 @@ Opens http://localhost:5173 (landing page) and http://localhost:5173/verwaltung 
 Tokens are in `packages/shared/src/tokens.ts`. The mobile app reads them through `useTheme()`. The web app generates `src/styles/tokens.css` from them before every dev or build run, so Tailwind utilities like `bg-paper` or `text-ink` switch with the system colour scheme. Never write a hex colour in an app.
 
 Manrope for all text, JetBrains Mono only for dates and flat numbers. Orange is the only accent and covers at most a tenth of a screen. See `docs/design-notes.md` for the Mobbin references used for each screen and for the landing page.
+
+## Native build on a device
+
+Xcode 26.6 cannot debug-launch iOS 27.2, so `expo run:ios --device` fails on Alex's iPhone. This path works (team `9R9YA6B34L`, from `apps/mobile`):
+
+```
+npx expo prebuild --platform ios
+xcodebuild -workspace ios/ROCHADE.xcworkspace -scheme ROCHADE -configuration Release -destination 'generic/platform=iOS' -derivedDataPath build -allowProvisioningUpdates DEVELOPMENT_TEAM=9R9YA6B34L build
+xcrun devicectl device install app --device <UDID> build/Build/Products/Release-iphoneos/ROCHADE.app
+```
+
+`xcrun devicectl list devices` shows the UDID. The phone must be unlocked. Prebuild rewrites the `ios`/`android` scripts in `apps/mobile/package.json`; revert that change.
 
 ## TestFlight build with EAS (later)
 
