@@ -1,54 +1,83 @@
-# ROCHADE · Pitch-Deck: Abdeckung, Rechtslage, offene Punkte
+# ROCHADE · Pitch-Deck: Abdeckung, Rechtslage, Parteien, offene Punkte
 
-Stand: 24. Oktober 2026. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Sprechernotizen mit Zeitmarken für 4 Minuten stehen in jeder Folie.
+Stand: 24. Oktober 2026, Version 3. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Sprechernotizen mit Zeitmarken für 4 Minuten stehen in jeder Folie.
 
-## 1. Was der Leitfaden verlangt und wo es im Deck steht
+## 1. Dramaturgie der 10 Folien
 
-Version vom 24. Oktober 2026, 05:45 Uhr: zehn Folien, weniger Text, zwei Diagramme, drei Bilder (Siedlung aus dem Prototyp, Konflikt-Status, App-Screenshot «Mein Umzug» aus dem Repo).
+| Nr. | Folie | Botschaft für die Jury | Zeit |
+|---|---|---|---|
+| 1 | Titel | Frau Meier, 78, bekommt den Brief. | 0:00–0:15 |
+| 2 | Wer saniert, kündigt. Allen. | Das Problem ist real: 10'900 Häuser, 30'000 Menschen pro Jahr, Diagramm Zürich/Basel/Genf, 84 % der Zürcher Mietenden sorgen sich. | 0:15–0:40 |
+| 3 | Wer raus muss … | Folgen: 0,11 % Leerstand, +30 % Miete, 1 von 3 verlässt die Gemeinde, Sugus-Häuser als Risiko für Eigentümer. | 0:40–1:00 |
+| 4 | Es geht anders: die Rochade. Heute Handarbeit. | Was eine Rochade ist, warum sie die effektivste Massnahme ist (UZH), warum sie kaum jemand macht (bgnzwo: 49 Mietparteien, 4× Aufwand). | 1:00–1:25 |
+| 5 | Leerkündigen ist erlaubt, wenn es nicht anders geht. Zürich prüft das jetzt. | Rechtslage: Bund (BGE), Kanton Zürich (Prüfpflicht ab 20 Mietverhältnissen), Genossenschaften (OR 846), vier Kantone. | 1:25–1:55 |
+| 6 | Fünf Parteien, ein Plan. | Wer mitredet (Eigentümer, Bewirtschaftung, Bauleitung, Mietende, Gemeinde) und wie die Rochade vertraglich hält (4 Punkte). | 1:55–2:20 |
+| 7 | ROCHADE plant die Rochade. | Prototyp: Siedlungsansicht für die Verwaltung, zwei Handys für Bewohnende. | 2:20–2:50 |
+| 8 | Vier Regeln. | Underlying Magic: harte Regeln, erklärte Konflikte, Vorschlag per Klick. | 2:50–3:10 |
+| 9 | Die Eigentümerschaft zahlt pro Projekt. | Preis, Break-even, Markt, Wettbewerbstabelle, Markteintritt. | 3:10–3:40 |
+| 10 | Aufruf | Stand nach 24 h, drei Bitten, Team. | 3:40–4:00 |
+
+## 2. Was der Leitfaden verlangt und wo es im Deck steht
 
 | Anforderung aus dem Teilnehmendenleitfaden | Folie |
 |---|---|
 | Titel: Name, Team, Slogan (Kawasaki 1) | 1 |
-| Problem mit Geschichte und Zahlen (Kawasaki 2, Jury «Problem & Zielgruppe») | 2 (Balkendiagramm Zürich, Basel, Genf), 3 (Folgen: Leerstand, Miete, Alter, Sugus-Häuser) |
-| Die Menschen: Annahmen geprüft | 4 (UZH-Interviews, bgnzwo-Fall) |
-| Lösung mit Prototyp (Kawasaki 3, Jury «Lösung», «Prototyp») | 5 (Bild Siedlung, Bild App), 6 (Bild Konflikt-Status) |
-| Underlying Magic / USP (Kawasaki 5) | 6 |
-| Geschäftsmodell: wer zahlt, Preis, Break-even (Kawasaki 4, Market-Pitch) | 7 |
-| Kundschaft und First Customer | 7, 9 |
-| Markt und Markteintritt (Kawasaki 6, Market-Pitch) | 8, 9 |
+| Problem mit Geschichte und Zahlen (Kawasaki 2, Jury «Problem & Zielgruppe») | 2, 3 |
+| Die Menschen: Annahmen geprüft | 4 (UZH-Interviews, bgnzwo), 6 (Parteien) |
+| Lösung mit Prototyp (Kawasaki 3, Jury «Lösung», «Prototyp») | 7, 8 |
+| Underlying Magic / USP (Kawasaki 5) | 8 |
+| Geschäftsmodell: wer zahlt, Preis, Break-even (Kawasaki 4) | 9 |
+| Kundschaft und First Customer | 9 |
+| Markt und Markteintritt (Kawasaki 6) | 9 |
 | Wettbewerb als Tabelle (Kawasaki 7) | 9 |
-| Team, Status nach 24 h, Meilensteine (Kawasaki 8 und 9) | 10 (Platzhalter für weitere Teammitglieder) |
+| Rechtliche Machbarkeit, Parteien | 5, 6 |
+| Team, Status nach 24 h, Meilensteine (Kawasaki 8 und 9) | 10 |
 | Call to Action und Vision (Kawasaki 10) | 10 |
-| SDG-11-Bezug | 1 (Unterziel 11.1), 8 |
-| «Wirkung in der Schweiz» | 2, 3, 8 (vier Kantone) |
-| Max. 10 Folien, wenig Fliesstext | 10 Folien; Zahlen 40–58 pt, Titel 30 pt, Lauftext 11–18 pt. Nicht vorlesen, die Notizen tragen die Rede. |
+| SDG-11-Bezug (Unterziel 11.1) | 1 |
+| «Wirkung in der Schweiz» | 2, 3, 5 (vier Kantone) |
+| Max. 10 Folien, wenig Fliesstext | 10 Folien; Zahlen 36–58 pt, Titel 30 pt, Lauftext 9–16 pt. Die Notizen tragen die Rede. |
 
-**SDG 11.1 (UNO-Wortlaut):** Bis 2030 den Zugang zu angemessenem, sicherem und bezahlbarem Wohnraum für alle sicherstellen. Die EDA-Seite zu SDG 11 betont «Zugang zu sicherem und bezahlbarem Wohnraum».
+**SDG 11.1 (UNO-Wortlaut):** Bis 2030 den Zugang zu angemessenem, sicherem und bezahlbarem Wohnraum für alle sicherstellen.
 
-**Neu belegte Aussagen auf Folie 3:** Miete im Neubau rund 30 Prozent über langjährigen Mietenden (Auswertung Statistik Stadt Zürich zu nicht-gemeinnützigen Wohnungen, berichtet von 20 Minuten); Sugus-Häuser Kreis 5: Leerkündigung von rund 100 Haushalten, Schlichtungsbehörde Juni 2025 «missbräuchlich», Mietgericht Januar 2026 Nichteintreten, Kündigungen damit ungültig (SRF, Tages-Anzeiger, NZZ, Blick). Balkendiagramm Folie 2: ZKB-Zahlen 2018–2022, Zürich 1'270, Basel 380, Genf rund 100 (20 pro Jahr).
+## 3. Rechtslage (Stand 24. Oktober 2026)
 
-## 2. Noch zu tun vor dem Final-Pitch
+**Bund (gilt überall).** Eine Kündigung ist anfechtbar, wenn sie gegen Treu und Glauben verstösst (OR 271). Eine Sanierungskündigung ist zulässig, wenn umfassende Arbeiten die Nutzung erheblich einschränken und der Verbleib der Mietenden die Arbeiten wesentlich erschweren oder verzögern würde (BGE 135 III 112, bestätigt in BGE 142 III 91). Lässt sich bewohnt oder in Etappen sanieren, fehlt ein schützenswerter Grund. Das Zürcher Obergericht hielt 2024 fest, dass das Festhalten an einer Sanierungskündigung trotz verbindlicher Auszugsgarantie treuwidrig sein kann (ZMP 2024 Nr. 6). Erstreckung von Wohnraum bis maximal vier Jahre (OR 272b). Neu unterscheidet das Bundesgericht die Abbruchkündigung (BGE 151 III 481): für den Abbruch genügt eine plausible Absicht, kein fertiges Projekt. Das heisst für den Pitch: Leerkündigung ist kein Rechtsbruch, sondern die bequeme legale Variante. Die Rochade ist die Alternative, die den Mietvertrag bestehen lässt.
 
-- Folie 9: Teammitglieder und Rollen vervollständigen (dritte Zeile ist ein Platzhalter).
-- Folie 6: Preis, Kosten und Break-even sind Annahmen. Im Pitch so sagen, in den Pilotgesprächen prüfen.
-- Folie 1 und 10: Falls es eine Kontaktadresse gibt, ergänzen. Die Website hat noch den Platzhalter `kontakt@rochade.example`.
-- Deck bis Samstag 16:30 auf dem ZentralHack-Dashboard hochladen, MVP ebenfalls (Website und Prototyp mit kurzer Anleitung).
-- Jury-Fragen vorbereiten: siehe `ROCHADE_Pitch_Review.md`, Kapitel 6 (Excel, Preis, erster Kunde, Hochhäuser, Kopierschutz).
+**Kanton Zürich.** Abstimmung vom 14. Juni 2026: Wohnschutz-Initiative abgelehnt (57,3 % Nein), Gegenvorschlag des Kantonsrats (Änderung des Gesetzes über die Wohnbau- und Wohneigentumsförderung, WBFG) angenommen mit 54,3 % Ja, Stichfrage 58,9 %. Inhalt laut CMS von Erlach (Schweizer Personalvorsorge 09/2026) und HEV-Zeitung: Bei baubewilligungspflichtigen Projekten, die zur Kündigung von 20 oder mehr Wohnmietverhältnissen führen, muss die Eigentümerschaft prüfen, ob sich die Kündigungen durch etappiertes Bauen oder Arbeiten im bewohnten Zustand vermeiden oder reduzieren lassen. Die Mietparteien sind spätestens zwölf Monate vor dem Kündigungstermin schriftlich zu informieren; Ansprechperson, Kommunikationsmassnahmen (mindestens eine Informationsveranstaltung) und angemessene Hilfe bei der Wohnungssuche sind Pflicht. Werden die Pflichten missachtet, kann die Baubewilligung verweigert werden. Die kantonalen Regeln machen eine Kündigung mietrechtlich nicht ungültig, sie wirken über das Baugesuch. Inkrafttreten: noch offen, Verordnung fehlt, laut CMS frühestens Ende 2026; Übergangsbestimmungen könnten hängige Baugesuche erfassen. Für ROCHADE: Der verlangte Nachweis «bewohnt oder etappiert geprüft» ist genau der Plan, den der Prototyp rechnet.
 
-## 3. Rechtslage in vier Kantonen (Stand 24. Oktober 2026)
+**Genossenschaften.** Mitglieder sind zugleich Mietende und Mitbesitzende (zwei Rechtsverhältnisse). Eine Kündigung muss so gewichtig sein, dass sie auch einen Ausschluss rechtfertigen würde (OR 846); ohne Statutengrundlage ist eine Sanierung kein zulässiger Kündigungsgrund. Darum arbeiten Genossenschaften mit Rochaden, befristeter Zwischenvermietung (OR 255, Mietende werden nicht Mitglieder) oder gezieltem Leerstand vor der Sanierung (CUREM-Arbeit Keller 2025, Interviews).
 
-**Bund (gilt überall).** Eine Kündigung ist anfechtbar, wenn sie gegen Treu und Glauben verstösst (OR 271). Eine Sanierungskündigung ist nach Bundesgericht zulässig, wenn die Anwesenheit der Mietenden die Arbeiten erheblich erschweren oder verzögern würde (Grundlagenentscheid BGE 135 III 112); sonst fehlt ein schützenswerter Grund. Das Zürcher Obergericht hielt 2024 fest, dass das Festhalten an einer Sanierungskündigung trotz verbindlicher Auszugsgarantie der Mietenden treuwidrig sein kann. Erstreckung von Wohnraum bis maximal vier Jahre (OR 272b).
+**Luzern.** Gesetz über die Erhaltung von Wohnraum (GEW, 1990): Gemeinden können sich unterstellen; dann brauchen Abbruch, Umbau oder Zweckänderung eine Bewilligung, wenn die Mieten stark steigen würden. Die Stadt wollte sich ab 2027 unterstellen; der Grosse Stadtrat lehnte das am 26. März 2026 mit 24:23 ab. Der Mieterverband lancierte die Luzerner Wohnschutz-Initiative. Am 20. Oktober 2026 wurde bekannt, dass der Regierungsrat die Motion Hunkeler (FDP) zur Abschaffung des GEW unterstützt.
 
-**Zürich.** Abstimmung vom 14. Juni 2026: Wohnschutz-Initiative «Bezahlbare Wohnungen schützen. Leerkündigungen stoppen» abgelehnt (42,7 % Ja), Gegenvorschlag des Kantonsrats angenommen (54,3 % Ja, Stichfrage 58,9 % für den Gegenvorschlag). Inhalt laut Berichterstattung: Eigentümer müssen zuerst prüfen, ob die Bauarbeiten im bewohnten Zustand oder etappenweise möglich sind; bei unvermeidbaren Kündigungen frühe Information, eine Ansprechperson, eine Informationsveranstaltung und Hilfe bei der Wohnungssuche; der Mieterverband spricht von einem Jahr Vorlauf. Inkrafttreten im Amtsblatt prüfen. Quellen: SRF, Watson, Tages-Anzeiger, NZZ, Mieterverband Zürich (Abstimmungsempfehlung 3. Juni 2026).
+**Zug.** Kein kantonales Wohnschutzgesetz. Hertiquartier: WWZ AG und Zuger Pensionskasse wollten 68 Wohnungen auf April 2028 leerkündigen; die Korporation Zug legte das Veto ein, jetzt wird eine Sanierung im bewohnten Zustand geprüft (April 2026). Vorstoss der ALG vom 19. April 2026: Meldepflicht für Leerkündigungen, Unterstützung Betroffener, Anreize für sozialverträgliche Sanierungen.
 
-**Luzern.** Der Kanton hat seit 1990 das Gesetz über die Erhaltung von Wohnraum (GEW): Gemeinden können sich ihm unterstellen; dann brauchen Abbruch, Umbau oder Zweckänderung von Wohnraum eine Bewilligung des Stadt- oder Gemeinderats, wenn die Mieten dadurch stark steigen würden. Die Stadt Luzern war 1990 bis 1998 unterstellt; der Stadtrat wollte sie ab 1. Januar 2027 wieder unterstellen, der Grosse Stadtrat lehnte das am 26. März 2026 mit 24 zu 23 Stimmen ab. Darauf lancierte der Mieterverband die «Luzerner Wohnschutz-Initiative». Am 20. Oktober 2026 wurde bekannt, dass der Regierungsrat die Motion Hunkeler (FDP) zur Abschaffung des GEW unterstützt; der Kantonsrat hat noch nicht entschieden. Quellen: Keystone-SDA/nau.ch 26. März 2026, zentralplus 20. Oktober 2026, Stadt Luzern Kurzprotokoll 26. März 2026.
+**Schwyz.** Nur Bundesrecht. Postulat P 4/26 «Mietenexplosion stoppen»; Angebotsmieten Februar 2024 bis Februar 2025 +10,5 % (Homegate/ZKB), höchster Wert der Schweiz.
 
-**Zug.** Kein kantonales Wohnschutzgesetz; die Regierung lehnt ein Gesetz nach Basler oder Genfer Vorbild ab. Hertiquartier Zug: WWZ AG und Zuger Pensionskasse wollten vier Hochhäuser mit 68 Wohnungen auf April 2028 leerkündigen und sanieren; die Leerkündigung scheiterte am Veto der Korporation Zug, jetzt wird eine Sanierung im bewohnten Zustand geprüft (Berichte vom 20. April 2026). Vorstoss der ALG im Kantonsrat vom 19. April 2026: kantonale Meldepflicht für Leerkündigungen, Unterstützung für Betroffene, Anreize für sozialverträgliche Sanierungen prüfen. Quellen: Zuger Zeitung 19. April 2026, Bote der Urschweiz 20. April 2026, zentralplus.
+## 4. Wie eine Rochade rechtlich funktioniert (Folie 6)
 
-**Schwyz.** Keine kantonalen Regeln zu Leerkündigungen oder Sanierungen gefunden; es gilt allein das Bundesrecht. Politisch aktuell: Postulat P 4/26 «Mietenexplosion stoppen» (Antwort der Regierung Juni 2026); laut Homegate/ZKB stiegen die Angebotsmieten im Kanton Schwyz zwischen Februar 2024 und Februar 2025 um 10,5 Prozent, der höchste Wert der Schweiz. Leerwohnungsziffer 2022: 0,72 Prozent. Quellen: sz.ch (P 4/26), law.ch März 2025, Kantonsgericht Schwyz.
+1. **Der Mietvertrag der Stammwohnung bleibt bestehen.** Keine Kündigung, also keine Anfechtung nach OR 271 und keine Erstreckung. (CUREM: Rochade «ohne dass die Mietverhältnisse … aufgelöst werden müssen».)
+2. **Rochade-Vereinbarung.** Die Ausweichwohnung wird befristet überlassen (OR 255), schriftlich mit Auszugstermin, Rückkehrtermin, Übergaben, Umzugskosten und Mietzins während der Bauzeit. Mietende machen freiwillig mit; zwingen kann sie niemand, die Alternative der Eigentümerschaft wäre die Kündigung.
+3. **Gleichwertiges Ersatzangebot.** Bietet die Vermieterin ein gleichwertiges Ersatzobjekt an, schliesst das die Mängelrechte aus (OR 259c); Mietzinsminderung und Schadenersatz (OR 259d, 259e) bleiben nur für Beeinträchtigungen, die trotz Ersatz entstehen. Obergericht Zürich, ZMP 2025 Nr. 25: Ersatzwohnungen im Parterre des Hauses bzw. im Quartier, pauschale Abgeltung von zwei Monatsmieten, kein Anspruch auf «Inkonvenienzentschädigung» als eigener Posten.
+4. **Miete nach der Sanierung.** Nur der wertvermehrende Anteil darf überwälzt werden (OR 269a lit. b); bei umfassenden Überholungen gilt die widerlegbare Vermutung von 50 bis 70 % der Kosten (VMWG Art. 14). Genossenschaften bleiben bei der Kostenmiete.
 
-**Was das für ROCHADE heisst.** Zürich verlangt neu genau den Nachweis, den ROCHADE liefert: ob etappenweise oder bewohnt saniert werden kann. In Zug zeigt der Herti-Fall, dass Leerkündigungen politisch scheitern können und Eigentümer dann eine Rochade brauchen. In Luzern und Schwyz gibt es keinen gesetzlichen Zwang, aber denselben Druck durch Wohnungsnot und steigende Mieten.
+**Parteien und ihre Rolle:** Eigentümerschaft (Genossenschaft, Pensionskasse, Stadt) entscheidet, zahlt und trägt das Reputationsrisiko; Bewirtschaftung organisiert Zuteilung, Übergaben und Information (bgnzwo: vierfacher Aufwand); Bauleitung/Totalunternehmer braucht leere Etappen zum Termin; Mietende stimmen freiwillig zu und werden vom Mieterverband beraten, bei Streit Schlichtungsbehörde und Mietgericht; Gemeinde erteilt die Baubewilligung und prüft in Zürich künftig den Nachweis.
 
-## 4. Quellen zu den Zahlen im Deck
+## 5. Mögliche Jury-Fragen zum Recht
 
-Alle Zahlen auf den Folien 2, 3, 7 und 8 sind in `ROCHADE_Quellen_und_Fakten.md` mit Zitat und Link belegt. Nicht verwendet: «13-mal häufiger als Genf» und «1,5 Millionen Gebäude».
+- *Kann man Mietende zur Rochade zwingen?* Nein. Sie ist eine Vereinbarung. Die Alternative der Eigentümerschaft ist die Kündigung, die nur hält, wenn bewohnt oder etappiert nicht geht. Zürich verlangt den Nachweis dieser Prüfung ab 20 Mietverhältnissen.
+- *Was, wenn jemand nicht mitmacht?* Der Plan zeigt, ob die Etappe trotzdem aufgeht. Sonst Einzelkündigung mit Begründung; wer eine gleichwertige Ausweichwohnung ausschlägt, hat vor Gericht schlechte Karten (ZMP 2024 Nr. 6 zur Auszugsgarantie umgekehrt gedacht, ZMP 2025 Nr. 25 zum Ersatzangebot).
+- *Wer zahlt den Umzug?* In der Praxis die Eigentümerschaft (Zügelkosten, oft eine Pauschale). Das Deck nennt keinen Betrag; bgnzwo und CUREM bestätigen Umzugsunterstützung als Standard.
+- *Gilt das Zürcher Gesetz schon?* Nein, Inkrafttreten offen, frühestens Ende 2026. Es wirkt über die Baubewilligung, nicht über das Mietrecht.
+- *Ist ROCHADE ein Rechtsprodukt?* Nein. Es plant und dokumentiert, wer wann wohin zieht. Die Vereinbarungen bleiben Sache von Verwaltung und Mietenden.
+
+## 6. Noch zu tun vor dem Final-Pitch
+
+- Folie 10: Teammitglieder und Rollen vervollständigen.
+- Folie 9: Preis, Kosten und Break-even sind Annahmen. Im Pitch so sagen.
+- Folie 1 und 10: Kontaktadresse ergänzen, die Website hat noch den Platzhalter `kontakt@rochade.example`.
+- Deck bis Samstag 16:30 auf dem ZentralHack-Dashboard hochladen, MVP ebenfalls.
+- Mit Alex abstimmen: ein Logo, eine Landingpage, ein Demodatensatz (Deck zeigt Brunnenwiese aus dem Prototyp, App-Screenshots aus dem Repo).
+
+## 7. Quellen
+
+Alle Zahlen und Rechtsaussagen stehen in `ROCHADE_Quellen_und_Fakten.md` mit Zitat und Link. Nicht verwendet: «13-mal häufiger als Genf» (ETH-Agglomerationsvergleich, PDF nicht geprüft) und «1,5 Millionen Gebäude».
