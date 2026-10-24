@@ -15,6 +15,7 @@ Alles liegt auf `main`, jede Änderung ist gepusht. Alle Checks grün: `npm run 
 - **App** (`apps/mobile`): fertig und auf dem iOS-Simulator gegen die echte Datenbank verifiziert. Anmelden-Picker, Mein Umzug (Statuskarte, Ablauf, Live-Banner mit altem und neuem Datum, Haptik, Checkliste), Meine Wünsche (natives Formular-Sheet), Siedlung (Etappen, Umzugsplan-Timeline), Rochade-Wohnung-Sheet mit Kalenderexport und Teilen, Verwaltungs-Übersicht, Offline-Cache, Dark Mode, Dynamic Type.
 - **Web** (`apps/web`): `/` ist die animierte Startseite (3D-Marke, Shader-Hintergrund, «Der Moment»-Animation, Live-Zahlen aus Supabase). `/verwaltung` ist das Dashboard-Skelett: Etappen mit −1/+1 Woche, Replan, Live-Tabelle der Zuteilungen. Dein Spielfeld ist `apps/web/src/verwaltung` und `apps/web/src/components`; Farben nur über die Tailwind-Tokens (`bg-paper`, `text-ink`, …), keine Hex-Werte.
 - **Nächste Schritte Web**: Dashboard-Design, Haushalte und Wohnungen bearbeiten, Datumspicker für Etappen, Konfliktliste mit Vorschlägen.
+- **Übergabe Web**: [`docs/web-handoff.md`](docs/web-handoff.md) mit Verbindung, `.env`, Datenbank, Vertrag mit der App (`shiftPhase` plus `replan`), Demo-Codes, Prompt für den Coding-Assistenten und Checkliste vor der Demo.
 
 ## Demo-Ablauf (der Moment)
 
