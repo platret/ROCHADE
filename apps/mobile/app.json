@@ -15,7 +15,10 @@
         "dark": "./assets/images/icon-dark.png",
         "tinted": "./assets/images/icon-tinted.png"
       },
-      "appleTeamId": "9R9YA6B34L"
+      "appleTeamId": "9R9YA6B34L",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "ch.rochade.app",
@@ -26,7 +29,7 @@
       }
     },
     "web": {
-      "output": "static",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
