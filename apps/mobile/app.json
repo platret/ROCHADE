@@ -14,7 +14,8 @@
         "light": "./assets/images/icon.png",
         "dark": "./assets/images/icon-dark.png",
         "tinted": "./assets/images/icon-tinted.png"
-      }
+      },
+      "appleTeamId": "9R9YA6B34L"
     },
     "android": {
       "package": "ch.rochade.app",
@@ -46,7 +47,7 @@
       [
         "expo-calendar",
         {
-          "calendarPermission": "ROCHADE trägt deine Umzugstermine in deinen Kalender ein."
+          "calendarPermission": "ROCHADE tr\u00e4gt deine Umzugstermine in deinen Kalender ein."
         }
       ]
     ],
