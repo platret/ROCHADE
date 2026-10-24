@@ -22,7 +22,7 @@ const Brand = () => (
     accessibilityLabel={wordmark.text}
     style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}
   >
-    <Logo size={28} color="ink" />
+    <Logo size={28} />
     <Text variant="label" color="inkMuted" style={{ letterSpacing: typeScale.label.size * wordmark.letterSpacingEm }}>
       {wordmark.text}
     </Text>

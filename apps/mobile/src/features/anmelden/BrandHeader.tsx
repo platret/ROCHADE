@@ -17,7 +17,7 @@ export const BrandHeader = () => (
       style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
     >
       <PopIn from={0.7}>
-        <Logo size={40} tile />
+        <Logo size={40} />
       </PopIn>
       <Animated.View entering={riseIn(brandDelays.wordmark)}>
         <Text variant="h1" weight={wordmark.weight} style={{ letterSpacing: typeScale.h1.size * wordmark.letterSpacingEm }}>

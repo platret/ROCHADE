@@ -12,7 +12,7 @@ export const Wordmark = ({ logoSize = 40, fontSize = 32 }: WordmarkProps) => (
     accessibilityLabel={wordmark.text}
     style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}
   >
-    <Logo size={logoSize} tile />
+    <Logo size={logoSize} />
     <Text
       variant="h1"
       weight={wordmark.weight}
