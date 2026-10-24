@@ -16,12 +16,23 @@ const MODE_BREAKS = [[900, 'row'], [560, 'grid2'], [0, 'stack']];
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-/* Short label for a flat slot: apartment number, or the street of an external flat. */
+/* Short label for a flat slot: the apartment's printed label (database flats have uuid ids, which never show),
+   else the apartment number, or the street of an external flat. */
 function slotLabel(id, project) {
   const ext = project.external.find((e) => e.id === id);
-  if (!ext) return id.replace(/^[A-Z]-/, '');
+  if (!ext) {
+    const apt = project.apartments.find((a) => a.id === id);
+    return apt && apt.label ? apt.label : id.replace(/^[A-Z]-/, '');
+  }
   const street = ext.name.replace(/\s*\(.*\)\s*$/, '').split(',')[0].replace(/\s+\d.*$/, '');
   return street.length > 11 ? `${street.slice(0, 10)}…` : street;
+}
+
+function slotTitle(id, project) {
+  const ext = project.external.find((e) => e.id === id);
+  if (ext) return ext.name;
+  const apt = project.apartments.find((a) => a.id === id);
+  return apt && apt.label ? `Whg. ${apt.label}` : id;
 }
 
 function buildLayout(project, mode, shown) {
@@ -81,7 +92,7 @@ export function createStage(root, project, { plan, reducedMotion = false, maxSca
     lay = buildLayout(project, mode, shown);
     const cardsHtml = lay.cards.map((c) => `<div class="st-card" data-building="${c.id}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px">
         <div class="st-head"><b>${esc(c.name)}</b><span class="st-badge" data-badge></span><small>${esc(c.sub)}</small></div></div>`).join('');
-    const slotsHtml = [...lay.slots.entries()].map(([id, p]) => `<div class="st-slot" data-slot="${esc(id)}" style="left:${p.x}px;top:${p.y}px;width:${SLOT_W}px;height:${SLOT_H}px"><span title="${esc((project.external.find((e) => e.id === id) || {}).name || id)}">${esc(slotLabel(id, project))}</span></div>`).join('');
+    const slotsHtml = [...lay.slots.entries()].map(([id, p]) => `<div class="st-slot" data-slot="${esc(id)}" style="left:${p.x}px;top:${p.y}px;width:${SLOT_W}px;height:${SLOT_H}px"><span title="${esc(slotTitle(id, project))}">${esc(slotLabel(id, project))}</span></div>`).join('');
     const tokensHtml = households.map((h) => `<div class="st-token" data-token="${h.id}" style="width:${SLOT_W}px;height:${SLOT_H}px" title="${esc(h.name)}">${esc(shortName(h))}</div>`).join('');
     root.classList.add('st-root');
     root.innerHTML = `<div class="st-scale"><div class="st-size"><div class="stage no-anim" style="width:${lay.width}px;height:${lay.height}px" aria-hidden="true">${cardsHtml}${slotsHtml}<div class="st-tokens">${tokensHtml}</div></div></div></div>

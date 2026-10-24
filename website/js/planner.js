@@ -55,7 +55,7 @@ export function temporaryFlats(project) {
     .filter((a) => !occupied.has(a.id))
     .map((a) => ({
       id: a.id, kind: 'vacant', building: a.building, floor: a.floor, rooms: a.rooms, stepFree: a.stepFree,
-      label: `Whg. ${a.id}`,
+      label: `Whg. ${a.label || a.id}`,
       availableAt: (month, phases) => !renovatingAt(phases, a.building, month),
     }));
   const ext = project.external.map((e) => ({

@@ -1,22 +1,26 @@
 /* Gebäude view: all three buildings as stacked floors for one month, plus movement paths. */
-import { esc, icon, month, byId, rooms } from './format.js';
+import { esc, icon, month, byId, rooms, flatLabelOf, apartmentLabel } from './format.js';
 import { stateAt } from '../planner.js';
 
 const STATUS_DE = {
   home: 'zu Hause', away: 'ausgezogen', renovation: 'in Sanierung', temp: 'Rochade-Wohnung belegt', vacant: 'frei', unavailable: 'nicht verfügbar',
 };
 
-function cell(s, names) {
+function cell(project, s, names) {
   const who = s.householdId ? names[s.householdId] : '';
-  const title = `${s.id} · ${rooms(s.rooms)} · ${STATUS_DE[s.status]}${who ? ` · ${who}` : ''}`;
+  const label = apartmentLabel(project, s.id);
+  const title = `${label} · ${rooms(s.rooms)} · ${STATUS_DE[s.status]}${who ? ` · ${who}` : ''}`;
   return `<button type="button" class="apt is-${s.status}" data-apt="${esc(s.id)}" ${s.householdId ? `data-household="${esc(s.householdId)}"` : ''} title="${esc(title)}" aria-label="${esc(title)}">
-    <span class="apt-id">${esc(s.id.replace(/^[A-Z]-/, ''))}</span><span class="apt-who">${esc(who)}</span></button>`;
+    <span class="apt-id">${esc(label.replace(/^[A-Z]-/, ''))}</span><span class="apt-who">${esc(who)}</span></button>`;
 }
+
+const moveItems = (project, names, list, verb) =>
+  list.map((m) => `<li>${esc(names[m.householdId])} <span class="muted">${verb} ${esc(flatLabelOf(project, m.flatId))}</span></li>`).join('');
 
 export function renderMoves(project, plan, monthIndex) {
   const state = stateAt(project, plan, monthIndex);
   const names = plan.stats.names;
-  const moveList = (list, verb) => list.map((m) => `<li>${esc(names[m.householdId])} <span class="muted">${verb} ${esc(m.flatId)}</span></li>`).join('');
+  const moveList = (list, verb) => moveItems(project, names, list, verb);
   return `<div class="moves">
     <h3 class="moves-title">${esc(month(project, monthIndex))}</h3>
     ${state.moves.out.length ? `<p class="label">${icon('i-move')} Auszug in die Rochade-Wohnung</p><ul>${moveList(state.moves.out, '→')}</ul>` : ''}
@@ -34,7 +38,7 @@ export function renderBuildings(project, plan, monthIndex) {
     const phase = plan.phases.find((p) => p.building === b.id);
     const renovating = state.apartments.some((s) => s.building === b.id && s.status === 'renovation');
     const rows = floors.map((f) => {
-      const cells = state.apartments.filter((s) => s.building === b.id && s.floor === f).map((s) => cell(s, names)).join('');
+      const cells = state.apartments.filter((s) => s.building === b.id && s.floor === f).map((s) => cell(project, s, names)).join('');
       return `<div class="floor"><span class="floor-no">${f === 0 ? 'EG' : `${f}. OG`}</span>${cells}</div>`;
     }).join('');
     return `<section class="house${renovating ? ' is-renovating' : ''}" data-building="${b.id}" aria-label="${esc(b.name)}">
@@ -44,8 +48,8 @@ export function renderBuildings(project, plan, monthIndex) {
     </section>`;
   }).join('');
 
-  const ext = state.external.map((e) => cell({ ...e, rooms: e.rooms }, names)).join('');
-  const moveList = (list, verb) => list.map((m) => `<li>${esc(names[m.householdId])} <span class="muted">${verb} ${esc(m.flatId)}</span></li>`).join('');
+  const ext = state.external.map((e) => cell(project, { ...e, rooms: e.rooms }, names)).join('');
+  const moveList = (list, verb) => moveItems(project, names, list, verb);
 
   return `<div class="houses" data-month="${monthIndex}">
     ${houses}

@@ -138,3 +138,9 @@
 .site-footer small { display: block; grid-column: 1 / -1; color: #B5C9CE; font-size: 0.75rem; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.18); padding-top: var(--space-4); }
 .footer-word { font-family: "Hanken Grotesk", var(--font-sans); font-weight: 600; font-size: clamp(4.5rem, 16.5vw, 17rem); line-height: 0.78; letter-spacing: -0.05em; text-align: center; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.28); margin-top: clamp(2rem, 4vw, 4rem); margin-bottom: -0.08em; white-space: nowrap; user-select: none; }
 
+
+/* Login: current page in the nav, copy buttons next to codes, the danger badge for app conflicts */
+.nav a[aria-current="page"]:not(.btn) { color: var(--ink); background: var(--surface-sunken); }
+.badge-danger { background: var(--danger-soft); color: var(--danger); }
+.copy-btn { height: 28px; padding: 0 10px; font-size: 0.75rem; font-weight: 600; }
+.copy-btn:hover { transform: none; }

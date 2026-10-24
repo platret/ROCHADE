@@ -11,7 +11,8 @@ import { renderTable } from './views/table.js';
 import { renderPhases } from './views/phases.js';
 import { renderStatus } from './views/status.js';
 import { renderInput } from './views/input.js';
-import { addBuilding, removeBuilding, setLift, setRenovate, moveBuilding, addHousehold, removeHousehold, addExternal, removeExternal } from './edit.js';
+import { addBuilding, removeBuilding, setLift, setRenovate, moveBuilding, addHousehold, removeHousehold, addExternal, removeExternal, vacantApartments } from './edit.js';
+import { getSession, clearSession } from './session.js';
 import { LISTINGS, toExternal, needsFor, searchPrompt } from './listings.js';
 import { scheduleProject, rebaseStarts } from './schedule.js';
 import { searchFlatfox } from './flatfox.js';
@@ -24,21 +25,23 @@ const VIEWS = [
 ];
 const PLAY_INTERVAL_MS = 1100;
 const IDLE_SEARCH = Object.freeze({ status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null, open: true });
+const IDLE_REMOTE = Object.freeze({ status: 'idle', error: null, loadedAt: null });
+const COPY_FEEDBACK_MS = 1500;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const defaultStarts = () => Object.fromEntries(PROJECT.phases.map((p) => [p.id, p.start]));
+const defaultStarts = (project) => Object.fromEntries(project.phases.map((p) => [p.id, p.start]));
 
-function readUrl() {
+function readUrl(project) {
   const q = new URLSearchParams(location.search);
-  const starts = defaultStarts();
-  for (const p of PROJECT.phases) {
+  const starts = defaultStarts(project);
+  for (const p of project.phases) {
     const v = Number(q.get(p.id.toLowerCase()));
     if (q.has(p.id.toLowerCase()) && Number.isInteger(v)) starts[p.id] = v;
   }
   const view = VIEWS.some((v) => v.id === q.get('view')) ? q.get('view') : 'zeitplan';
   const m = Number(q.get('m'));
-  const building = ['all', ...PROJECT.buildings.map((b) => b.id)].includes(q.get('b')) ? q.get('b') : 'all';
-  return { starts, view, month: Number.isInteger(m) ? Math.min(Math.max(m, 0), PROJECT.timeline.months - 1) : 0, building };
+  const building = ['all', ...project.buildings.map((b) => b.id)].includes(q.get('b')) ? q.get('b') : 'all';
+  return { starts, view, month: Number.isInteger(m) ? Math.min(Math.max(m, 0), project.timeline.months - 1) : 0, building };
 }
 
 function writeUrl(state) {
@@ -51,8 +54,10 @@ function writeUrl(state) {
   history.replaceState(null, '', url);
 }
 
-const initial = readUrl();
+const session = getSession();
+const initial = readUrl(PROJECT);
 let state = {
+  baseProject: PROJECT,
   project: PROJECT,
   applied: initial.starts,
   draft: initial.starts,
@@ -66,6 +71,8 @@ let state = {
   playing: false,
   search: IDLE_SEARCH,
   needsOpen: true,
+  session,
+  remote: session ? { ...IDLE_REMOTE, status: 'loading' } : IDLE_REMOTE,
 };
 let timer = null;
 let stage = null;
@@ -78,7 +85,53 @@ const els = {
   content: document.getElementById('view-content'),
   legend: document.getElementById('view-legend'),
   scrub: document.getElementById('scrubber'),
+  bar: document.getElementById('session-bar'),
+  demo: document.querySelector('button[data-action="demo"]'),
+  lead: document.querySelector('.intro-copy .lead'),
+  eyebrow: document.querySelector('.intro-copy .k'),
 };
+const LEAD_DEMO = els.lead.textContent;
+const EYEBROW_DEMO = els.eyebrow.innerHTML;
+const timeLabel = (ts) => new Date(ts).toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' });
+const nameOf = (x) => (typeof x === 'string' ? x : (x && x.name) || '');
+
+/* Logged-in chrome: the session bar, the intro texts and the demo button follow the session;
+   the static intro texts stay for the demo. */
+function renderSession() {
+  const { session, remote, baseProject } = state;
+  if (els.demo) els.demo.hidden = Boolean(session);
+  els.bar.hidden = !session;
+  if (!session) {
+    els.bar.className = 'session-bar';
+    els.bar.innerHTML = '';
+    els.lead.textContent = LEAD_DEMO;
+    els.eyebrow.innerHTML = EYEBROW_DEMO;
+    return;
+  }
+  const r = baseProject.remote || {};
+  const name = r.name || session.name;
+  const city = r.city || session.city;
+  const code = r.adminCode || session.adminCode;
+  const logout = '<button type="button" class="btn btn-sm btn-ghost" data-action="logout">Abmelden</button>';
+  els.bar.className = `session-bar is-${remote.status}`;
+  if (remote.status === 'error') {
+    els.bar.innerHTML = `<span><b>Laden fehlgeschlagen.</b> ${esc(remote.error || '')}</span>
+      <span class="session-actions"><button type="button" class="btn btn-sm" data-action="reload-remote">Nochmals versuchen</button><button type="button" class="btn btn-sm" data-action="use-demo">Mit Beispieldaten weiter</button>${logout}</span>`;
+  } else if (remote.status !== 'ready') {
+    els.bar.innerHTML = `<span>${icon('i-swap')} Lade «${esc(name)}» aus der Datenbank …</span><span class="session-actions">${logout}</span>`;
+  } else {
+    const skipped = Array.isArray(r.skipped) && r.skipped.length
+      ? `<span class="session-skipped">Ohne Wohnung in der Datenbank: ${r.skipped.map((x) => esc(nameOf(x))).join(', ')}</span>` : '';
+    els.bar.innerHTML = `<span><b>Angemeldet als Verwaltung</b> · ${esc(name)}, ${esc(city)}</span>
+      <span class="session-code">Verwaltungscode <code class="data">${esc(code)}</code><button type="button" class="btn btn-sm btn-ghost copy-btn" data-copy="${esc(code)}" aria-label="Verwaltungscode kopieren">Kopieren</button></span>
+      <span class="muted">Daten aus Supabase, Stand ${timeLabel(remote.loadedAt)}</span>
+      <span class="session-actions"><button type="button" class="btn btn-sm" data-action="reload-remote">Neu laden</button>${logout}</span>${skipped}`;
+  }
+  if (remote.status !== 'ready') { els.lead.textContent = LEAD_DEMO; els.eyebrow.innerHTML = EYEBROW_DEMO; return; }
+  const free = vacantApartments(baseProject).length + baseProject.external.length;
+  els.lead.textContent = `${name}: ${plural(baseProject.households.length, 'Haushalt', 'Haushalte')} in ${plural(baseProject.buildings.length, 'Haus', 'Häusern')}, ${plural(free, 'freie Wohnung', 'freie Wohnungen')}, ${plural(baseProject.phases.length, 'Etappe', 'Etappen')} aus der Datenbank.`;
+  els.eyebrow.innerHTML = `<span class="dot" aria-hidden="true"></span>Verwaltung · ${esc(name)} · Daten aus Supabase`;
+}
 
 function renderOverview() {
   const { plan, project } = state;
@@ -159,6 +212,7 @@ function focusKey(el) {
   if (d.applyPhase) return `button[data-apply-phase="${d.applyPhase}"]`;
   if (d.view) return `button[data-view="${d.view}"]`;
   if (d.filterBuilding) return `button[data-filter-building="${d.filterBuilding}"]`;
+  if (d.copy) return `button[data-copy="${d.copy}"]`;
   if (d.action) return `button[data-action="${d.action}"]`;
   if (d.adopt) return `button[data-action="search"], .listing .btn`;
   if (d.moveBuilding && d.delta) return `button[data-move-building="${d.moveBuilding}"][data-delta="${d.delta}"]`;
@@ -170,6 +224,7 @@ function focusKey(el) {
 
 function render() {
   const key = focusKey(document.activeElement);
+  renderSession();
   renderOverview();
   els.phases.innerHTML = renderPhases(state.project, state.applied, state.draft, state.plan);
   els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { search: state.search, needsOpen: state.needsOpen });
@@ -216,6 +271,44 @@ async function runSearch() {
     console.warn('Flatfox-Suche fehlgeschlagen', err);
     setState({ search: { ...IDLE_SEARCH, status: 'error', error: err instanceof Error ? err.message : String(err) } });
   }
+}
+
+/* Logged in: the project comes from Supabase and becomes the baseline for reset and demo. remote.js is
+   imported lazily so the demo keeps working when the module or the key is missing. */
+let remoteSeq = 0;
+async function loadRemote(session) {
+  const seq = ++remoteSeq;
+  stopPlaying();
+  setState({ remote: { ...IDLE_REMOTE, status: 'loading' } });
+  try {
+    const { loadRemoteProject } = await import('./remote.js').catch(() => { throw new Error('Das Modul js/remote.js fehlt oder lädt nicht.'); });
+    const project = await loadRemoteProject(session.projectId);
+    if (seq !== remoteSeq || state.session !== session) return;
+    const errors = validateProject(project);
+    if (errors.length) throw new Error(`Die Daten aus der Datenbank sind unvollständig: ${errors.slice(0, 3).join('; ')}`);
+    applyBaseline(project, { status: 'ready', error: null, loadedAt: Date.now() });
+  } catch (err) {
+    if (seq !== remoteSeq || state.session !== session) return;
+    console.warn('Laden aus Supabase fehlgeschlagen', err);
+    setState({ remote: { status: 'error', error: err instanceof Error ? err.message : String(err), loadedAt: null } });
+  }
+}
+
+function applyBaseline(project, remote) {
+  const starts = defaultStarts(project);
+  stage = null;
+  setState({ baseProject: project, project, applied: starts, draft: starts, plan: planRochade(project, starts), diff: null, changed: new Set(), lastChanged: null, month: 0, view: readUrl(project).view, building: 'all', search: IDLE_SEARCH, remote });
+}
+
+/* Generic copy button: data-copy holds the text, the label confirms for a moment. */
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+  return Promise.reject(new Error('Zwischenablage nicht verfügbar'));
+}
+function flashLabel(btn, text) {
+  const original = btn.textContent;
+  btn.textContent = text;
+  setTimeout(() => { if (btn.isConnected) btn.textContent = original; }, COPY_FEEDBACK_MS);
 }
 
 function recalc(starts, lastChanged) {
@@ -273,11 +366,16 @@ document.addEventListener('click', (e) => {
     if (listing) setProject(addExternal(state.project, toExternal(listing)));
     return;
   }
+  const copy = e.target.closest('button[data-copy]');
+  if (copy) { copyText(copy.dataset.copy).then(() => flashLabel(copy, 'Kopiert'), () => flashLabel(copy, 'Kopieren nicht möglich')); return; }
   const action = e.target.closest('button[data-action]');
   if (!action) return;
   if (action.dataset.action === 'recalc') recalc(state.draft, state.lastChanged);
   if (action.dataset.action === 'discard') setState({ draft: state.applied });
-  if (action.dataset.action === 'reset') { state = { ...state, project: PROJECT, search: IDLE_SEARCH }; stage = null; recalc(defaultStarts(), null); }
+  if (action.dataset.action === 'reset') { state = { ...state, project: state.baseProject, search: IDLE_SEARCH }; stage = null; recalc(defaultStarts(state.baseProject), null); }
+  if (action.dataset.action === 'reload-remote' && state.session) loadRemote(state.session);
+  if (action.dataset.action === 'logout') { clearSession(); location.href = 'index.html'; }
+  if (action.dataset.action === 'use-demo') setState({ session: null, remote: IDLE_REMOTE });
   if (action.dataset.action === 'play') (state.playing ? stopPlaying() : startPlaying());
   if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), state.project.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
@@ -296,13 +394,16 @@ document.addEventListener('click', (e) => {
 /* Guided example: delay Etappe 1 by two months; every step is recalculated automatically. */
 function runDemo() {
   stopPlaying();
-  const base = defaultStarts();
-  setState({ project: PROJECT, applied: base, draft: base, plan: planRochade(PROJECT, base), diff: null, changed: new Set(), lastChanged: null, view: 'zeitplan' });
+  const project = state.baseProject;
+  const first = project.phases[0];
+  if (!first) return;
+  const base = defaultStarts(project);
+  setState({ project, applied: base, draft: base, plan: planRochade(project, base), diff: null, changed: new Set(), lastChanged: null, view: 'zeitplan' });
   stage = null;
   els.phases.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
   const wait = reducedMotion ? 0 : 700;
-  setTimeout(() => recalc({ ...base, P1: 1 }, 'P1'), wait);
-  setTimeout(() => { recalc({ ...base, P1: 2 }, 'P1'); pulseStatus(); }, wait * 2 + 200);
+  setTimeout(() => recalc({ ...base, [first.id]: base[first.id] + 1 }, first.id), wait);
+  setTimeout(() => { recalc({ ...base, [first.id]: base[first.id] + 2 }, first.id); pulseStatus(); }, wait * 2 + 200);
 }
 
 /* Forms of the Erfassen view: the cooperative enters buildings, households and external flats. */
@@ -347,6 +448,8 @@ if (errors.length) {
 } else {
   injectIcons();
   initMenu();
+  els.bar.setAttribute('aria-live', 'polite');
   render();
-  if (!reducedMotion && state.view === 'gebaeude' && state.month === 0) startPlaying();
+  if (state.session) loadRemote(state.session);
+  else if (!reducedMotion && state.view === 'gebaeude' && state.month === 0) startPlaying();
 }

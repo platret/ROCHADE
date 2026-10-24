@@ -1,5 +1,5 @@
 /* Erfassen view: what the cooperative enters. Buildings with flats, households with their needs, external flats. */
-import { esc, rooms as roomsLabel, month } from './format.js';
+import { esc, rooms as roomsLabel, month, apartmentLabel } from './format.js';
 import { vacantApartments } from '../edit.js';
 
 const sizeOptions = (sel) => [2.5, 3.5, 4.5].map((r) => `<option value="${r}" ${r === sel ? 'selected' : ''}>${roomsLabel(r)}</option>`).join('');
@@ -9,6 +9,7 @@ export function renderInput(project, applied = {}) {
   const occupied = new Map(project.households.map((h) => [h.apartment, h]));
   const vacant = vacantApartments(project);
   const floorLabel = (f) => (f === 0 ? 'Parterre' : `${f}. OG`);
+  const withCodes = project.households.some((h) => h.inviteCode);
 
   const buildingRows = project.buildings.map((b, i) => {
     const apts = project.apartments.filter((a) => a.building === b.id);
@@ -28,7 +29,8 @@ export function renderInput(project, applied = {}) {
 
   const householdRows = project.households.map((h) => `<tr>
       <th scope="row"><b>${esc(h.name)}</b>${h.note ? `<small>${esc(h.note)}</small>` : ''}</th>
-      <td class="data">${esc(h.apartment)}</td>
+      <td class="data">${esc(apartmentLabel(project, h.apartment))}</td>
+      ${withCodes ? `<td class="data">${h.inviteCode ? esc(h.inviteCode) : '<span class="muted">—</span>'}</td>` : ''}
       <td>${h.persons} ${h.persons === 1 ? 'Person' : 'Personen'}</td>
       <td>${roomsLabel(h.roomsMin)}${h.stepFree ? ' · hindernisfrei' : ''}</td>
       <td class="inp-actions"><button type="button" class="btn btn-sm" data-remove-household="${h.id}" aria-label="${esc(h.name)} entfernen">Entfernen</button></td>
@@ -41,10 +43,11 @@ export function renderInput(project, applied = {}) {
       <td class="inp-actions"><button type="button" class="btn btn-sm" data-remove-external="${e.id}" aria-label="${esc(e.name)} entfernen">Entfernen</button></td>
     </tr>`).join('');
 
-  const apartmentOptions = vacant.map((a) => `<option value="${a.id}">${esc(a.id)} · ${roomsLabel(a.rooms)} · ${floorLabel(a.floor)}${a.stepFree ? ' · hindernisfrei' : ''}</option>`).join('');
+  const apartmentOptions = vacant.map((a) => `<option value="${esc(a.id)}">${esc(a.label || a.id)} · ${roomsLabel(a.rooms)} · ${floorLabel(a.floor)}${a.stepFree ? ' · hindernisfrei' : ''}</option>`).join('');
 
   return `<div class="inp">
     <p class="inp-lead">Das ist alles, was ROCHADE braucht. Die Etappen, ihre Dauer und der Zeitraum werden daraus automatisch geplant, und jede Änderung hier rechnet alles sofort neu; die Ansichten «Zeitplan», «Gebäude» und «Haushalte» zeigen das Ergebnis.</p>
+    ${project.remote ? '<p class="inp-note" role="note">Angemeldet: Änderungen hier werden lokal gerechnet und noch nicht in die Datenbank geschrieben.</p>' : ''}
 
     <section class="inp-block" aria-labelledby="inp-buildings">
       <div class="inp-head"><span class="k">01 · Liegenschaften und Wohnungen</span><h3 id="inp-buildings">${project.buildings.length} Häuser, ${project.apartments.length} Wohnungen, ${vacant.length} davon frei</h3></div>
@@ -67,7 +70,7 @@ export function renderInput(project, applied = {}) {
     <section class="inp-block" aria-labelledby="inp-households">
       <div class="inp-head"><span class="k">02 · Haushalte und ihr Bedarf</span><h3 id="inp-households">${project.households.length} Haushalte</h3></div>
       <div class="table-scroll"><table class="hh inp-table">
-        <thead><tr><th scope="col">Haushalt</th><th scope="col">Wohnung</th><th scope="col">Personen</th><th scope="col">Bedarf</th><th scope="col"><span class="sr-only">Aktion</span></th></tr></thead>
+        <thead><tr><th scope="col">Haushalt</th><th scope="col">Wohnung</th>${withCodes ? '<th scope="col">Zugangscode</th>' : ''}<th scope="col">Personen</th><th scope="col">Bedarf</th><th scope="col"><span class="sr-only">Aktion</span></th></tr></thead>
         <tbody>${householdRows}</tbody></table></div>
       <form class="inp-form" data-form="household" aria-label="Haushalt hinzufügen">
         <label class="field"><span>Name</span><input name="name" type="text" placeholder="Fam. Bernasconi" required></label>

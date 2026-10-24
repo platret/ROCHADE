@@ -19,8 +19,16 @@ export function householdNeed(h) {
   return `${rooms(h.roomsMin)}${h.stepFree ? ' · hindernisfrei' : ''}`;
 }
 
+/* Database apartments keep their uuid as id and carry the printed label separately; demo ids are the label. */
+export function apartmentLabel(project, id) {
+  const apt = project.apartments.find((a) => a.id === id);
+  if (apt) return apt.label || apt.id;
+  const ext = project.external.find((e) => e.id === id);
+  return ext ? ext.name : id;
+}
+
 export function flatLabelOf(project, flatId) {
   if (!flatId) return null;
   const ext = project.external.find((e) => e.id === flatId);
-  return ext ? ext.name : `Whg. ${flatId}`;
+  return ext ? ext.name : `Whg. ${apartmentLabel(project, flatId)}`;
 }

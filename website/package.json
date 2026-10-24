@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "serve": "python3 serve.py 8765"
+    "serve": "python3 serve.py 8765",
+    "seed": "node scripts/seed-brunnenwiese.mjs"
   }
 }

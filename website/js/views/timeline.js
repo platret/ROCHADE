@@ -1,5 +1,5 @@
 /* Zeitplan view: one row per household, grouped by building, with phase bands and relocation bars. */
-import { esc, icon, month, percent, byId, flatLabelOf } from './format.js';
+import { esc, icon, month, percent, byId, flatLabelOf, apartmentLabel } from './format.js';
 
 const MOVE_W = 0.35; // months, visual width of the move marker
 
@@ -41,7 +41,7 @@ export function renderTimeline(project, plan, { changed = new Set() } = {}) {
         const h = households.get(a.householdId);
         const cls = ['tl-row', changed.has(h.id) ? 'is-changed' : '', a.flatId ? '' : 'has-conflict'].join(' ');
         return `<div class="${cls}" data-household="${h.id}">
-          <div class="tl-name"><b>${esc(h.name)}</b><small>Whg. ${esc(h.apartment)} · ${h.persons} P.</small></div>
+          <div class="tl-name"><b>${esc(h.name)}</b><small>Whg. ${esc(apartmentLabel(project, h.apartment))} · ${h.persons} P.</small></div>
           <div class="tl-track">${barsFor(project, a, months)}</div>
         </div>`;
       }).join('');

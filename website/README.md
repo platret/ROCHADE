@@ -13,3 +13,11 @@ python3 -m http.server 8765 --directory website
 - Motion: Scroll-gesteuerte Animationen nur mit `@supports`, alles respektiert `prefers-reduced-motion`; keine Cookies, kein Tracking, keine Drittskripte
 
 Farben und Typografie-Tokens in `css/tokens.css` entsprechen `packages/shared/src/tokens.ts`.
+
+## Datenbank
+
+Die Website kann ein Projekt aus Alex' Supabase-Datenbank laden (dieselbe wie die App). Die Verwaltung meldet sich mit dem sechsstelligen **Verwaltungscode** des Projekts an (Demo «Siedlung Sonnenhalde»: `V7Q3KD`, Testdaten «Siedlung Brunnenwiese»: `W4RK7N`); jeder Haushalt hat einen eigenen sechsstelligen **Einladungscode** für die App, den die Verwaltung auf den Brief druckt. Codes bestehen aus `ABCDEFGHJKMNPQRSTUVWXYZ23456789` (ohne 0, O, 1, I, L), sind in der ganzen Tabelle eindeutig und nie gleich dem Verwaltungscode.
+
+- `js/env.js` (nicht eingecheckt, `.gitignore`) exportiert `SUPABASE_URL` und `SUPABASE_KEY`. Der Schlüssel gehört nur in diese Datei: nie in andere Dateien, Tests, Fixtures, Logs oder Prompts. Ohne `env.js` läuft die Website mit den Demodaten weiter.
+- `npm run seed` (Probelauf, offline): fasst die Testdaten «Siedlung Brunnenwiese» aus `js/data.js` zusammen und schreibt `supabase/seed_brunnenwiese.sql` (idempotentes `insert … on conflict (id) do nothing`, zum Einfügen im Supabase-SQL-Editor). `npm run seed -- --write` schreibt dieselben Zeilen per REST über `request()` aus `js/supabase.js` in die Datenbank, nur neue Zeilen, bestehende bleiben unverändert (Etappen verschiebt nur die App), und liest die Zeilenzahlen zurück; `--out <datei>` wählt den Pfad der SQL-Datei, `--help` zeigt die Optionen. Zeilen baut `js/seed-rows.js` (`buildSeedRows`, `inviteCodeFor`, `seedSql`), getestet in `tests/seed.test.js`.
+- Regeln von Alex: Die Website schreibt nie in `assignments` (die Zuteilungen rechnet sein Solver in der App), verschiebt keine Etappen (nur `shiftPhase()` in der App) und löscht nichts. Jeder Einladungscode wird in der Verwaltung sichtbar (Mono-Schrift, Kopieren-Knopf); der Verwaltungscode erscheint nur für die angemeldete Verwaltung, nie auf einem Brief. Die Anfragen tragen nur den Header `apikey`, keinen `Authorization`-Header.
