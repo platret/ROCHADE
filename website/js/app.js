@@ -10,8 +10,11 @@ import { createStage } from './stage.js';
 import { renderTable } from './views/table.js';
 import { renderPhases } from './views/phases.js';
 import { renderStatus } from './views/status.js';
+import { renderInput } from './views/input.js';
+import { addBuilding, removeBuilding, setLift, addHousehold, removeHousehold, addExternal, removeExternal } from './edit.js';
 
 const VIEWS = [
+  { id: 'erfassen', name: 'Erfassen' },
   { id: 'zeitplan', name: 'Zeitplan' },
   { id: 'gebaeude', name: 'Gebäude' },
   { id: 'haushalte', name: 'Haushalte' },
@@ -46,6 +49,7 @@ function writeUrl(state) {
 
 const initial = readUrl();
 let state = {
+  project: PROJECT,
   applied: initial.starts,
   draft: initial.starts,
   view: initial.view,
@@ -71,13 +75,13 @@ const els = {
 };
 
 function renderOverview() {
-  const { plan } = state;
+  const { plan, project } = state;
   const next = plan.assignments.filter((a) => a.flatId).map((a) => a.from).sort((a, b) => a - b)[0];
   const nextCount = plan.assignments.filter((a) => a.flatId && a.from === next).length;
   const items = [
-    [plan.stats.households, 'Haushalte', `in ${PROJECT.buildings.length} Häusern, ${plan.stats.stepFreeNeeds} brauchen es hindernisfrei`],
-    [plan.stats.flats, 'Rochade-Wohnungen', `${PROJECT.apartments.length - plan.stats.households} in der Siedlung, ${PROJECT.external.length} extern`],
-    [next === undefined ? '–' : month(PROJECT, next, 'short'), 'Nächster Umzug', next === undefined ? '' : `${plural(nextCount, 'Haushalt zieht', 'Haushalte ziehen')} in Rochade-Wohnungen`],
+    [plan.stats.households, 'Haushalte', `in ${project.buildings.length} Häusern, ${plan.stats.stepFreeNeeds} brauchen es hindernisfrei`],
+    [plan.stats.flats, 'Rochade-Wohnungen', `${project.apartments.length - plan.stats.households} in der Siedlung, ${project.external.length} extern`],
+    [next === undefined ? '–' : month(project, next, 'short'), 'Nächster Umzug', next === undefined ? '' : `${plural(nextCount, 'Haushalt zieht', 'Haushalte ziehen')} in Rochade-Wohnungen`],
     [plan.conflicts.length, 'Konflikte', plan.conflicts.length ? 'Haushalte ohne passende Wohnung' : 'Alle Haushalte haben eine Wohnung'],
   ];
   els.overview.innerHTML = items.map(([n, label, sub], i) =>
@@ -92,6 +96,7 @@ function renderTabs() {
 function renderScrubber() {
   if (state.view !== 'gebaeude') { els.scrub.hidden = true; els.scrub.innerHTML = ''; return; }
   els.scrub.hidden = false;
+  const PROJECT = state.project;
   const months = PROJECT.timeline.months;
   const max = months - 1;
   const bands = PROJECT.phases.map((p) => { const b = PROJECT.buildings.find((x) => x.id === p.building); return `<span style="left:${(p.start / months) * 100}%;width:${(p.duration / months) * 100}%"><b>${esc(p.name)}</b> · ${esc(b.name)}</span>`; }).join('');
@@ -111,24 +116,28 @@ function renderScrubber() {
 }
 
 function renderContent() {
+  const project = state.project;
   const opts = { changed: state.changed, building: state.building };
-  if (state.view === 'zeitplan') {
-    els.content.innerHTML = renderTimeline(PROJECT, state.plan, opts);
+  if (state.view === 'erfassen') {
+    els.content.innerHTML = renderInput(project);
+    els.legend.innerHTML = '';
+  } else if (state.view === 'zeitplan') {
+    els.content.innerHTML = renderTimeline(project, state.plan, opts);
     els.legend.innerHTML = TIMELINE_LEGEND;
   } else if (state.view === 'gebaeude') {
-    if (!stage || !els.content.contains(stage.root)) {
+    if (!stage || !els.content.contains(stage.root) || stage.project !== project) {
       els.content.innerHTML = '<div class="stage-frame"><div id="stage-root"></div></div><div id="stage-moves"></div>';
       const root = els.content.querySelector('#stage-root');
-      stage = { root, api: createStage(root, PROJECT, { plan: state.plan, reducedMotion }) };
+      stage = { root, project, api: createStage(root, project, { plan: state.plan, reducedMotion }) };
       stage.api.setMonth(state.month, { animate: false });
     } else {
       stage.api.setPlan(state.plan);
       stage.api.setMonth(state.month, { animate: !reducedMotion });
     }
-    els.content.querySelector('#stage-moves').innerHTML = renderMoves(PROJECT, state.plan, state.month);
+    els.content.querySelector('#stage-moves').innerHTML = renderMoves(project, state.plan, state.month);
     els.legend.innerHTML = BUILDINGS_LEGEND;
   } else {
-    els.content.innerHTML = renderTable(PROJECT, state.plan, opts);
+    els.content.innerHTML = renderTable(project, state.plan, opts);
     els.legend.innerHTML = '';
   }
   els.content.setAttribute('aria-labelledby', `tab-${state.view}`);
@@ -150,8 +159,8 @@ function focusKey(el) {
 function render() {
   const key = focusKey(document.activeElement);
   renderOverview();
-  els.phases.innerHTML = renderPhases(PROJECT, state.applied, state.draft, state.plan);
-  els.status.innerHTML = renderStatus(PROJECT, state.plan, state.applied, state.diff, state.lastChanged);
+  els.phases.innerHTML = renderPhases(state.project, state.applied, state.draft, state.plan);
+  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged);
   renderTabs();
   renderScrubber();
   renderContent();
@@ -165,8 +174,19 @@ function setState(patch) {
   render();
 }
 
+function pulseStatus() { els.status.classList.add('is-pulse'); setTimeout(() => els.status.classList.remove('is-pulse'), 1600); }
+
+function setProject(project) {
+  const errors = validateProject(project);
+  if (errors.length) { console.warn('Projekt ungültig', errors); return; }
+  const plan = planRochade(project, state.applied);
+  const diff = diffPlans(state.plan, plan);
+  setState({ project, plan, diff, changed: new Set(diff.affected.map((x) => x.householdId)), lastChanged: null });
+  pulseStatus();
+}
+
 function recalc(starts, lastChanged) {
-  const plan = planRochade(PROJECT, starts);
+  const plan = planRochade(state.project, starts);
   const diff = diffPlans(state.plan, plan);
   setState({ applied: starts, draft: starts, plan, diff, changed: new Set(diff.affected.map((x) => x.householdId)), lastChanged });
 }
@@ -193,8 +213,8 @@ document.addEventListener('click', (e) => {
     const id = nudge.dataset.phase;
     const phase = PROJECT.phases.find((p) => p.id === id);
     const max = PROJECT.timeline.months - phase.duration;
-    const next = Math.min(Math.max(state.draft[id] + Number(nudge.dataset.delta), 0), max);
-    setState({ draft: { ...state.draft, [id]: next }, lastChanged: id });
+    const next = Math.min(Math.max(state.applied[id] + Number(nudge.dataset.delta), 0), max);
+    recalc({ ...state.applied, [id]: next }, id);
     return;
   }
   const apply = e.target.closest('button[data-apply-phase]');
@@ -206,30 +226,50 @@ document.addEventListener('click', (e) => {
   if (tab) { stopPlaying(); els.content.classList.remove('is-fade'); void els.content.offsetWidth; els.content.classList.add('is-fade'); setState({ view: tab.dataset.view }); return; }
   const filter = e.target.closest('button[data-filter-building]');
   if (filter) { setState({ building: filter.dataset.filterBuilding }); return; }
+  const rb = e.target.closest('button[data-remove-building]');
+  if (rb) { setProject(removeBuilding(state.project, rb.dataset.removeBuilding)); return; }
+  const rh = e.target.closest('button[data-remove-household]');
+  if (rh) { setProject(removeHousehold(state.project, rh.dataset.removeHousehold)); return; }
+  const re = e.target.closest('button[data-remove-external]');
+  if (re) { setProject(removeExternal(state.project, re.dataset.removeExternal)); return; }
   const action = e.target.closest('button[data-action]');
   if (!action) return;
   if (action.dataset.action === 'recalc') recalc(state.draft, state.lastChanged);
   if (action.dataset.action === 'discard') setState({ draft: state.applied });
-  if (action.dataset.action === 'reset') recalc(defaultStarts(), null);
+  if (action.dataset.action === 'reset') { state = { ...state, project: PROJECT }; stage = null; recalc(defaultStarts(), null); }
   if (action.dataset.action === 'play') (state.playing ? stopPlaying() : startPlaying());
   if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), PROJECT.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
 });
 
-/* Guided example: delay Etappe 1 by two months, recalculate, and point at the status panel. */
+/* Guided example: delay Etappe 1 by two months; every step is recalculated automatically. */
 function runDemo() {
   stopPlaying();
   const base = defaultStarts();
-  setState({ applied: base, draft: { ...base, P1: 1 }, plan: planRochade(PROJECT, base), diff: null, changed: new Set(), lastChanged: 'P1', view: 'zeitplan' });
+  setState({ project: PROJECT, applied: base, draft: base, plan: planRochade(PROJECT, base), diff: null, changed: new Set(), lastChanged: null, view: 'zeitplan' });
+  stage = null;
   els.phases.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-  const wait = reducedMotion ? 0 : 650;
-  setTimeout(() => setState({ draft: { ...base, P1: 2 }, lastChanged: 'P1' }), wait);
-  setTimeout(() => {
-    recalc({ ...base, P1: 2 }, 'P1');
-    els.status.classList.add('is-pulse');
-    setTimeout(() => els.status.classList.remove('is-pulse'), 1600);
-  }, wait * 2 + 200);
+  const wait = reducedMotion ? 0 : 700;
+  setTimeout(() => recalc({ ...base, P1: 1 }, 'P1'), wait);
+  setTimeout(() => { recalc({ ...base, P1: 2 }, 'P1'); pulseStatus(); }, wait * 2 + 200);
 }
+
+/* Forms of the Erfassen view: the cooperative enters buildings, households and external flats. */
+document.addEventListener('submit', (e) => {
+  const form = e.target.closest('form[data-form]');
+  if (!form) return;
+  e.preventDefault();
+  const fd = new FormData(form);
+  const data = Object.fromEntries(fd.entries());
+  data.lift = fd.has('lift'); data.stepFree = fd.has('stepFree');
+  const kind = form.dataset.form;
+  if (kind === 'building') setProject(addBuilding(state.project, data));
+  if (kind === 'household') setProject(addHousehold(state.project, data));
+  if (kind === 'external') setProject(addExternal(state.project, { ...data, availableTo: Number(data.availableTo) + 1 }));
+});
+document.addEventListener('change', (e) => {
+  if (e.target.matches('input[data-lift]')) setProject(setLift(state.project, e.target.dataset.lift, e.target.checked));
+});
 
 document.addEventListener('input', (e) => {
   if (e.target.id === 'month-range') { stopPlaying(); setState({ month: Number(e.target.value) }); }
@@ -239,7 +279,7 @@ let resizeTimer = null;
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
-    if (state.view === 'gebaeude') drawPaths(els.content.querySelector('.houses'), PROJECT, state.plan, state.month);
+    if (state.view === 'gebaeude' && stage) stage.api.fit();
   }, 120);
 });
 

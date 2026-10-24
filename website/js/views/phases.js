@@ -33,9 +33,7 @@ export function renderPhases(project, applied, draft, plan) {
     ${rows}
   </div>
   <div class="ph-actions">
-    <button type="button" class="btn btn-primary" data-action="recalc" ${dirty ? '' : 'disabled'}>${icon('i-swap')} Plan neu berechnen</button>
-    <button type="button" class="btn btn-ghost" data-action="discard" ${dirty ? '' : 'hidden'}>Änderung verwerfen</button>
-    <button type="button" class="btn btn-ghost" data-action="reset" ${project.phases.every((p) => applied[p.id] === p.start && draft[p.id] === p.start) ? 'hidden' : ''}>Ausgangslage</button>
-    ${dirty ? '<p class="ph-hint body-sm muted">Der angezeigte Plan gilt noch für die alten Termine.</p>' : ''}
+    <p class="ph-hint body-sm muted">${icon('i-swap')} Jede Verschiebung wird sofort neu berechnet.</p>
+    <button type="button" class="btn btn-ghost" data-action="reset" ${project.phases.every((p) => applied[p.id] === p.start) ? 'hidden' : ''}>Ausgangslage</button>
   </div>`;
 }

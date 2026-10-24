@@ -21,10 +21,13 @@ function buildLayout(project, mode) {
   const rows = floors.length;
   const cardW = COLS * SLOT_W + (COLS - 1) * GAP + 2 * PAD;
   const cardH = HEAD_H + rows * SLOT_H + (rows - 1) * GAP + PAD;
-  const extW = mode === 'row' ? SLOT_W + 2 * PAD : cardW;
+  const extCount = Math.max(1, project.external.length);
+  const extCols = mode === 'row' ? Math.ceil(extCount / rows) : Math.min(COLS, extCount);
+  const extRows = mode === 'row' ? rows : Math.ceil(extCount / COLS);
+  const extW = mode === 'row' ? extCols * SLOT_W + (extCols - 1) * GAP + 2 * PAD : cardW;
   const defs = [
     ...project.buildings.map((b) => ({ id: b.id, name: b.name, sub: b.lift ? 'mit Lift' : 'ohne Lift', w: cardW, h: cardH })),
-    { id: 'EXT', name: 'Externe Rochade-Wohnungen', sub: 'ausserhalb der Siedlung', w: extW, h: mode === 'row' ? cardH : HEAD_H + SLOT_H + PAD },
+    { id: 'EXT', name: 'Externe Rochade-Wohnungen', sub: 'ausserhalb der Siedlung', w: extW, h: mode === 'row' ? cardH : HEAD_H + extRows * SLOT_H + (extRows - 1) * GAP + PAD },
   ];
   const perRow = mode === 'row' ? defs.length : mode === 'grid2' ? 2 : 1;
   let x = 0; let y = 0; let rowH = 0;
@@ -45,8 +48,8 @@ function buildLayout(project, mode) {
   });
   const ext = cards[cards.length - 1];
   project.external.forEach((e, i) => {
-    if (mode === 'row') slots.set(e.id, { x: ext.x + PAD, y: ext.y + HEAD_H + (rows - 1 - i) * (SLOT_H + GAP) });
-    else slots.set(e.id, { x: ext.x + PAD + i * (SLOT_W + GAP), y: ext.y + HEAD_H });
+    if (mode === 'row') slots.set(e.id, { x: ext.x + PAD + Math.floor(i / rows) * (SLOT_W + GAP), y: ext.y + HEAD_H + (rows - 1 - (i % rows)) * (SLOT_H + GAP) });
+    else slots.set(e.id, { x: ext.x + PAD + (i % COLS) * (SLOT_W + GAP), y: ext.y + HEAD_H + Math.floor(i / COLS) * (SLOT_H + GAP) });
   });
   const width = Math.max(...cards.map((c) => c.x + c.w));
   const height = Math.max(...cards.map((c) => c.y + c.h));
@@ -117,8 +120,9 @@ export function createStage(root, project, { plan, reducedMotion = false, maxSca
     }
     for (const b of project.buildings) {
       const phase = currentPlan.phases.find((p) => p.building === b.id);
-      const { start, end } = phaseWindow(phase);
       const card = cardEls.get(b.id);
+      if (!phase) { card.classList.remove('is-renovating', 'is-done'); card.querySelector('[data-badge]').textContent = ''; continue; }
+      const { start, end } = phaseWindow(phase);
       card.classList.toggle('is-renovating', m >= start && m < end);
       card.classList.toggle('is-done', m >= end);
       card.querySelector('[data-badge]').textContent = m >= start && m < end ? 'In Sanierung' : m >= end ? 'Saniert' : '';
