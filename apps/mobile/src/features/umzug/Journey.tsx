@@ -1,4 +1,5 @@
 import { formatDate, todayIso, type Assignment, type Flat } from '@rochade/shared'
+import { router } from 'expo-router'
 import type { AssignmentChange, ChangeField } from '@/data/assignmentChanges'
 import { Card } from '@/ui/Card'
 import { Text } from '@/ui/Text'
@@ -16,6 +17,8 @@ export type JourneyProps = {
 
 const dateFallback = 'Termin folgt'
 
+const openWohnung = () => router.push('/wohnung')
+
 export const Journey = ({ assignment, tempFlat, homeFlat, changes }: JourneyProps) => {
   const { move_out, move_back, status } = assignment
   const today = todayIso()
@@ -28,7 +31,7 @@ export const Journey = ({ assignment, tempFlat, homeFlat, changes }: JourneyProp
   const flatDetail = tempFlat ? `${tempFlat.label}, ${flatPlace(tempFlat)}` : flatFallback
   const moveBackDetail = move_back ? `${formatDate(move_back)}, zurück in ${homeFlat?.label ?? 'deine Wohnung'}` : dateFallback
   return (
-    <Card style={{ padding: 0 }}>
+    <Card style={{ padding: 0, overflow: 'hidden' }}>
       <JourneyStep
         index={0}
         title="Auszug"
@@ -44,6 +47,8 @@ export const Journey = ({ assignment, tempFlat, homeFlat, changes }: JourneyProp
         title="Rochade-Wohnung"
         state={stateOf(1)}
         flashKey={flashKeyOf('temp_flat_id')}
+        onPress={tempFlat ? openWohnung : undefined}
+        accessibilityHint="Öffnet Details, Kalendereintrag und Teilen"
         hero={
           tempFlat ? (
             <FlatHero flat={tempFlat} />

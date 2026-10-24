@@ -24,9 +24,3 @@ export const useMyHousehold = (): MyHousehold | null => {
   const phase = homeFlat ? (phases.find((candidate) => candidate.building === homeFlat.building) ?? null) : null
   return { household, homeFlat, assignment, tempFlat, phase }
 }
-
-export const usePhaseForBuilding = (building: string): Phase | null => {
-  const project = useProject()
-  if (project.status !== 'ready') return null
-  return project.data.phases.find((phase) => phase.building === building) ?? null
-}

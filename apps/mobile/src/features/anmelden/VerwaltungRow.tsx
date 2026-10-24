@@ -9,7 +9,7 @@ export const VerwaltungRow = ({ onPress }: VerwaltungRowProps) => (
   <ListGroup>
     <ListRow
       title="Verwaltung"
-      subtitle="Nur Ansicht · keine Änderungen möglich"
+      subtitle="Nur Ansicht"
       accessibilityLabel="Verwaltung (nur Ansicht)"
       leading={
         <LeadingCircle>

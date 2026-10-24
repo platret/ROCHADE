@@ -1,8 +1,8 @@
-import { spacing } from '@rochade/shared'
+import { roomsLabel, spacing } from '@rochade/shared'
 import { View, type AccessibilityActionEvent } from 'react-native'
 import { haptics } from '@/lib/haptics'
 import { Text } from '@/ui/Text'
-import { clampRooms, roomsLabel, roomsRange } from './needs'
+import { clampRooms, roomsRange } from './needs'
 import { StepperButton } from './StepperButton'
 
 export type RoomsStepperProps = {

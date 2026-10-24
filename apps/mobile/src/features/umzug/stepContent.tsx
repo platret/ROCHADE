@@ -1,4 +1,4 @@
-import { formatDate, formatFloor, formatRooms, spacing, type Flat, type ISODate } from '@rochade/shared'
+import { formatDate, formatFloor, roomsLabel, spacing, type Flat, type ISODate } from '@rochade/shared'
 import { View } from 'react-native'
 import { splitFlatLabel } from '@/lib/flats'
 import { Chip } from '@/ui/Chip'
@@ -27,10 +27,13 @@ export const FlatHero = ({ flat }: { flat: Flat }) => {
 
 export const flatPlace = (flat: Flat) => `${flat.building} · ${formatFloor(flat.floor)}`
 
-export const FlatChips = ({ flat }: { flat: Flat }) => (
+export type FlatChipsProps = { flat: Flat; schoolDistrict?: boolean }
+
+export const FlatChips = ({ flat, schoolDistrict = false }: FlatChipsProps) => (
   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.xs }}>
     {flat.step_free && <Chip label="hindernisfrei" symbol="figure.roll" />}
-    <Chip label={formatRooms(flat.rooms)} />
+    <Chip label={roomsLabel(flat.rooms)} />
+    {schoolDistrict && flat.school_district !== null && <Chip label={`Schulkreis ${flat.school_district}`} symbol="graduationcap" />}
   </View>
 )
 

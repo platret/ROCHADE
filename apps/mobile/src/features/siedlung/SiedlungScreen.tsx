@@ -1,13 +1,12 @@
 import { spacing, todayIso } from '@rochade/shared'
 import { useIdentity } from '@/data/IdentityProvider'
 import { ProjectContent } from '@/data/ProjectContent'
+import { ProjectFreshness } from '@/data/ProjectFreshness'
 import { useProject } from '@/data/ProjectProvider'
 import { EmptyState } from '@/ui/EmptyState'
 import { Screen } from '@/ui/Screen'
-import { OfflineStrip } from './OfflineStrip'
 import { PhasesSection } from './PhasesSection'
 import { SiedlungSkeleton } from './SiedlungSkeleton'
-import { StandLine } from './StandLine'
 import { UmzugsplanSection } from './UmzugsplanSection'
 
 const NoSchedule = () => (
@@ -28,8 +27,7 @@ export const SiedlungScreen = () => {
       <ProjectContent skeleton={<SiedlungSkeleton />} errorTitle="Zeitplan konnte nicht geladen werden">
         {(data) => (
           <>
-            <StandLine />
-            <OfflineStrip />
+            <ProjectFreshness />
             {data.phases.length === 0 ? (
               <NoSchedule />
             ) : (

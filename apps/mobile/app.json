@@ -42,7 +42,13 @@
           }
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "ROCHADE trägt deine Umzugstermine in deinen Kalender ein."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

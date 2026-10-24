@@ -17,6 +17,7 @@ export const RootNavigator = () => {
         <Stack.Protected guard={identity !== null}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="wuensche-bearbeiten" options={formSheetOptions(colors, 'Wünsche bearbeiten')} />
+          <Stack.Screen name="wohnung" options={{ ...formSheetOptions(colors, 'Rochade-Wohnung'), sheetAllowedDetents: [0.6, 1] }} />
         </Stack.Protected>
       </Stack>
     </ThemeProvider>

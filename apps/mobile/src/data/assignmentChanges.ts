@@ -1,6 +1,6 @@
 import type { Assignment } from '@rochade/shared'
 
-export const changeFields = ['temp_flat_id', 'move_out', 'move_back', 'status', 'conflict_reason'] as const
+const changeFields = ['temp_flat_id', 'move_out', 'move_back', 'status', 'conflict_reason'] as const
 
 export type ChangeField = (typeof changeFields)[number]
 

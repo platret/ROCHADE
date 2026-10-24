@@ -1,7 +1,7 @@
-import { gutter, spacing, type Household } from '@rochade/shared'
+import { gutter, roomsLabel, spacing, type Household } from '@rochade/shared'
 import { View } from 'react-native'
 import { ListGroup } from '@/ui/ListGroup'
-import { roomsLabel, stepFreeLabel } from './needs'
+import { stepFreeLabel } from './needs'
 import { SummaryFooter } from './SummaryFooter'
 import { SummaryRow } from './SummaryRow'
 

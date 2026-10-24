@@ -1,16 +1,16 @@
 import type { ProjectData } from '@rochade/shared'
 import { useIdentity } from '@/data/IdentityProvider'
 import { useMyHousehold } from '@/data/selectors'
+import { VerwaltungOverview } from '@/features/verwaltung/VerwaltungOverview'
 import { EmptyState } from '@/ui/EmptyState'
 import { HouseholdPlan } from './HouseholdPlan'
-import { VerwaltungNotice } from './VerwaltungNotice'
 
 export type UmzugBodyProps = { data: ProjectData }
 
 export const UmzugBody = ({ data }: UmzugBodyProps) => {
   const { identity, signOut } = useIdentity()
   const mine = useMyHousehold()
-  if (identity?.kind === 'verwaltung') return <VerwaltungNotice data={data} onSwitch={signOut} />
+  if (identity?.kind === 'verwaltung') return <VerwaltungOverview data={data} onSwitch={signOut} />
   if (!mine) {
     return (
       <EmptyState

@@ -1,6 +1,6 @@
 import { spacing } from '@rochade/shared'
 import { View } from 'react-native'
-import { Text } from '@/ui/Text'
+import { Text } from './Text'
 
 export type SectionHeaderProps = { title: string; meta?: string; subtitle?: string }
 

@@ -1,8 +1,8 @@
 import { spacing, type ISODate, type ProjectData } from '@rochade/shared'
 import { View } from 'react-native'
+import { householdCountByBuilding, phaseCountLabel, sortedPhases } from '@/lib/phases'
+import { SectionHeader } from '@/ui/SectionHeader'
 import { PhaseCard } from './PhaseCard'
-import { householdCountByBuilding, phaseCountLabel, sortedPhases } from './phases'
-import { SectionHeader } from './SectionHeader'
 import { usePhaseChanges } from './usePhaseChanges'
 
 export type PhasesSectionProps = { data: ProjectData; today: ISODate }

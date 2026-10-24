@@ -9,4 +9,6 @@ export const initials = (name: string) => {
 
 export const formatRooms = (rooms: number) => `${rooms}-Zimmer`
 
+export const roomsLabel = (rooms: number) => `${rooms} Zimmer`
+
 export const formatFloor = (floor: number) => (floor === 0 ? 'EG' : `${floor}. OG`)

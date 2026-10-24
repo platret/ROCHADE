@@ -1,10 +1,10 @@
 import { spacing } from '@rochade/shared'
 import { useIdentity } from '@/data/IdentityProvider'
 import { ProjectContent } from '@/data/ProjectContent'
+import { ProjectFreshness } from '@/data/ProjectFreshness'
 import { useProject } from '@/data/ProjectProvider'
 import { Screen } from '@/ui/Screen'
 import { Text } from '@/ui/Text'
-import { StaleNotice } from './StaleNotice'
 import { WishesContent } from './WishesContent'
 import { WishesSkeleton } from './WishesSkeleton'
 
@@ -16,7 +16,7 @@ export const WuenscheScreen = () => {
       {identity?.kind === 'household' && (
         <Text color="inkMuted">So finden wir eine passende Rochade-Wohnung für deinen Haushalt.</Text>
       )}
-      {project.status === 'ready' && project.error !== null && <StaleNotice updatedAt={project.updatedAt} />}
+      <ProjectFreshness />
       <ProjectContent skeleton={<WishesSkeleton />} errorTitle="Wünsche konnten nicht geladen werden">
         {() => <WishesContent />}
       </ProjectContent>
