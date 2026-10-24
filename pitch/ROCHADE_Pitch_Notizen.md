@@ -1,6 +1,6 @@
 # ROCHADE · Pitch-Deck: Abdeckung, Rechtslage, Parteien, offene Punkte
 
-Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Der Pitch dauert 2 Minuten: gezeigt werden die Folien 1, 2, 4, 5, 7, 8 und 10; die Folien 3, 6 und 9 sind ausgeblendet und dienen der Fragerunde. Sprechtext in `ROCHADE_Pitch_Skript.md` und in den Notizen jeder Folie.
+Stand: 24. Oktober 2026, Version 5: Design des Team-Artefakts (Manrope, orange Blöcke mit runden Ecken, grosse Zahlen), neues Logo König und Turm überkreuz, Preismodell CHF 200 pro Haushalt wie im Market-Pitch von Alex. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Der Pitch dauert 2 Minuten: gezeigt werden die Folien 1, 2, 4, 5, 7, 8 und 10; die Folien 3, 6 und 9 sind ausgeblendet und dienen der Fragerunde. Sprechtext in `ROCHADE_Pitch_Skript.md` und in den Notizen jeder Folie.
 
 ## 1. Dramaturgie der 10 Folien
 
@@ -13,11 +13,11 @@ Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). 
 | 5 | Dürfen wir das? Ja. Und das sind die Mitspieler. | Was ROCHADE darf (Planungswerkzeug, Rochade legal, Daten im Auftrag) und sechs Mitspieler: Genossenschaft, Bewirtschaftung, Mietende, Bauleitung, Gemeinde, Mieterverband. | 0:52–1:10 |
 | 6 | Rechtslage (ausgeblendet, Reserve) | Bund (BGE), Kanton Zürich (Prüfpflicht ab 20 Mietverhältnissen), Genossenschaften (OR 846), vier Kantone. | Fragerunde |
 | 7 | ROCHADE plant die Rochade. Vier Regeln. | Prototyp: Siedlungsansicht, vier Regeln, Konflikt mit Vorschlag, zwei Handys. | 1:10–1:38 |
-| 8 | Wie wir Geld verdienen. | Drei Erlösquellen (Projektlizenz 1 ‰, Nachweis-Dossier, Portfolio-Abo), Rechenbeispiel CHF 216'000 Mietzinsausfall, Kosten, Break-even, Marge. | 1:38–1:52 |
+| 8 | Wer zahlt: die Eigentümerschaft. | Projektlizenz CHF 200 pro Haushalt (min. CHF 5'000, bgnzwo = CHF 9'800), Rechenbeispiel CHF 216'000 Mietausfall, Kosten Jahr 1 CHF 10'000 und Break-even ab Projekt 2, Portfolio-Abo ab 2028. | 1:38–1:52 |
 | 9 | Der Markt (ausgeblendet, Reserve) | Markt Schweiz und Zürich, Einstieg, Wettbewerbstabelle. | Fragerunde |
 | 10 | Aufruf | Stand nach 24 h, drei Bitten, Team. | 1:52–2:02 |
 
-Gestaltung: alle Karten, Chips und Marker sind eckig; nur die Handy-Rahmen bleiben rund, weil sie ein Handy zeigen. Das Siedlungsbild wurde mit eckigen Karten neu gerendert.
+Gestaltung: übernommen aus dem Slides-Artefakt des Teams (1920×1080, Manrope, Papier FAF8F5 oder Dunkel 14191B, oranger Block F26A1B mit 32 px Radius, Überzeile 24 px in B8460E, Titel 72 px, Zahlen 120–160 px, Logo 64 px oben rechts, Quellenzeile unten). Manrope liegt im Ordner `Fonts/` zum Installieren; ohne die Schrift ersetzt PowerPoint sie.
 
 ## 2. Was der Leitfaden verlangt und wo es im Deck steht
 

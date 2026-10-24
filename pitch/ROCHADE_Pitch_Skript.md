@@ -1,6 +1,6 @@
 # ROCHADE · Pitch-Skript, 2 Minuten
 
-Gehört zu `ROCHADE_Pitch_v4.pptx`. Gezeigt werden sechs Folien (1, 2, 4, 5, 7, 8, 10); die Folien 3, 6 und 9 sind im Deck ausgeblendet und dienen als Reserve für die Fragerunde. Rund 290 gesprochene Wörter, Tempo zügig, aber nicht gehetzt. Rollen: **F** = Francesco, **A** = Alex. Regieanweisungen *kursiv*. Der Text steht auch in den Notizen jeder Folie.
+Gehört zu `ROCHADE_Pitch_v5.pptx` (Design des Team-Artefakts: Manrope, orange Blöcke, Logo König-und-Turm überkreuz). Gezeigt werden sechs Folien (1, 2, 4, 5, 7, 8, 10); die Folien 3, 6 und 9 sind im Deck ausgeblendet und dienen als Reserve für die Fragerunde. Rund 300 gesprochene Wörter, Tempo zügig, aber nicht gehetzt. Rollen: **F** = Francesco, **A** = Alex. Regieanweisungen *kursiv*. Der Text steht auch in den Notizen jeder Folie.
 
 ---
 
@@ -29,9 +29,9 @@ Dürfen wir das? Ja. ROCHADE ist ein Planungswerkzeug der Eigentümerin, keine B
 
 Die Verwaltung sieht die ganze Siedlung, jeder Chip ein Haushalt. Vier Regeln, nie gebrochen: Zimmerzahl, Lift, Zeitfenster, keine Doppelbelegung. *Klick: Etappe 1 zwei Monate später.* Elf Konflikte, mit Namen: Für Herrn Aydin fehlt ab Juni eine 2,5-Zimmer-Wohnung. Vorschlag: Etappe 2 ab November. *Klick.* Alles grün. In Excel ein Wochenende, hier ein Klick, und Frau Meier sieht ihr neues Datum sofort auf dem Handy.
 
-## Folie 8 · Wie wir Geld verdienen (1:38–1:52) · A
+## Folie 8 · Wer zahlt: die Eigentümerschaft. (1:38–1:52) · A
 
-Die Eigentümerschaft zahlt pro Projekt ein Promille der Bausumme, mindestens 5'000 Franken. Dafür spart sie bei 24 Wohnungen rund 216'000 Franken Mietzinsausfall, weil niemand auszieht. Zwölf Projekte im Jahr, und wir sind kostendeckend. Annahmen, die wir mit zwei Pilot-Genossenschaften 2027 prüfen.
+Die Eigentümerschaft zahlt pro Projekt: 200 Franken pro Haushalt, mindestens 5'000, inklusive App und Nachweis fürs Baugesuch. Für die bgnzwo wären das 9'800 Franken. Zum Vergleich: Stehen 24 Wohnungen sechs Monate leer, fehlen 216'000 Franken Miete. Im ersten Jahr kosten wir 10'000 Franken, weil wir in der Lehre sind; ab dem zweiten Projekt sind wir über den Kosten. Annahmen, die wir mit zwei Pilot-Genossenschaften 2027 prüfen.
 
 ## Folie 10 · Aufruf (1:52–2:02) · F
 
