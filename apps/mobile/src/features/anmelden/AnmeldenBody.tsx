@@ -11,6 +11,7 @@ import { riseIn, staggered } from '@/ui/entering'
 import { Text } from '@/ui/Text'
 import { useEntered } from '@/ui/useEntered'
 import { BrandHeader } from './BrandHeader'
+import { DemoHeader } from './DemoHeader'
 import { HouseholdRows } from './HouseholdRows'
 import { HouseholdSkeleton } from './HouseholdSkeleton'
 import { VerwaltungRow } from './VerwaltungRow'
@@ -32,6 +33,7 @@ export const AnmeldenBody = () => {
   if (!entered) return null
   return (
     <>
+      <DemoHeader />
       <BrandHeader />
       <Animated.View entering={riseIn(delays.heading)}>
         <Text variant="h2" accessibilityRole="header" style={{ marginTop: spacing.xxl }}>
@@ -40,7 +42,8 @@ export const AnmeldenBody = () => {
       </Animated.View>
       <Animated.View entering={riseIn(delays.helper)}>
         <Text variant="bodySm" color="inkMuted" style={{ marginTop: spacing.sm }}>
-          Tippe auf deinen Haushalt. Die Auswahl wird auf diesem Gerät gemerkt und lässt sich später ändern.
+          Für die Demo ohne Brief: Tippe auf einen Haushalt. Die Auswahl wird auf diesem Gerät gemerkt und lässt sich
+          über «Abmelden» ändern.
         </Text>
       </Animated.View>
       <View style={{ marginTop: spacing.lg }}>

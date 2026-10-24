@@ -7,12 +7,13 @@ export type PopInProps = PropsWithChildren<{
   playKey?: string | number | null
   play?: boolean
   from?: number
+  damping?: number
   style?: StyleProp<ViewStyle>
 }>
 
 const spring = { damping: 18, stiffness: 180 }
 
-export const PopIn = ({ delay = 0, playKey = null, play = true, from = 0.6, style, children }: PopInProps) => {
+export const PopIn = ({ delay = 0, playKey = null, play = true, from = 0.6, damping = spring.damping, style, children }: PopInProps) => {
   const reduceMotion = useReducedMotion()
   const progress = useSharedValue(reduceMotion ? 1 : 0)
 
@@ -23,9 +24,9 @@ export const PopIn = ({ delay = 0, playKey = null, play = true, from = 0.6, styl
     }
     if (!play) return
     progress.set(0)
-    progress.set(withDelay(delay, withSpring(1, spring)))
+    progress.set(withDelay(delay, withSpring(1, { ...spring, damping })))
     return () => cancelAnimation(progress)
-  }, [delay, play, playKey, progress, reduceMotion])
+  }, [damping, delay, play, playKey, progress, reduceMotion])
 
   const animatedStyle = useAnimatedStyle(() => {
     const value = progress.get()

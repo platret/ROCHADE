@@ -16,8 +16,8 @@ export const UmzugBody = ({ data }: UmzugBodyProps) => {
       <EmptyState
         symbol="person.crop.circle.badge.questionmark"
         title="Haushalt nicht gefunden"
-        body="Der gespeicherte Haushalt ist nicht mehr im Projekt. Wähle deinen Haushalt neu aus."
-        action={{ label: 'Haushalt wechseln', onPress: signOut, variant: 'secondary' }}
+        body="Der gespeicherte Haushalt ist nicht mehr im Projekt. Melde dich mit deinem Code neu an."
+        action={{ label: 'Abmelden', onPress: signOut, variant: 'secondary' }}
       />
     )
   }

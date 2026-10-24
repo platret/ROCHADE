@@ -16,7 +16,7 @@ export const UmzugScreen = () => {
   return (
     <>
       <Stack.Toolbar placement="right">
-        <Stack.Toolbar.Button icon="person.crop.circle" accessibilityLabel="Haushalt wechseln" onPress={signOut} />
+        <Stack.Toolbar.Button icon="person.crop.circle" accessibilityLabel={verwaltung ? 'Haushalt wechseln' : 'Abmelden'} onPress={signOut} />
       </Stack.Toolbar>
       <Screen refreshing={project.refreshing} onRefresh={project.reload} contentStyle={{ gap: spacing.lg }}>
         <ProjectContent
