@@ -106,3 +106,11 @@ create policy "demo anon update households" on public.households for update to a
 create policy "demo anon select assignments" on public.assignments for select to anon using (true);
 create policy "demo anon insert assignments" on public.assignments for insert to anon with check (true);
 create policy "demo anon update assignments" on public.assignments for update to anon using (true) with check (true);
+
+-- Skip updates that change nothing, so Realtime only emits real changes.
+create trigger phases_skip_noop_updates before update on public.phases
+  for each row execute function suppress_redundant_updates_trigger();
+create trigger households_skip_noop_updates before update on public.households
+  for each row execute function suppress_redundant_updates_trigger();
+create trigger assignments_skip_noop_updates before update on public.assignments
+  for each row execute function suppress_redundant_updates_trigger();
