@@ -17,7 +17,6 @@ export const UmzugSkeleton = () => (
         <Skeleton width="45%" height={32} />
       </View>
       <Skeleton width="90%" height={16} />
-      <Skeleton height={4} />
     </Card>
     <Card style={{ padding: 0 }}>
       {steps.map((index) => (

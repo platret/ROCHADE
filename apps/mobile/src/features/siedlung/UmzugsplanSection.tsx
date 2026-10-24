@@ -10,19 +10,24 @@ import { timelineRows } from './timelineRows'
 
 export type UmzugsplanSectionProps = { data: ProjectData; ownHouseholdId: string | null; today: ISODate }
 
-const yearsOf = (first: ISODate, last: ISODate) => [...new Set([first.slice(0, 4), last.slice(0, 4)])].join('–')
+const yearOf = (iso: ISODate) => iso.slice(0, 4)
+
+const yearsOf = (first: ISODate, last: ISODate) => [...new Set([yearOf(first), yearOf(last)])].join('–')
+
+const monthLabel = (iso: ISODate, withYear: boolean) => (withYear ? `${formatMonthShort(iso)} ${yearOf(iso)}` : formatMonthShort(iso))
 
 export const UmzugsplanSection = ({ data, ownHouseholdId, today }: UmzugsplanSectionProps) => {
   const range = timelineRange(data.phases, data.assignments)
   if (!range) return null
   const last = lastMonth(range)
   const rows = timelineRows(data, range, ownHouseholdId)
+  const spansYears = yearOf(range.start) !== yearOf(last)
   const planned = data.assignments.length > 0 && rows.length > 0
   return (
     <View style={{ gap: spacing.lg, marginTop: spacing.sm }}>
       <SectionHeader
         title={`Umzugsplan ${yearsOf(range.start, last)}`}
-        subtitle={`${householdCountLabel(rows.length)}, ${formatMonthShort(range.start)} bis ${formatMonthShort(last)}`}
+        subtitle={`${householdCountLabel(rows.length)}, ${monthLabel(range.start, spansYears)} bis ${monthLabel(last, spansYears)}`}
       />
       {planned ? (
         <>

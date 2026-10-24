@@ -17,9 +17,9 @@ export const DateHero = ({ date }: { date: ISODate | null }) =>
     </Text>
   )
 
-export type CountdownTextProps = { parts: Countdown; hero?: boolean; playKey: number | null }
+export type CountdownTextProps = { parts: Countdown; hero?: boolean; playKey: number | null; play?: boolean }
 
-export const CountdownText = ({ parts, hero = false, playKey }: CountdownTextProps) => {
+export const CountdownText = ({ parts, hero = false, playKey, play = true }: CountdownTextProps) => {
   const variant = hero ? 'h2' : 'body'
   const color = hero ? 'ink' : 'inkMuted'
   if ('word' in parts) {
@@ -32,7 +32,7 @@ export const CountdownText = ({ parts, hero = false, playKey }: CountdownTextPro
   return (
     <Text variant={variant} color={color}>
       {parts.prefix}
-      <CountUp key={playKey ?? 'mount'} value={parts.days} duration={600} pad variant={hero ? 'monoLarge' : 'mono'} color={color} />
+      <CountUp key={playKey ?? 'mount'} value={parts.days} duration={600} pad play={play} variant={hero ? 'monoLarge' : 'mono'} color={color} />
       {parts.suffix}
     </Text>
   )

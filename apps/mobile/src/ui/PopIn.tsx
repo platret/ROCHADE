@@ -5,13 +5,14 @@ import Animated, { cancelAnimation, useAnimatedStyle, useReducedMotion, useShare
 export type PopInProps = PropsWithChildren<{
   delay?: number
   playKey?: string | number | null
+  play?: boolean
   from?: number
   style?: StyleProp<ViewStyle>
 }>
 
 const spring = { damping: 18, stiffness: 180 }
 
-export const PopIn = ({ delay = 0, playKey = null, from = 0.6, style, children }: PopInProps) => {
+export const PopIn = ({ delay = 0, playKey = null, play = true, from = 0.6, style, children }: PopInProps) => {
   const reduceMotion = useReducedMotion()
   const progress = useSharedValue(reduceMotion ? 1 : 0)
 
@@ -20,10 +21,11 @@ export const PopIn = ({ delay = 0, playKey = null, from = 0.6, style, children }
       progress.set(1)
       return
     }
+    if (!play) return
     progress.set(0)
     progress.set(withDelay(delay, withSpring(1, spring)))
     return () => cancelAnimation(progress)
-  }, [delay, playKey, progress, reduceMotion])
+  }, [delay, play, playKey, progress, reduceMotion])
 
   const animatedStyle = useAnimatedStyle(() => {
     const value = progress.get()

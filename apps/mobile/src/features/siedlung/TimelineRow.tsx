@@ -10,16 +10,16 @@ import type { Scale } from './timelineModel'
 import type { TimelineRow as Row } from './timelineRows'
 import { useReveal } from './useReveal'
 
-export type TimelineRowProps = { row: Row; scale: Scale; index: number; ready: boolean }
+export type TimelineRowProps = { row: Row; scale: Scale; index: number; ready: boolean; replayKey: string }
 
 const { labelWidth, columnGap, rowPitch, barHeight, tickHeight, tickWidth, segmentGap, minSegmentWidth } = timelineLayout
 const tickOverhang = (tickHeight - barHeight) / 2
 
 const fill = { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 } as const
 
-export const TimelineRow = ({ row, scale, index, ready }: TimelineRowProps) => {
+export const TimelineRow = ({ row, scale, index, ready, replayKey }: TimelineRowProps) => {
   const { colors } = useTheme()
-  const revealStyle = useReveal(ready, index)
+  const revealStyle = useReveal(ready, index, 1, replayKey)
   const tickStyle = (day: ISODate) => ({ position: 'absolute', top: 0, left: scale(day) - tickWidth / 2 }) as const
   return (
     <View
@@ -66,8 +66,8 @@ export const TimelineRow = ({ row, scale, index, ready }: TimelineRowProps) => {
               />
             )
           })}
-          {row.moveOut !== null && <Tick height={tickHeight} style={tickStyle(row.moveOut)} />}
-          {row.moveBack !== null && <Tick height={tickHeight} style={tickStyle(row.moveBack)} />}
+          {row.moveOut !== null && <Tick own={row.own} height={tickHeight} style={tickStyle(row.moveOut)} />}
+          {row.moveBack !== null && <Tick own={row.own} height={tickHeight} style={tickStyle(row.moveBack)} />}
         </Animated.View>
       </View>
     </View>

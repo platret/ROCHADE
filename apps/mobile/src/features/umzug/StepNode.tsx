@@ -9,7 +9,7 @@ import { Text } from '@/ui/Text'
 import type { NodeState } from './steps'
 import { railNodeSize } from './RailRow'
 
-export type StepNodeProps = { state: NodeState; number: number; delay?: number; playKey?: string }
+export type StepNodeProps = { state: NodeState; number: number; delay?: number; playKey?: string; play?: boolean }
 
 type Look = { fill: ColorName | null; border: ColorName | null; content: ColorName }
 
@@ -24,13 +24,13 @@ const haloSize = 40
 const haloInset = (railNodeSize - haloSize) / 2
 const haloLagMs = 100
 
-const Halo = ({ delay, playKey }: { delay: number; playKey: string }) => {
+const Halo = ({ delay, playKey, play }: { delay: number; playKey: string; play: boolean }) => {
   const { colors } = useTheme()
   const reduceMotion = useReducedMotion()
   const opacity = useSharedValue(0)
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (reduceMotion || !play) {
       opacity.set(0)
       return
     }
@@ -42,7 +42,7 @@ const Halo = ({ delay, playKey }: { delay: number; playKey: string }) => {
       ),
     )
     return () => cancelAnimation(opacity)
-  }, [delay, opacity, playKey, reduceMotion])
+  }, [delay, opacity, play, playKey, reduceMotion])
 
   const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.get() }))
 
@@ -58,13 +58,13 @@ const Halo = ({ delay, playKey }: { delay: number; playKey: string }) => {
   )
 }
 
-export const StepNode = ({ state, number, delay = 0, playKey = state }: StepNodeProps) => {
+export const StepNode = ({ state, number, delay = 0, playKey = state, play = true }: StepNodeProps) => {
   const { colors } = useTheme()
   const look = looks[state]
   return (
     <View style={{ width: railNodeSize, height: railNodeSize }}>
-      {state === 'current' && <Halo delay={delay} playKey={playKey} />}
-      <PopIn delay={delay} playKey={playKey}>
+      {state === 'current' && <Halo delay={delay} playKey={playKey} play={play} />}
+      <PopIn delay={delay} playKey={playKey} play={play}>
         <View
           style={[
             { width: railNodeSize, height: railNodeSize, borderRadius: railNodeSize / 2, alignItems: 'center', justifyContent: 'center' },

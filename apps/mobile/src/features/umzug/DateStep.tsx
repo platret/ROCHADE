@@ -12,7 +12,7 @@ export type DateStepProps = {
   today: ISODate
   state: NodeState
   current: number
-  delay: number
+  play: boolean
   flashKey: number | null
   next: boolean
   note?: string
@@ -22,7 +22,7 @@ export type DateStepProps = {
 const missingDate = 'Termin folgt'
 const missingDetail = 'Termin folgt. Du musst nichts tun.'
 
-export const DateStep = ({ index, title, date, today, state, current, delay, flashKey, next, note, children }: DateStepProps) => {
+export const DateStep = ({ index, title, date, today, state, current, play, flashKey, next, note, children }: DateStepProps) => {
   const parts = date !== null && next ? countdownParts(today, date) : null
   const soon = date !== null && next && isSoon(today, date)
   const dateDetail = date === null ? missingDate : parts === null ? formatDate(date) : `${formatDate(date)}, ${countdown(today, date)}`
@@ -33,10 +33,10 @@ export const DateStep = ({ index, title, date, today, state, current, delay, fla
       title={title}
       state={state}
       current={current}
-      delay={delay}
+      play={play}
       flashKey={flashKey}
       detail={detail}
-      hero={soon && parts !== null ? <CountdownText parts={parts} hero playKey={flashKey} /> : <DateHero date={date} />}
+      hero={soon && parts !== null ? <CountdownText parts={parts} hero playKey={flashKey} play={play} /> : <DateHero date={date} />}
     >
       {date === null && <Text color="inkMuted">{missingDetail}</Text>}
       {date !== null && soon && (
@@ -44,7 +44,7 @@ export const DateStep = ({ index, title, date, today, state, current, delay, fla
           {formatDate(date)}
         </Text>
       )}
-      {parts !== null && !soon && <CountdownText parts={parts} playKey={flashKey} />}
+      {parts !== null && !soon && <CountdownText parts={parts} playKey={flashKey} play={play} />}
       {children}
     </JourneyStep>
   )

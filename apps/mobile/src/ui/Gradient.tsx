@@ -12,7 +12,7 @@ export const Gradient = ({ color, opacities, horizontal = false }: GradientProps
   const id = `gradient${reactId.replace(/[^a-zA-Z0-9]/g, '')}`
   const lastIndex = Math.max(1, opacities.length - 1)
   return (
-    <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%">
+    <Svg pointerEvents="none" style={StyleSheet.absoluteFill}>
       <Defs>
         <LinearGradient id={id} x1="0" y1="0" x2={horizontal ? '1' : '0'} y2={horizontal ? '0' : '1'}>
           {opacities.map((opacity, index) => (

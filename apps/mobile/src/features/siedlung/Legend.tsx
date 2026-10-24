@@ -14,7 +14,7 @@ const items: LegendItem[] = [
   { kind: 'home', tick: true, label: 'Umzugstag' },
   { kind: 'renovated', label: 'Renovierte Wohnung' },
   { kind: 'conflict', label: 'Konflikt' },
-  { kind: 'own', label: 'Dein Haushalt' },
+  { kind: 'own', tick: true, label: 'Dein Haushalt' },
 ]
 
 const { swatchWidth, swatchHeight, swatchRadius } = timelineLayout
@@ -29,7 +29,7 @@ const Swatch = ({ item }: { item: LegendItem }) => {
       ) : (
         <Segment kind={item.kind} borderRadius={swatchRadius} style={StyleSheet.absoluteFill} />
       )}
-      {item.tick && <Tick height={swatchHeight} />}
+      {item.tick && <Tick own={item.kind === 'own'} height={swatchHeight} />}
     </View>
   )
 }

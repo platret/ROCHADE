@@ -1,14 +1,12 @@
-import { reassurance, spacing, statusColors, statusLabels, todayIso, type Assignment, type AssignmentStatus } from '@rochade/shared'
+import { reassurance, spacing, statusColors, statusLabels, type Assignment, type AssignmentStatus } from '@rochade/shared'
 import { View } from 'react-native'
 import { statusSymbols } from '@/ui/Badge'
 import { Card } from '@/ui/Card'
 import { Gradient } from '@/ui/Gradient'
 import { Icon } from '@/ui/Icon'
 import { LeadingCircle } from '@/ui/LeadingCircle'
-import { SegmentBar } from '@/ui/SegmentBar'
 import { Text } from '@/ui/Text'
 import { residentReason } from './reason'
-import { currentStep, stepCount } from './steps'
 
 export type StatusCardProps = { assignment: Assignment; householdName: string }
 
@@ -38,7 +36,6 @@ export const StatusCard = ({ assignment, householdName }: StatusCardProps) => {
       </View>
       {reason !== null && <Text weight={600}>{reason}</Text>}
       <Text color="inkMuted">{sentences[status]}</Text>
-      {status === 'ok' && <SegmentBar count={stepCount} current={currentStep(assignment, todayIso())} />}
     </Card>
   )
 }

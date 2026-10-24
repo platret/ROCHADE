@@ -5,9 +5,10 @@ import { useProject } from '@/data/ProjectProvider'
 import type { MyHousehold } from '@/data/selectors'
 import { Checklist } from '@/features/checklist/Checklist'
 import { EmptyState } from '@/ui/EmptyState'
+import { useEntered, useLatched } from '@/ui/useEntered'
 import { Journey } from './Journey'
 import { StatusCard } from './StatusCard'
-import { bannerSettleMs, UpdateBanner } from './UpdateBanner'
+import { UpdateBanner } from './UpdateBanner'
 import { useChangeFeedback } from './useChangeFeedback'
 
 export type HouseholdPlanProps = { mine: MyHousehold; flats: Flat[] }
@@ -23,10 +24,11 @@ const NotPlanned = () => (
 
 export const HouseholdPlan = ({ mine, flats }: HouseholdPlanProps) => {
   const { changes, lastChangeAt, dismissChanges } = useProject()
+  const entered = useEntered()
   const [bannerSettled, setBannerSettled] = useState(false)
   const { household, assignment, tempFlat, homeFlat } = mine
   const myChanges = changes.filter((change) => change.householdId === household.id)
-  const [railDelay] = useState(() => (myChanges.length > 0 ? bannerSettleMs : 0))
+  const play = useLatched(entered && (myChanges.length === 0 || bannerSettled))
   const flashChanges = bannerSettled ? myChanges : []
   useChangeFeedback(myChanges, lastChangeAt)
   return (
@@ -38,7 +40,7 @@ export const HouseholdPlan = ({ mine, flats }: HouseholdPlanProps) => {
         {assignment !== null && assignment.status !== 'open' ? (
           <>
             <StatusCard assignment={assignment} householdName={household.name} />
-            <Journey assignment={assignment} tempFlat={tempFlat} homeFlat={homeFlat} changes={flashChanges} delay={railDelay} />
+            <Journey assignment={assignment} tempFlat={tempFlat} homeFlat={homeFlat} changes={flashChanges} play={play} />
             <Checklist householdId={household.id} assignment={assignment} />
           </>
         ) : (

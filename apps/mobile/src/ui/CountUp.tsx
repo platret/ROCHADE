@@ -6,10 +6,11 @@ export type CountUpProps = Omit<AppTextProps, 'children'> & {
   value: number
   duration?: number
   delay?: number
+  play?: boolean
   pad?: boolean
 }
 
-export const CountUp = ({ value, duration = 700, delay = 0, pad = false, style, ...rest }: CountUpProps) => {
+export const CountUp = ({ value, duration = 700, delay = 0, play = true, pad = false, style, ...rest }: CountUpProps) => {
   const reduceMotion = useReducedMotion()
   const progress = useSharedValue(reduceMotion ? value : 0)
   const [shown, setShown] = useState(reduceMotion ? value : 0)
@@ -19,8 +20,9 @@ export const CountUp = ({ value, duration = 700, delay = 0, pad = false, style, 
       progress.set(value)
       return
     }
+    if (!play) return
     progress.set(withDelay(delay, withTiming(value, { duration, easing: Easing.out(Easing.cubic) })))
-  }, [value, duration, delay, reduceMotion, progress])
+  }, [value, duration, delay, play, reduceMotion, progress])
 
   useAnimatedReaction(
     () => Math.round(progress.get()),

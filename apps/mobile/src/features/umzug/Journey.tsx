@@ -14,12 +14,12 @@ export type JourneyProps = {
   tempFlat: Flat | null
   homeFlat: Flat | null
   changes: AssignmentChange[]
-  delay?: number
+  play?: boolean
 }
 
 const openWohnung = () => router.push('/wohnung')
 
-export const Journey = ({ assignment, tempFlat, homeFlat, changes, delay = 0 }: JourneyProps) => {
+export const Journey = ({ assignment, tempFlat, homeFlat, changes, play = true }: JourneyProps) => {
   const { move_out, move_back, status } = assignment
   const today = todayIso()
   const current = currentStep(assignment, today)
@@ -38,7 +38,7 @@ export const Journey = ({ assignment, tempFlat, homeFlat, changes, delay = 0 }: 
         today={today}
         state={stateOf(0)}
         current={current}
-        delay={delay}
+        play={play}
         flashKey={flashKeyOf('move_out')}
         next={nextStep === 0}
       />
@@ -47,7 +47,7 @@ export const Journey = ({ assignment, tempFlat, homeFlat, changes, delay = 0 }: 
         title="Rochade-Wohnung"
         state={stateOf(1)}
         current={current}
-        delay={delay}
+        play={play}
         flashKey={flashKeyOf('temp_flat_id')}
         onPress={tempFlat ? openWohnung : undefined}
         accessibilityHint="Öffnet Details, Kalendereintrag und Teilen"
@@ -76,7 +76,7 @@ export const Journey = ({ assignment, tempFlat, homeFlat, changes, delay = 0 }: 
         today={today}
         state={stateOf(2)}
         current={current}
-        delay={delay}
+        play={play}
         flashKey={flashKeyOf('move_back')}
         next={nextStep === 2}
         note={`zurück in ${homeFlat?.label ?? 'deine Wohnung'}`}

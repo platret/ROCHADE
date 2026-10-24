@@ -7,6 +7,7 @@ import { Card } from '@/ui/Card'
 import { Chip } from '@/ui/Chip'
 import { Icon } from '@/ui/Icon'
 import { Text } from '@/ui/Text'
+import { useEntered } from '@/ui/useEntered'
 import { PhaseDates } from './PhaseDates'
 import type { PhaseChange } from './usePhaseChanges'
 import { usePulse } from './usePulse'
@@ -21,7 +22,8 @@ const phaseAccents: Record<PhaseStatus, ColorName> = { geplant: 'slate', laeuft:
 
 const ProgressBar = ({ fraction }: { fraction: number }) => {
   const { colors } = useTheme()
-  const fillStyle = useReveal(true, 0, fraction)
+  const entered = useEntered()
+  const fillStyle = useReveal(entered, 0, fraction)
   return (
     <View
       accessibilityRole="progressbar"

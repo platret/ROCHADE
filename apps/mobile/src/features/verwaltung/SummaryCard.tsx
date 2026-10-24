@@ -6,6 +6,7 @@ import { Card } from '@/ui/Card'
 import { CountUp } from '@/ui/CountUp'
 import { Icon } from '@/ui/Icon'
 import { Text } from '@/ui/Text'
+import { useEntered } from '@/ui/useEntered'
 import type { StatusCounts } from './overview'
 
 export type SummaryCardProps = { counts: StatusCounts }
@@ -18,6 +19,7 @@ const labelFor = (status: AssignmentStatus, count: number) =>
 
 export const SummaryCard = ({ counts }: SummaryCardProps) => {
   const { colors } = useTheme()
+  const entered = useEntered()
   const summary = assignmentStatuses.map((status) => `${counts[status]} ${labelFor(status, counts[status])}`).join(', ')
   return (
     <Card accessible accessibilityRole="summary" accessibilityLabel={summary} style={{ flexDirection: 'row', padding: 0 }}>
@@ -38,6 +40,7 @@ export const SummaryCard = ({ counts }: SummaryCardProps) => {
           <CountUp
             value={counts[status]}
             delay={index * countDelayMs}
+            play={entered}
             variant="monoLarge"
             color={status === 'conflict' && counts[status] > 0 ? 'danger' : 'ink'}
           />

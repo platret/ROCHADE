@@ -9,11 +9,11 @@ export type SegmentLook = { fill: ColorName | null; outline: ColorName | null; d
 export const segmentLooks: Record<SegmentKind, SegmentLook> = {
   home: { fill: timelineColors.home, outline: null, dashed: false },
   temp: { fill: timelineColors.temp, outline: null, dashed: false },
-  renovated: { fill: null, outline: timelineColors.renovatedOutline, dashed: false },
+  renovated: { fill: null, outline: 'lineStrong', dashed: false },
   conflict: { fill: null, outline: timelineColors.conflictOutline, dashed: true },
 }
 
-export const moveDayColor: ColorName = timelineColors.moveDay
+export const tickColor = (own: boolean): ColorName => (own ? timelineColors.moveDay : 'ink')
 
 export type TimelineSegment = { kind: SegmentKind; start: ISODate; end: ISODate }
 

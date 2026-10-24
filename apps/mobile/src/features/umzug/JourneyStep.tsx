@@ -15,7 +15,7 @@ export type JourneyStepProps = {
   title: string
   state: NodeState
   current: number
-  delay?: number
+  play?: boolean
   flashKey: number | null
   hero: ReactNode
   detail: string
@@ -29,7 +29,7 @@ export const JourneyStep = ({
   title,
   state,
   current,
-  delay = 0,
+  play = true,
   flashKey,
   hero,
   detail,
@@ -42,12 +42,12 @@ export const JourneyStep = ({
   const row = (
     <RailRow
       index={index}
-      delay={delay}
+      play={play}
       first={index === 0}
       last={index === stepCount - 1}
       topFilled={index > 0 && index <= current}
       bottomFilled={index < current}
-      node={<StepNode state={state} number={index + 1} delay={delay + index * railStepMs} playKey={playKey} />}
+      node={<StepNode state={state} number={index + 1} delay={index * railStepMs} playKey={playKey} play={play} />}
       accessibilityLabel={onPress ? undefined : label}
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
