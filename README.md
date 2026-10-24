@@ -6,6 +6,16 @@ When a housing cooperative renovates a building, residents move into temporary f
 
 ZentralHack 2026, EntrepreneurSkills Challenge, SDG 11. Final pitch and MVP upload: Saturday 16:30.
 
+## Stand (für Francesco, Samstagmorgen)
+
+Letzter Stand siehe `git log`. Alles auf `main`, jede Änderung ist gepusht.
+
+- Supabase: Schema und Seed sind im Projekt eingespielt (11 Haushalte, Etappe 3 = 01.09.–30.11.2027, Herr Brunner im Konflikt). Keys stehen bei Alex in `apps/mobile/.env` und `apps/web/.env` (nicht im Repo). `schema.sql` und `seed.sql` dürfen jederzeit neu eingespielt werden.
+- Shared: Solver (`solve`, `replan`), Typen, Queries, Tokens, Demo-Fixture. 23 Tests grün (`npm test`).
+- App (`apps/mobile`): Anmelden-Picker, Mein Umzug (Statuskarte, Ablauf, Live-Banner, Haptik), Meine Wünsche (Sheet), Siedlung (Etappen, Umzugsplan-Timeline), Dark Mode, Verbindungstest im Fehlerzustand. Läuft in Expo Go 58 (`npm run mobile`, dann `exp://<LAN-IP>:8081`).
+- Web (`apps/web`): `/verwaltung` ist das Dashboard-Skelett (Etappen mit −1/+1 Woche, Replan, Live-Tabelle). Die Startseite `/` wird gerade als animierte Landingpage gebaut. Dein Spielfeld: alles unter `src/components` und `src/hooks`; Tokens kommen aus `packages/shared`, keine Hex-Farben im Web.
+- Nächste Schritte: Dashboard-Design auf `/verwaltung`, Haushalte und Wohnungen bearbeiten, Etappen-Datumspicker statt ±1 Woche.
+
 ## What is in the repo
 
 ```
