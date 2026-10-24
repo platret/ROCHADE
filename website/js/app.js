@@ -106,7 +106,7 @@ function renderScrubber() {
   const months = PROJECT.timeline.months;
   const max = months - 1;
   const bands = PROJECT.phases.map((p) => { const b = PROJECT.buildings.find((x) => x.id === p.building); return `<span style="left:${(p.start / months) * 100}%;width:${(p.duration / months) * 100}%"><b>${esc(p.name)}</b> · ${esc(b.name)}</span>`; }).join('');
-  const ticks = [...new Set([...Array.from({ length: Math.floor(max / 5) + 1 }, (_, i) => i * 5), max])];
+  const ticks = [...Array.from({ length: Math.floor(max / 5) + 1 }, (_, i) => i * 5).filter((i) => max - i >= 3), max];
   const axis = ticks.map((i) => `<span style="left:${(i / max) * 100}%">${esc(month(PROJECT, i, 'short'))}</span>`).join('');
   els.scrub.innerHTML = `
     <div class="scrub-buttons">
@@ -132,10 +132,13 @@ function renderContent() {
     els.content.innerHTML = renderTimeline(project, state.plan, opts);
     els.legend.innerHTML = TIMELINE_LEGEND;
   } else if (state.view === 'gebaeude') {
-    if (!stage || !els.content.contains(stage.root) || stage.project !== project) {
-      els.content.innerHTML = '<div class="stage-frame"><div id="stage-root"></div></div><div id="stage-moves"></div>';
+    if (!stage || !els.content.contains(stage.root) || stage.project !== project || stage.building !== state.building) {
+      const chips = [{ id: 'all', name: 'Alle Häuser' }, ...project.buildings].map((b) =>
+        `<button type="button" class="chip${state.building === b.id ? ' is-active' : ''}" data-filter-building="${b.id}" aria-pressed="${state.building === b.id}">${esc(b.name)}</button>`).join('');
+      els.content.innerHTML = `<div class="stage-filter" role="group" aria-label="Häuser filtern">${chips}</div><div class="stage-frame"><div id="stage-root"></div></div><div id="stage-moves"></div>`;
       const root = els.content.querySelector('#stage-root');
-      stage = { root, project, api: createStage(root, project, { plan: state.plan, reducedMotion }) };
+      const only = state.building === 'all' || !project.buildings.some((b) => b.id === state.building) ? null : [state.building];
+      stage = { root, project, building: state.building, api: createStage(root, project, { plan: state.plan, reducedMotion, minScale: 0.85, only }) };
       stage.api.setMonth(state.month, { animate: false });
     } else {
       stage.api.setPlan(state.plan);
