@@ -7,7 +7,7 @@ import { Text } from './Text'
 
 export type BadgeProps = { status: AssignmentStatus }
 
-const symbols: Record<AssignmentStatus, SFSymbol> = {
+export const statusSymbols: Record<AssignmentStatus, SFSymbol> = {
   ok: 'checkmark.circle.fill',
   conflict: 'exclamationmark.triangle.fill',
   open: 'clock',
@@ -31,7 +31,7 @@ export const Badge = ({ status }: BadgeProps) => {
         backgroundColor: colors[bg],
       }}
     >
-      <Icon name={symbols[status]} size={14} color={fg} />
+      <Icon name={statusSymbols[status]} size={14} color={fg} />
       <Text variant="label" color={fg}>
         {statusLabels[status]}
       </Text>

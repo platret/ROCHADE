@@ -10,6 +10,7 @@ export const RootNavigator = () => {
   return (
     <ThemeProvider value={navigationTheme(scheme)}>
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.paper } }}>
+        <Stack.Screen name="index" />
         <Stack.Protected guard={identity === null}>
           <Stack.Screen name="anmelden" />
         </Stack.Protected>

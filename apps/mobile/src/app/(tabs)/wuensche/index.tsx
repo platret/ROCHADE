@@ -1,5 +1,5 @@
-import { PlaceholderScreen } from '@/features/placeholder/PlaceholderScreen'
+import { WuenscheScreen } from '@/features/wuensche/WuenscheScreen'
 
 export default function Wuensche() {
-  return <PlaceholderScreen title="Meine Wünsche" />
+  return <WuenscheScreen />
 }

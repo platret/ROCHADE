@@ -1,0 +1,17 @@
+export const timelineLayout = {
+  labelWidth: 40,
+  columnGap: 8,
+  axisHeight: 24,
+  rowPitch: 28,
+  barHeight: 16,
+  tickHeight: 22,
+  tickWidth: 3,
+  outlineWidth: 1.5,
+  segmentGap: 2,
+  minSegmentWidth: 4,
+  bandOutset: 4,
+  minLabelColumn: 28,
+  swatchWidth: 20,
+  swatchHeight: 12,
+  swatchRadius: 3,
+} as const

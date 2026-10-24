@@ -1,5 +1,5 @@
-import { PlaceholderScreen } from '@/features/placeholder/PlaceholderScreen'
+import { SiedlungScreen } from '@/features/siedlung/SiedlungScreen'
 
 export default function Siedlung() {
-  return <PlaceholderScreen title="Siedlung" />
+  return <SiedlungScreen />
 }

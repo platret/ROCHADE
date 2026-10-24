@@ -1,10 +1,5 @@
-import { Screen } from '@/ui/Screen'
-import { Text } from '@/ui/Text'
+import { EditWishesSheet } from '@/features/wuensche/EditWishesSheet'
 
 export default function WuenscheBearbeiten() {
-  return (
-    <Screen>
-      <Text color="inkMuted">Das Formular für deine Wünsche folgt.</Text>
-    </Screen>
-  )
+  return <EditWishesSheet />
 }

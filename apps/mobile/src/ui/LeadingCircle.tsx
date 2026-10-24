@@ -1,11 +1,12 @@
+import type { ColorName } from '@rochade/shared'
 import type { PropsWithChildren } from 'react'
 import { View } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
 import { listLeadingSize } from './ListGroup'
 
-export type LeadingCircleProps = PropsWithChildren<{ size?: number }>
+export type LeadingCircleProps = PropsWithChildren<{ size?: number; color?: ColorName }>
 
-export const LeadingCircle = ({ children, size = listLeadingSize }: LeadingCircleProps) => {
+export const LeadingCircle = ({ children, size = listLeadingSize, color = 'surfaceSunken' }: LeadingCircleProps) => {
   const { colors } = useTheme()
   return (
     <View
@@ -15,7 +16,7 @@ export const LeadingCircle = ({ children, size = listLeadingSize }: LeadingCircl
         borderRadius: size / 2,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.surfaceSunken,
+        backgroundColor: colors[color],
       }}
     >
       {children}
