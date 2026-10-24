@@ -1,7 +1,8 @@
 import { fetchProjectData, fetchProjects, subscribeToProject, type Assignment, type ProjectData, type RochadeClient } from '@rochade/shared'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { connectionReport, withTimeout } from '@/lib/connectivity'
 import { messageOf } from '@/lib/errors'
-import { supabase } from '@/lib/supabase'
+import { supabase, supabaseHost } from '@/lib/supabase'
 import { diffAssignments, type AssignmentChange } from './assignmentChanges'
 import type { ProjectContextValue, ProjectState } from './projectTypes'
 
@@ -9,6 +10,7 @@ type Snapshot = { data: ProjectData; updatedAt: Date }
 type LoadMode = 'initial' | 'refresh' | 'silent'
 
 const realtimeDebounceMs = 300
+const loadTimeoutMs = 15_000
 
 const firstProjectId = async (client: RochadeClient) => {
   const [first] = await fetchProjects(client)
@@ -37,8 +39,8 @@ export const useProjectLoader = (): ProjectContextValue => {
     if (mode === 'initial') setError(null)
     if (mode === 'refresh') setRefreshing(true)
     try {
-      const id = knownProjectId.current ?? (await firstProjectId(client))
-      const data = await fetchProjectData(client, id)
+      const id = knownProjectId.current ?? (await withTimeout(firstProjectId(client), loadTimeoutMs))
+      const data = await withTimeout(fetchProjectData(client, id), loadTimeoutMs)
       if (!isCurrent()) return
       const now = new Date()
       const previous = lastAssignments.current
@@ -53,7 +55,9 @@ export const useProjectLoader = (): ProjectContextValue => {
       setSnapshot({ data, updatedAt: now })
       setError(null)
     } catch (caught) {
-      if (isCurrent()) setError(messageOf(caught))
+      if (!isCurrent()) return
+      const report = await connectionReport()
+      if (isCurrent()) setError(`${messageOf(caught)} (Server: ${supabaseHost})\n${report}`)
     } finally {
       if (isCurrent()) setRefreshing(false)
     }
