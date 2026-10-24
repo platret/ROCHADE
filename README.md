@@ -6,6 +6,46 @@ When a housing cooperative renovates a building, residents move into temporary f
 
 ZentralHack 2026, EntrepreneurSkills Challenge, SDG 11. Final pitch and MVP upload: Saturday 16:30.
 
+## Für die Jury
+
+**Website für die Verwaltung:** https://roschade.alexplatret.com
+
+1. Auf der Website «Anmelden» öffnen.
+2. Einen Verwaltungscode eingeben.
+
+| Verwaltungscode | Siedlung |
+| --- | --- |
+| `V7Q3KD` | Siedlung Sonnenhalde, Zürich |
+| `W4RK7N` | Siedlung Brunnenwiese, Zürich |
+
+**iPhone-App für Mietende:**
+
+1. App öffnen, die Einführung durchblättern oder «Überspringen» tippen.
+2. «Code eingeben», einen Zugangscode eintippen und mit «Stimmt, weiter» bestätigen.
+
+| Zugangscode | Haushalt | Was du siehst |
+| --- | --- | --- |
+| `B3H7QK` | Herr Brunner | Konflikt mit dem genauen Grund |
+| `7KW4PD` | Familie Keller | Zugeteilt, Rochade-Wohnung, Checkliste |
+| `9DQ3TW` | Frau Meier | Zugeteilt, hindernisfreie Wohnung |
+| `V7Q3KD` | Verwaltung | Übersicht aller Haushalte, nur Ansicht |
+
+Ohne Code geht es über «Demo-Haushalt wählen» auf dem Code-Bildschirm.
+
+**Der Moment:** Die Verwaltung verschiebt Etappe 3 im Dashboard zweimal um eine Woche. Auf dem iPhone von Herrn Brunner erscheint innerhalb von rund zwei Sekunden «Dein Plan wurde aktualisiert» und der Status wechselt von Konflikt auf Zugeteilt.
+
+**Selbst starten:**
+
+```
+git clone https://github.com/platret/ROCHADE
+cd ROCHADE
+npm install
+npm run web
+npm run mobile
+```
+
+`npm run web` startet das Dashboard auf http://localhost:5173/verwaltung, `npm run mobile` die App für Expo Go. Vorher in `apps/web/.env` und `apps/mobile/.env` die Supabase-URL und den Publishable Key eintragen, Vorlagen liegen daneben als `.env.example`.
+
 ## Stand (für Francesco)
 
 Alles liegt auf `main`, jede Änderung ist gepusht. Alle Checks grün: `npm run typecheck`, `npm test` (24 Tests), Web-Build, iOS-Bundle.
