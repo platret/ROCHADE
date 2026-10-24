@@ -105,7 +105,6 @@ function renderScrubber() {
   const PROJECT = state.project;
   const months = PROJECT.timeline.months;
   const max = months - 1;
-  const bands = PROJECT.phases.map((p) => { const b = PROJECT.buildings.find((x) => x.id === p.building); return `<span style="left:${(p.start / months) * 100}%;width:${(p.duration / months) * 100}%"><b>${esc(p.name)}</b> · ${esc(b.name)}</span>`; }).join('');
   const ticks = [...Array.from({ length: Math.floor(max / 5) + 1 }, (_, i) => i * 5).filter((i) => max - i >= 3), max];
   const axis = ticks.map((i) => `<span style="left:${(i / max) * 100}%">${esc(month(PROJECT, i, 'short'))}</span>`).join('');
   els.scrub.innerHTML = `
@@ -116,7 +115,6 @@ function renderScrubber() {
     </div>
     <label class="scrub-label" for="month-range"><span class="k">Monat ${state.month + 1} von ${months}</span><output class="data" for="month-range" aria-live="off">${esc(month(PROJECT, state.month))}</output></label>
     <div class="scrub-track">
-      <div class="phase-bands" aria-hidden="true">${bands}</div>
       <input id="month-range" type="range" min="0" max="${max}" value="${state.month}" aria-valuetext="${esc(month(PROJECT, state.month))}">
       <div class="scrub-axis data" aria-hidden="true">${axis}</div>
     </div>`;
