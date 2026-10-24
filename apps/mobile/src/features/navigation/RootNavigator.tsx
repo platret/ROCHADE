@@ -3,6 +3,7 @@ import { useIdentity } from '@/data/IdentityProvider'
 import { navigationTheme } from '@/theme/fonts'
 import { formSheetOptions } from '@/theme/navigation'
 import { useTheme } from '@/theme/useTheme'
+import { isVerwaltung } from './umzugTab'
 
 export const RootNavigator = () => {
   const { identity, introDone } = useIdentity()
@@ -24,6 +25,10 @@ export const RootNavigator = () => {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="wuensche-bearbeiten" options={formSheetOptions(colors, 'Wünsche bearbeiten')} />
           <Stack.Screen name="wohnung" options={{ ...formSheetOptions(colors, 'Rochade-Wohnung'), sheetAllowedDetents: [0.6, 1] }} />
+          <Stack.Screen
+            name="profil"
+            options={{ ...formSheetOptions(colors, isVerwaltung(identity) ? 'Profil' : 'Mein Haushalt'), sheetAllowedDetents: [0.6, 1] }}
+          />
         </Stack.Protected>
       </Stack>
     </ThemeProvider>
