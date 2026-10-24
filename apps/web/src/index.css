@@ -1,12 +1,55 @@
 @import 'tailwindcss';
 @import './styles/tokens.css';
 
+@theme {
+  --animate-flash: value-flash 2s ease-out;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  @keyframes value-flash {
+    from {
+      background-color: var(--orange-soft);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+}
+
+@utility shadow-mock {
+  box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
 @layer base {
   html {
     color-scheme: light dark;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-paper font-sans text-ink antialiased;
+  }
+
+  [id] {
+    scroll-margin-top: 88px;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--orange-strong);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

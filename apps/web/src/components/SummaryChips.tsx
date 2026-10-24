@@ -1,9 +1,10 @@
 import { assignmentStatuses, type AssignmentStatus } from '@rochade/shared'
+import { conflictWord } from '../lib/labels'
 import { Badge } from './Badge'
 
 const chipText: Record<AssignmentStatus, (count: number) => string> = {
   ok: (count) => `${count} zugeteilt`,
-  conflict: (count) => `${count} ${count === 1 ? 'Konflikt' : 'Konflikte'}`,
+  conflict: (count) => `${count} ${conflictWord(count)}`,
   open: (count) => `${count} offen`,
 }
 

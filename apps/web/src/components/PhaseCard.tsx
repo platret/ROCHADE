@@ -17,14 +17,14 @@ export const PhaseCard = ({ phase, disabled, onShift }: Props) => {
       </div>
       <div>
         <p className="font-mono text-body-sm">{formatPeriod(period)}</p>
-        <p className="text-caption text-ink-muted">{periodLengthDays(period)} Tage</p>
+        <p className="text-label text-ink-muted">{periodLengthDays(period)} Tage</p>
       </div>
       <div className="flex gap-2" role="group" aria-label={`${phase.name} verschieben`}>
-        <Button disabled={disabled} onClick={() => onShift(phase, -weekDays)}>
+        <Button variant="secondary" disabled={disabled} onClick={() => onShift(phase, -weekDays)}>
           <ChevronLeft size={16} />
           −1 Woche
         </Button>
-        <Button disabled={disabled} onClick={() => onShift(phase, weekDays)}>
+        <Button variant="secondary" disabled={disabled} onClick={() => onShift(phase, weekDays)}>
           <ChevronRight size={16} />
           +1 Woche
         </Button>

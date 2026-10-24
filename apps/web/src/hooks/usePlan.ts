@@ -6,9 +6,9 @@ type PlanState = { busy: boolean; toast: string | null; error: string | null }
 export type PlanActions = PlanState & { shift: (phase: Phase, days: number) => void; recalculate: () => void }
 
 const idle: PlanState = { busy: false, toast: null, error: null }
-const toastMs = 4000
+export const toastMs = 4000
 
-const updatedText = (changed: number) =>
+export const updatedText = (changed: number) =>
   `Plan aktualisiert · ${changed} ${changed === 1 ? 'Zuteilung' : 'Zuteilungen'} geändert`
 
 export const usePlan = (client: RochadeClient, projectId: UUID): PlanActions => {
