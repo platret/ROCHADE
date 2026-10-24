@@ -1,7 +1,7 @@
 -- ROCHADE demo data. Run schema.sql first, then this file.
 
-insert into public.projects (id, name, city) values
-  ('a0000000-0000-4000-8000-000000000001', 'Siedlung Sonnenhalde', 'Zürich');
+insert into public.projects (id, name, city, admin_code) values
+  ('a0000000-0000-4000-8000-000000000001', 'Siedlung Sonnenhalde', 'Zürich', 'V7Q3KD');
 
 insert into public.phases (id, project_id, name, building, start_date, end_date, sort_order) values
   ('b0000000-0000-4000-8000-000000000001', 'a0000000-0000-4000-8000-000000000001', 'Etappe 1', 'Haus A', '2027-03-01', '2027-05-31', 1),
@@ -26,18 +26,18 @@ insert into public.flats (id, project_id, label, building, floor, rooms, step_fr
   ('c0000000-0000-4000-8000-000000000015', 'a0000000-0000-4000-8000-000000000001', 'Whg. E.11', 'Haus E', 1, 2.5, false, true, 'Limmattal'),
   ('c0000000-0000-4000-8000-000000000016', 'a0000000-0000-4000-8000-000000000001', 'Whg. E.21', 'Haus E', 2, 3.5, false, true, 'Limmattal');
 
-insert into public.households (id, project_id, name, members, home_flat_id, needs_rooms, needs_step_free, school_district, note) values
-  ('d0000000-0000-4000-8000-000000000001', 'a0000000-0000-4000-8000-000000000001', 'Familie Keller', 4, 'c0000000-0000-4000-8000-000000000003', 3.5, false, 'Waidberg', 'Zwei Kinder im Schulhaus Waidberg, der Schulweg soll gleich bleiben.'),
-  ('d0000000-0000-4000-8000-000000000002', 'a0000000-0000-4000-8000-000000000001', 'Frau Schmid', 1, 'c0000000-0000-4000-8000-000000000001', 2, false, null, null),
-  ('d0000000-0000-4000-8000-000000000003', 'a0000000-0000-4000-8000-000000000001', 'Familie Bianchi', 3, 'c0000000-0000-4000-8000-000000000004', 3.5, false, 'Waidberg', null),
-  ('d0000000-0000-4000-8000-000000000004', 'a0000000-0000-4000-8000-000000000001', 'Herr Zimmermann', 1, 'c0000000-0000-4000-8000-000000000002', 2, false, null, 'Arbeitet im Homeoffice.'),
-  ('d0000000-0000-4000-8000-000000000005', 'a0000000-0000-4000-8000-000000000001', 'Familie Kaya', 5, 'c0000000-0000-4000-8000-000000000005', 4.5, false, 'Waidberg', 'Drei Kinder, grosse Wohnung nötig.'),
-  ('d0000000-0000-4000-8000-000000000006', 'a0000000-0000-4000-8000-000000000001', 'Frau Meier', 1, 'c0000000-0000-4000-8000-000000000006', 2, true, null, '78 Jahre, geht am Rollator. Keine Treppen möglich.'),
-  ('d0000000-0000-4000-8000-000000000007', 'a0000000-0000-4000-8000-000000000001', 'Herr und Frau Aeschbacher', 2, 'c0000000-0000-4000-8000-000000000007', 2.5, true, null, 'Herr Aeschbacher ist auf den Rollstuhl angewiesen.'),
-  ('d0000000-0000-4000-8000-000000000008', 'a0000000-0000-4000-8000-000000000001', 'Familie Oliveira', 4, 'c0000000-0000-4000-8000-000000000008', 3.5, false, 'Waidberg', null),
-  ('d0000000-0000-4000-8000-000000000009', 'a0000000-0000-4000-8000-000000000001', 'Herr Brunner', 1, 'c0000000-0000-4000-8000-000000000009', 2, true, null, 'Gehbehinderung. Braucht hindernisfreien Zugang und ein Arbeitszimmer.'),
-  ('d0000000-0000-4000-8000-000000000010', 'a0000000-0000-4000-8000-000000000001', 'Frau Gerber', 1, 'c0000000-0000-4000-8000-000000000010', 2, false, null, null),
-  ('d0000000-0000-4000-8000-000000000011', 'a0000000-0000-4000-8000-000000000001', 'Familie Steiner', 3, 'c0000000-0000-4000-8000-000000000011', 3.5, false, 'Waidberg', null);
+insert into public.households (id, project_id, name, members, home_flat_id, needs_rooms, needs_step_free, school_district, note, invite_code) values
+  ('d0000000-0000-4000-8000-000000000001', 'a0000000-0000-4000-8000-000000000001', 'Familie Keller', 4, 'c0000000-0000-4000-8000-000000000003', 3.5, false, 'Waidberg', 'Zwei Kinder im Schulhaus Waidberg, der Schulweg soll gleich bleiben.', '7KW4PD'),
+  ('d0000000-0000-4000-8000-000000000002', 'a0000000-0000-4000-8000-000000000001', 'Frau Schmid', 1, 'c0000000-0000-4000-8000-000000000001', 2, false, null, null, '3HTX9M'),
+  ('d0000000-0000-4000-8000-000000000003', 'a0000000-0000-4000-8000-000000000001', 'Familie Bianchi', 3, 'c0000000-0000-4000-8000-000000000004', 3.5, false, 'Waidberg', null, 'Q8RZ2N'),
+  ('d0000000-0000-4000-8000-000000000004', 'a0000000-0000-4000-8000-000000000001', 'Herr Zimmermann', 1, 'c0000000-0000-4000-8000-000000000002', 2, false, null, 'Arbeitet im Homeoffice.', '5MPC7E'),
+  ('d0000000-0000-4000-8000-000000000005', 'a0000000-0000-4000-8000-000000000001', 'Familie Kaya', 5, 'c0000000-0000-4000-8000-000000000005', 4.5, false, 'Waidberg', 'Drei Kinder, grosse Wohnung nötig.', 'R2V6KX'),
+  ('d0000000-0000-4000-8000-000000000006', 'a0000000-0000-4000-8000-000000000001', 'Frau Meier', 1, 'c0000000-0000-4000-8000-000000000006', 2, true, null, '78 Jahre, geht am Rollator. Keine Treppen möglich.', '9DQ3TW'),
+  ('d0000000-0000-4000-8000-000000000007', 'a0000000-0000-4000-8000-000000000001', 'Herr und Frau Aeschbacher', 2, 'c0000000-0000-4000-8000-000000000007', 2.5, true, null, 'Herr Aeschbacher ist auf den Rollstuhl angewiesen.', 'X6N8HB'),
+  ('d0000000-0000-4000-8000-000000000008', 'a0000000-0000-4000-8000-000000000001', 'Familie Oliveira', 4, 'c0000000-0000-4000-8000-000000000008', 3.5, false, 'Waidberg', null, '4PWY7C'),
+  ('d0000000-0000-4000-8000-000000000009', 'a0000000-0000-4000-8000-000000000001', 'Herr Brunner', 1, 'c0000000-0000-4000-8000-000000000009', 2, true, null, 'Gehbehinderung. Braucht hindernisfreien Zugang und ein Arbeitszimmer.', 'B3H7QK'),
+  ('d0000000-0000-4000-8000-000000000010', 'a0000000-0000-4000-8000-000000000001', 'Frau Gerber', 1, 'c0000000-0000-4000-8000-000000000010', 2, false, null, null, '6ZTR4M'),
+  ('d0000000-0000-4000-8000-000000000011', 'a0000000-0000-4000-8000-000000000001', 'Familie Steiner', 3, 'c0000000-0000-4000-8000-000000000011', 3.5, false, 'Waidberg', null, 'P7XK2D');
 
 insert into public.assignments (id, project_id, household_id, temp_flat_id, move_out, move_back, status, conflict_reason) values
   ('e0000000-0000-4000-8000-000000000001', 'a0000000-0000-4000-8000-000000000001', 'd0000000-0000-4000-8000-000000000003', 'c0000000-0000-4000-8000-000000000013', '2027-03-01', '2027-05-31', 'ok', null),

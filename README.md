@@ -54,6 +54,28 @@ Open the Supabase dashboard, SQL Editor. Paste `supabase/schema.sql`, run it. Th
 
 `seed.sql` is generated from `packages/shared/src/demo/seed-data.ts` with `npm run seed:sql`. It contains Siedlung Sonnenhalde in Zürich: 3 phases, 11 households, 16 flats of which 5 are Rochade-Wohnungen, and the computed plan with exactly one conflict (Herr Brunner, Etappe 3).
 
+### 1b. Zugangscodes (Migration für das gehostete Projekt)
+
+Die App kennt keine Konten. Mietende tippen den **Zugangscode** aus dem Brief der Verwaltung ein, die Verwaltung öffnet die Übersicht mit dem **Verwaltungscode**. Beide Codes liegen in der Datenbank (`households.invite_code`, `projects.admin_code`, je `text unique`).
+
+Bestehendes gehostetes Projekt: `supabase/migrations/20261024_invite_codes.sql` im SQL-Editor ausführen (idempotent, endet mit einer Kontrollabfrage). Ein frisches Projekt braucht nur `schema.sql` und `seed.sql`, die Codes sind dort schon drin.
+
+| Haushalt | Zugangscode |
+| --- | --- |
+| Familie Keller | `7KW4PD` |
+| Frau Schmid | `3HTX9M` |
+| Familie Bianchi | `Q8RZ2N` |
+| Herr Zimmermann | `5MPC7E` |
+| Familie Kaya | `R2V6KX` |
+| Frau Meier | `9DQ3TW` |
+| Herr und Frau Aeschbacher | `X6N8HB` |
+| Familie Oliveira | `4PWY7C` |
+| Herr Brunner | `B3H7QK` |
+| Frau Gerber | `6ZTR4M` |
+| Familie Steiner | `P7XK2D` |
+
+Verwaltungscode für die App: `V7Q3KD`. Das Dashboard unter `/verwaltung` zeigt alle Codes mit Kopierknopf.
+
 ### 2. Environment files
 
 ```
@@ -168,4 +190,4 @@ Pass the printed values to a dev server explicitly instead of editing `.env`, fo
 - TypeScript strict everywhere, no code comments, small files, clear names.
 - All UI text in German with Swiss spelling (ss, never ß). Dates as 01.03.2027. Buttons start with a verb.
 - Residents are "Bewohnende" or "Haushalte"; the app addresses them as "du".
-- No user accounts yet: the app remembers the chosen household on the device.
+- No user accounts: a household is identified by its Zugangscode, the administration by the Verwaltungscode; the app remembers the choice on the device.

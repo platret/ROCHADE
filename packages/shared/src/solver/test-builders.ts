@@ -12,7 +12,7 @@ export const flat = (id: string, building: string, overrides: Partial<Flat> = {}
 export const home = (id: string, building: string) => flat(id, building, { is_temporary: false })
 
 export const household = (id: string, home_flat_id: string | null, overrides: Partial<Household> = {}): Household =>
-  ({ ...common, id, name: id, members: 1, home_flat_id, needs_rooms: 2, needs_step_free: false, school_district: null, note: null, ...overrides })
+  ({ ...common, id, name: id, members: 1, home_flat_id, needs_rooms: 2, needs_step_free: false, school_district: null, note: null, invite_code: null, ...overrides })
 
 export const assignmentOf = ({ assignments }: SolveResult, householdId: string) =>
   assignments.find((assignment) => assignment.household_id === householdId)

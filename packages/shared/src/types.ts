@@ -8,6 +8,7 @@ export type Project = {
   id: UUID
   name: string
   city: string
+  admin_code: string | null
   created_at: string
 }
 
@@ -45,6 +46,7 @@ export type Household = {
   needs_step_free: boolean
   school_district: string | null
   note: string | null
+  invite_code: string | null
   created_at: string
 }
 

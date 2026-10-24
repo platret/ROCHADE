@@ -13,6 +13,7 @@ create table public.projects (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   city text not null,
+  admin_code text unique,
   created_at timestamptz not null default now()
 );
 
@@ -51,6 +52,7 @@ create table public.households (
   needs_step_free boolean not null default false,
   school_district text,
   note text,
+  invite_code text unique,
   created_at timestamptz not null default now()
 );
 
