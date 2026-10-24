@@ -1,6 +1,6 @@
 # ROCHADE · Pitch-Deck: Abdeckung, Rechtslage, Parteien, offene Punkte
 
-Stand: 24. Oktober 2026, Version 3. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Sprechernotizen mit Zeitmarken für 4 Minuten stehen in jeder Folie.
+Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Sprechernotizen mit Zeitmarken für 4 Minuten stehen in jeder Folie.
 
 ## 1. Dramaturgie der 10 Folien
 
@@ -8,14 +8,16 @@ Stand: 24. Oktober 2026, Version 3. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, 
 |---|---|---|---|
 | 1 | Titel | Frau Meier, 78, bekommt den Brief. | 0:00–0:15 |
 | 2 | Wer saniert, kündigt. Allen. | Das Problem ist real: 10'900 Häuser, 30'000 Menschen pro Jahr, Diagramm Zürich/Basel/Genf, 84 % der Zürcher Mietenden sorgen sich. | 0:15–0:40 |
-| 3 | Wer raus muss … | Folgen: 0,11 % Leerstand, +30 % Miete, 1 von 3 verlässt die Gemeinde, Sugus-Häuser als Risiko für Eigentümer. | 0:40–1:00 |
-| 4 | Es geht anders: die Rochade. Heute Handarbeit. | Was eine Rochade ist, warum sie die effektivste Massnahme ist (UZH), warum sie kaum jemand macht (bgnzwo: 49 Mietparteien, 4× Aufwand). | 1:00–1:25 |
+| 3 | Drei Menschen, drei Probleme. Einer davon zahlt. | Personas: Rosa Meier (Bewohnerin, 0,11 %, +30 %, 1 von 3 verlässt die Gemeinde), Sandra Keller (Bewirtschafterin, 49 Mietparteien, Excel, 4× Aufwand), Reto Huber (Vorstand, Sugus-Risiko, Zürcher Nachweis; er zahlt). | 0:40–1:05 |
+| 4 | Es geht anders: die Rochade. Heute Handarbeit. | Was eine Rochade ist, «mit Abstand effektivste Massnahme» und «enorm aufwändig» (UZH). | 1:05–1:25 |
 | 5 | Leerkündigen ist erlaubt, wenn es nicht anders geht. Zürich prüft das jetzt. | Rechtslage: Bund (BGE), Kanton Zürich (Prüfpflicht ab 20 Mietverhältnissen), Genossenschaften (OR 846), vier Kantone. | 1:25–1:55 |
-| 6 | Fünf Parteien, ein Plan. | Wer mitredet (Eigentümer, Bewirtschaftung, Bauleitung, Mietende, Gemeinde) und wie die Rochade vertraglich hält (4 Punkte). | 1:55–2:20 |
-| 7 | ROCHADE plant die Rochade. | Prototyp: Siedlungsansicht für die Verwaltung, zwei Handys für Bewohnende. | 2:20–2:50 |
-| 8 | Vier Regeln. | Underlying Magic: harte Regeln, erklärte Konflikte, Vorschlag per Klick. | 2:50–3:10 |
-| 9 | Die Eigentümerschaft zahlt pro Projekt. | Preis, Break-even, Markt, Wettbewerbstabelle, Markteintritt. | 3:10–3:40 |
+| 6 | Fünf Parteien, ein Plan. | Wer mitredet und wie die Rochade vertraglich hält (4 Punkte). | 1:55–2:20 |
+| 7 | ROCHADE plant die Rochade. Vier Regeln. | Prototyp: Siedlungsansicht, vier Regeln, Konflikt mit Vorschlag, zwei Handys. | 2:20–2:50 |
+| 8 | Wie wir Geld verdienen. | Drei Erlösquellen (Projektlizenz 1 ‰, Nachweis-Dossier, Portfolio-Abo), Rechenbeispiel CHF 216'000 Mietzinsausfall, Kosten, Break-even, Marge. | 2:50–3:15 |
+| 9 | Der Markt: jede Sanierung ab 20 Wohnungen. | Markt Schweiz und Zürich, Einstieg, Wettbewerbstabelle. | 3:15–3:40 |
 | 10 | Aufruf | Stand nach 24 h, drei Bitten, Team. | 3:40–4:00 |
+
+Gestaltung: alle Karten, Chips und Marker sind eckig; nur die Handy-Rahmen bleiben rund, weil sie ein Handy zeigen. Das Siedlungsbild wurde mit eckigen Karten neu gerendert.
 
 ## 2. Was der Leitfaden verlangt und wo es im Deck steht
 
@@ -23,18 +25,18 @@ Stand: 24. Oktober 2026, Version 3. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, 
 |---|---|
 | Titel: Name, Team, Slogan (Kawasaki 1) | 1 |
 | Problem mit Geschichte und Zahlen (Kawasaki 2, Jury «Problem & Zielgruppe») | 2, 3 |
-| Die Menschen: Annahmen geprüft | 4 (UZH-Interviews, bgnzwo), 6 (Parteien) |
-| Lösung mit Prototyp (Kawasaki 3, Jury «Lösung», «Prototyp») | 7, 8 |
-| Underlying Magic / USP (Kawasaki 5) | 8 |
-| Geschäftsmodell: wer zahlt, Preis, Break-even (Kawasaki 4) | 9 |
-| Kundschaft und First Customer | 9 |
+| Die Menschen: Annahmen geprüft | 3 (Personas), 4 (UZH-Interviews), 6 (Parteien) |
+| Lösung mit Prototyp (Kawasaki 3, Jury «Lösung», «Prototyp») | 7 |
+| Underlying Magic / USP (Kawasaki 5) | 7 |
+| Geschäftsmodell: wer zahlt, Preis, Erlösquellen, Break-even (Kawasaki 4) | 8 |
+| Zielgruppe, Personas, First Customer | 3, 8, 9 |
 | Markt und Markteintritt (Kawasaki 6) | 9 |
 | Wettbewerb als Tabelle (Kawasaki 7) | 9 |
 | Rechtliche Machbarkeit, Parteien | 5, 6 |
 | Team, Status nach 24 h, Meilensteine (Kawasaki 8 und 9) | 10 |
 | Call to Action und Vision (Kawasaki 10) | 10 |
 | SDG-11-Bezug (Unterziel 11.1) | 1 |
-| «Wirkung in der Schweiz» | 2, 3, 5 (vier Kantone) |
+| «Wirkung in der Schweiz» | 2, 3, 5 (vier Kantone), 9 |
 | Max. 10 Folien, wenig Fliesstext | 10 Folien; Zahlen 36–58 pt, Titel 30 pt, Lauftext 9–16 pt. Die Notizen tragen die Rede. |
 
 **SDG 11.1 (UNO-Wortlaut):** Bis 2030 den Zugang zu angemessenem, sicherem und bezahlbarem Wohnraum für alle sicherstellen.
@@ -73,7 +75,8 @@ Stand: 24. Oktober 2026, Version 3. Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, 
 ## 6. Noch zu tun vor dem Final-Pitch
 
 - Folie 10: Teammitglieder und Rollen vervollständigen.
-- Folie 9: Preis, Kosten und Break-even sind Annahmen. Im Pitch so sagen.
+- Folie 8: Preise, Kosten, Marge und das Rechenbeispiel (24 Wohnungen × CHF 1'500 × 6 Monate) sind Annahmen. Im Pitch so sagen; das Portfolio-Abo ist Zukunft.
+- Folie 3: Die Personas sind fiktiv (Namen erfunden), die Zahlen dahinter belegt.
 - Folie 1 und 10: Kontaktadresse ergänzen, die Website hat noch den Platzhalter `kontakt@rochade.example`.
 - Deck bis Samstag 16:30 auf dem ZentralHack-Dashboard hochladen, MVP ebenfalls.
 - Mit Alex abstimmen: ein Logo, eine Landingpage, ein Demodatensatz (Deck zeigt Brunnenwiese aus dem Prototyp, App-Screenshots aus dem Repo).
