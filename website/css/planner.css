@@ -213,3 +213,23 @@
 .field-check { height: 38px; align-self: end; font-weight: 600; }
 .inp-form .btn { height: 38px; justify-self: start; }
 .field-hint { grid-column: 1 / -1; font-size: 0.75rem; color: var(--ink-muted); margin: 0; }
+
+/* Conflict solutions: search outside the cooperative */
+.search { display: grid; gap: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.needs { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; font-size: 0.875rem; line-height: 1.45; }
+.search-actions { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.search-links { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8125rem; font-weight: 600; }
+.search-links a { color: var(--ink); text-decoration-color: var(--line-strong); }
+.search-links a:hover { color: var(--orange); }
+.listings { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.listing { display: grid; gap: 6px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.listing-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.listing-head b { display: block; font-weight: 700; font-size: 0.9375rem; }
+.listing-head small { display: block; color: var(--ink-muted); font-size: 0.75rem; margin-top: 2px; }
+.listing-head .data { white-space: nowrap; color: var(--ink-muted); }
+.listing-meta { font-size: 0.8125rem; color: var(--ink); }
+.listing-fit { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8125rem; font-weight: 600; color: var(--success); }
+.listing .btn { justify-self: start; margin-top: 4px; }
+.prompt summary { cursor: pointer; font-size: 0.8125rem; font-weight: 600; color: var(--ink-muted); }
+.prompt pre { white-space: pre-wrap; font: 500 0.75rem/1.5 var(--font-mono); background: var(--surface-sunken); padding: 12px 14px; border-radius: 10px; margin: 8px 0 0; color: var(--ink); }
+.status-panel .label { margin-top: 4px; }

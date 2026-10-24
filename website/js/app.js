@@ -12,6 +12,7 @@ import { renderPhases } from './views/phases.js';
 import { renderStatus } from './views/status.js';
 import { renderInput } from './views/input.js';
 import { addBuilding, removeBuilding, setLift, addHousehold, removeHousehold, addExternal, removeExternal } from './edit.js';
+import { findListings, toExternal, needsFor, searchPrompt } from './listings.js';
 
 const VIEWS = [
   { id: 'erfassen', name: 'Erfassen' },
@@ -60,6 +61,7 @@ let state = {
   changed: new Set(),
   lastChanged: null,
   playing: false,
+  searchOpen: false,
 };
 let timer = null;
 let stage = null;
@@ -152,6 +154,7 @@ function focusKey(el) {
   if (d.view) return `button[data-view="${d.view}"]`;
   if (d.filterBuilding) return `button[data-filter-building="${d.filterBuilding}"]`;
   if (d.action) return `button[data-action="${d.action}"]`;
+  if (d.adopt) return `button[data-action="search"], .listing .btn`;
   if (el.id) return `#${el.id}`;
   return null;
 }
@@ -160,7 +163,7 @@ function render() {
   const key = focusKey(document.activeElement);
   renderOverview();
   els.phases.innerHTML = renderPhases(state.project, state.applied, state.draft, state.plan);
-  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged);
+  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { searchOpen: state.searchOpen });
   renderTabs();
   renderScrubber();
   renderContent();
@@ -232,6 +235,12 @@ document.addEventListener('click', (e) => {
   if (rh) { setProject(removeHousehold(state.project, rh.dataset.removeHousehold)); return; }
   const re = e.target.closest('button[data-remove-external]');
   if (re) { setProject(removeExternal(state.project, re.dataset.removeExternal)); return; }
+  const adopt = e.target.closest('button[data-adopt]');
+  if (adopt) {
+    const listing = findListings(state.project, state.plan).find((l) => l.id === adopt.dataset.adopt);
+    if (listing) setProject(addExternal(state.project, toExternal(listing)));
+    return;
+  }
   const action = e.target.closest('button[data-action]');
   if (!action) return;
   if (action.dataset.action === 'recalc') recalc(state.draft, state.lastChanged);
@@ -240,6 +249,13 @@ document.addEventListener('click', (e) => {
   if (action.dataset.action === 'play') (state.playing ? stopPlaying() : startPlaying());
   if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), PROJECT.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
+  if (action.dataset.action === 'search') setState({ searchOpen: true });
+  if (action.dataset.action === 'copy-prompt') {
+    const text = searchPrompt(state.project, needsFor(state.project, state.plan));
+    const done = () => { action.textContent = 'Kopiert'; setTimeout(() => { action.textContent = 'KI-Suchauftrag kopieren'; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => { action.textContent = 'Bitte unten kopieren'; });
+    else action.textContent = 'Bitte unten kopieren';
+  }
 });
 
 /* Guided example: delay Etappe 1 by two months; every step is recalculated automatically. */

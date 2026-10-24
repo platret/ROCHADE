@@ -64,10 +64,10 @@ export function removeHousehold(project, id) {
   return { ...project, households: project.households.filter((h) => h.id !== id) };
 }
 
-export function addExternal(project, { name = '', rooms = 3.5, stepFree = false, availableFrom = 0, availableTo } = {}) {
+export function addExternal(project, { id: wanted, name = '', rooms = 3.5, stepFree = false, availableFrom = 0, availableTo } = {}) {
   const months = project.timeline.months;
   let n = project.external.length + 1;
-  let id = `E-${n}`;
+  let id = wanted && !project.external.some((e) => e.id === wanted) ? wanted : `E-${n}`;
   while (project.external.some((e) => e.id === id)) { n += 1; id = `E-${n}`; }
   const from = Math.min(Math.max(0, Number(availableFrom) || 0), months - 1);
   const to = availableTo == null || availableTo === '' ? months : Math.min(Math.max(from + 1, Number(availableTo)), months);
