@@ -5,6 +5,7 @@ import { ProjectFreshness } from '@/data/ProjectFreshness'
 import { useProject } from '@/data/ProjectProvider'
 import { EmptyState } from '@/ui/EmptyState'
 import { Screen } from '@/ui/Screen'
+import { EtappeHighlight } from './EtappeHighlight'
 import { PhasesSection } from './PhasesSection'
 import { SiedlungSkeleton } from './SiedlungSkeleton'
 import { UmzugsplanSection } from './UmzugsplanSection'
@@ -33,6 +34,7 @@ export const SiedlungScreen = () => {
               <NoSchedule />
             ) : (
               <>
+                <EtappeHighlight phases={data.phases} today={today} />
                 <PhasesSection data={data} today={today} live={live} />
                 <UmzugsplanSection data={data} ownHouseholdId={ownHouseholdId} today={today} />
               </>
