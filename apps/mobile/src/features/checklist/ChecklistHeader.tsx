@@ -30,7 +30,7 @@ export const ChecklistHeader = ({ done, total, onReset }: ChecklistHeaderProps) 
       >
         <Animated.View
           layout={LinearTransition.duration(250)}
-          style={{ width: `${percent}%`, height: barHeight, backgroundColor: colors.success }}
+          style={{ width: `${percent}%`, height: barHeight, backgroundColor: colors.ink }}
         />
       </View>
     </View>

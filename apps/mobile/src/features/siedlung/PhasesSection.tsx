@@ -5,12 +5,12 @@ import { SectionHeader } from '@/ui/SectionHeader'
 import { PhaseCard } from './PhaseCard'
 import { usePhaseChanges } from './usePhaseChanges'
 
-export type PhasesSectionProps = { data: ProjectData; today: ISODate }
+export type PhasesSectionProps = { data: ProjectData; today: ISODate; live: boolean }
 
-export const PhasesSection = ({ data, today }: PhasesSectionProps) => {
+export const PhasesSection = ({ data, today, live }: PhasesSectionProps) => {
   const phases = sortedPhases(data.phases)
   const counts = householdCountByBuilding(data.households, data.flats)
-  const changes = usePhaseChanges(data.phases)
+  const changes = usePhaseChanges(data.phases, live)
   return (
     <View style={{ gap: spacing.md }}>
       <SectionHeader title="Bauetappen" meta={phaseCountLabel(phases.length)} />

@@ -22,7 +22,7 @@ export const PhaseCard = ({ phase, householdCount, today, change }: PhaseCardPro
   const chip = phaseChips[status]
   const meta = `${phaseDuration(phase)} · ${householdCountLabel(householdCount)}`
   const percent = Math.round(phaseProgress(phase, today) * 100)
-  const changedOn = change ? formatDate(toIsoDate(change.at)) : null
+  const changedOn = change?.changedAt ? formatDate(toIsoDate(change.changedAt)) : null
   const dates = `Beginn ${formatDate(phase.start_date)}, Ende ${formatDate(phase.end_date)}`
   const summary = `${phase.name}, ${phase.building}, ${chip.label}. ${dates}. ${meta}.${changedOn ? ` Geändert am ${changedOn}.` : ''}`
   return (

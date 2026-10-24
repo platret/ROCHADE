@@ -1,4 +1,4 @@
-import { assignmentStatuses, spacing, statusColors, type AssignmentStatus } from '@rochade/shared'
+import { assignmentStatuses, spacing, statusColors, statusLabels, type AssignmentStatus } from '@rochade/shared'
 import { StyleSheet, View } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
 import { statusSymbols } from '@/ui/Badge'
@@ -9,10 +9,10 @@ import type { StatusCounts } from './overview'
 
 export type SummaryCardProps = { counts: StatusCounts }
 
-const summaryLabels: Record<AssignmentStatus, string> = { ok: 'zugeteilt', conflict: 'Konflikte', open: 'offen' }
+const summaryLabels: Record<AssignmentStatus, string> = { ...statusLabels, conflict: 'Konflikte' }
 
 const labelFor = (status: AssignmentStatus, count: number) =>
-  status === 'conflict' && count === 1 ? 'Konflikt' : summaryLabels[status]
+  status === 'conflict' && count === 1 ? statusLabels.conflict : summaryLabels[status]
 
 export const SummaryCard = ({ counts }: SummaryCardProps) => {
   const { colors } = useTheme()
@@ -33,7 +33,7 @@ export const SummaryCard = ({ counts }: SummaryCardProps) => {
               {labelFor(status, counts[status])}
             </Text>
           </View>
-          <Text variant="monoLarge" color={statusColors[status].fg}>
+          <Text variant="h2" style={{ fontVariant: ['tabular-nums'] }}>
             {String(counts[status])}
           </Text>
         </View>

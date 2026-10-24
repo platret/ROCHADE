@@ -22,6 +22,7 @@ export const SiedlungScreen = () => {
   const { identity } = useIdentity()
   const ownHouseholdId = identity?.kind === 'household' ? identity.householdId : null
   const today = todayIso()
+  const live = project.status === 'ready' && !project.stale
   return (
     <Screen refreshing={project.refreshing} onRefresh={project.reload} contentStyle={{ gap: spacing.xl }}>
       <ProjectContent skeleton={<SiedlungSkeleton />} errorTitle="Zeitplan konnte nicht geladen werden">
@@ -32,7 +33,7 @@ export const SiedlungScreen = () => {
               <NoSchedule />
             ) : (
               <>
-                <PhasesSection data={data} today={today} />
+                <PhasesSection data={data} today={today} live={live} />
                 <UmzugsplanSection data={data} ownHouseholdId={ownHouseholdId} today={today} />
               </>
             )}

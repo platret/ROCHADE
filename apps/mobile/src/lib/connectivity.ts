@@ -26,7 +26,7 @@ export const withTimeout = <T>(promise: Promise<T>, ms: number) =>
     )
   })
 
-const isConnectionFailure = (error: unknown) =>
+export const isConnectionFailure = (error: unknown) =>
   error instanceof Error && (error.name === timeoutName || fetchFailure.test(error.message))
 
 export const loadErrorMessage = (error: unknown) => (isConnectionFailure(error) ? connectionErrorMessage : messageOf(error))

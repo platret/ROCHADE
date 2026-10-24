@@ -30,7 +30,7 @@ const HomeLine = ({ row }: { row: OverviewRow }) =>
 const DetailLine = ({ row }: { row: OverviewRow }) => {
   if (row.status === 'conflict') {
     return row.reason ? (
-      <Text variant="bodySm" color="danger">
+      <Text variant="bodySm" color="ink">
         {`\n${row.reason}`}
       </Text>
     ) : null
@@ -42,7 +42,7 @@ const DetailLine = ({ row }: { row: OverviewRow }) => {
       {row.tempFlat ? <FlatLabel label={row.tempFlat.label} /> : tempFlatPending}
       {row.period && (
         <>
-          {' · '}
+          {'\n'}
           <PeriodText period={row.period} />
         </>
       )}

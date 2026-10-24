@@ -5,8 +5,9 @@ import { Card } from '@/ui/Card'
 import { Icon } from '@/ui/Icon'
 import { LeadingCircle } from '@/ui/LeadingCircle'
 import { Text } from '@/ui/Text'
+import { residentReason } from './reason'
 
-export type StatusCardProps = { assignment: Assignment }
+export type StatusCardProps = { assignment: Assignment; householdName: string }
 
 const sentences: Record<AssignmentStatus, string> = {
   ok: 'Deine Rochade-Wohnung ist reserviert, alle Termine sind bestätigt.',
@@ -14,9 +15,10 @@ const sentences: Record<AssignmentStatus, string> = {
   open: 'Deine Zuteilung ist noch in Arbeit.',
 }
 
-export const StatusCard = ({ assignment }: StatusCardProps) => {
+export const StatusCard = ({ assignment, householdName }: StatusCardProps) => {
   const { status, conflict_reason } = assignment
   const { fg, bg } = statusColors[status]
+  const reason = status === 'conflict' && conflict_reason !== null ? residentReason(conflict_reason, householdName) : null
   return (
     <Card style={{ flexDirection: 'row', alignItems: 'flex-start', gap: spacing.md }}>
       <LeadingCircle color={bg}>
@@ -26,7 +28,7 @@ export const StatusCard = ({ assignment }: StatusCardProps) => {
         <Text variant="h2" accessibilityRole="header">
           {statusLabels[status]}
         </Text>
-        {status === 'conflict' && conflict_reason !== null && <Text weight={600}>{conflict_reason}</Text>}
+        {reason !== null && <Text weight={600}>{reason}</Text>}
         <Text color="inkMuted">{sentences[status]}</Text>
       </View>
     </Card>

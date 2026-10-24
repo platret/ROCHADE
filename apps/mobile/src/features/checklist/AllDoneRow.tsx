@@ -19,7 +19,7 @@ export const AllDoneRow = ({ onReset }: AllDoneRowProps) => (
       paddingHorizontal: spacing.lg,
     }}
   >
-    <Icon name="checkmark.circle.fill" size={checkboxSize} color="success" />
+    <Icon name="checkmark.circle.fill" size={checkboxSize} color="ink" />
     <Text weight={600} style={{ flex: 1 }}>
       Alles erledigt
     </Text>

@@ -31,7 +31,7 @@ export const HouseholdPlan = ({ mine, flats }: HouseholdPlanProps) => {
       <Animated.View layout={LinearTransition.duration(250)} style={{ gap: spacing.lg }}>
         {assignment !== null && assignment.status !== 'open' ? (
           <>
-            <StatusCard assignment={assignment} />
+            <StatusCard assignment={assignment} householdName={household.name} />
             <Journey assignment={assignment} tempFlat={tempFlat} homeFlat={homeFlat} changes={myChanges} />
             <Checklist householdId={household.id} assignment={assignment} />
           </>

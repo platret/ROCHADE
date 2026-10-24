@@ -1,7 +1,7 @@
 import { spacing } from '@rochade/shared'
 import { Pressable, View } from 'react-native'
 import Animated, { FadeInDown, FadeOut, LinearTransition } from 'react-native-reanimated'
-import type { AssignmentChange } from '@/data/assignmentChanges'
+import { latestChangedAt, type AssignmentChange } from '@/data/assignmentChanges'
 import { householdCountLabel } from '@/lib/phases'
 import { formatTimestamp } from '@/lib/time'
 import { Card } from '@/ui/Card'
@@ -14,8 +14,8 @@ export type ChangesBannerProps = { changes: AssignmentChange[]; onDismiss: () =>
 const hitArea = 44
 
 export const ChangesBanner = ({ changes, onDismiss }: ChangesBannerProps) => {
-  const newest = changes[0]
-  if (!newest) return null
+  const changedAt = latestChangedAt(changes)
+  if (!changedAt) return null
   return (
     <Animated.View entering={FadeInDown.duration(250)} exiting={FadeOut.duration(200)} layout={LinearTransition.duration(250)}>
       <Card
@@ -29,7 +29,7 @@ export const ChangesBanner = ({ changes, onDismiss }: ChangesBannerProps) => {
           <Text variant="bodySm" color="inkMuted">
             {`${householdCountLabel(affectedHouseholdIds(changes).length)} · `}
             <Text variant="monoSm" color="inkMuted">
-              {formatTimestamp(newest.at)}
+              {formatTimestamp(changedAt)}
             </Text>
           </Text>
         </View>

@@ -54,7 +54,7 @@ const writeRemembered = (householdId: string, remembered: Remembered) => {
 
 export const calendarMemory = (householdId: string, entries: CalendarEntry[]): CalendarMemory => {
   const remembered = readRemembered(householdId)
-  if (!remembered) return 'none'
+  if (!remembered || remembered.ids.length === 0) return 'none'
   return remembered.fingerprint === fingerprintOf(entries) ? 'current' : 'stale'
 }
 
@@ -84,7 +84,10 @@ export const addToCalendar = async (householdId: string, entries: CalendarEntry[
   const calendar = await writableCalendar()
   await removeQuietly(readRemembered(householdId)?.ids ?? [])
   const ids: string[] = []
-  for (const entry of entries) ids.push(await createEventAsync(calendar.id, allDayEvent(entry)))
-  writeRemembered(householdId, { ids, fingerprint: fingerprintOf(entries) })
+  try {
+    for (const entry of entries) ids.push(await createEventAsync(calendar.id, allDayEvent(entry)))
+  } finally {
+    writeRemembered(householdId, { ids, fingerprint: ids.length === entries.length ? fingerprintOf(entries) : '' })
+  }
   return { kind: 'created', count: ids.length }
 }

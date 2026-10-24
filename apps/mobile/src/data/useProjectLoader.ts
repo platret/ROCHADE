@@ -1,7 +1,7 @@
 import { fetchProjectData, fetchProjects, subscribeToProject, type Assignment, type ProjectData, type RochadeClient } from '@rochade/shared'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AppState } from 'react-native'
-import { connectionReport, loadErrorMessage, serverLine, withTimeout } from '@/lib/connectivity'
+import { connectionReport, isConnectionFailure, loadErrorMessage, serverLine, withTimeout } from '@/lib/connectivity'
 import { supabase } from '@/lib/supabase'
 import { diffAssignments, type AssignmentChange } from './assignmentChanges'
 import type { ProjectContextValue, ProjectState } from './projectTypes'
@@ -13,7 +13,7 @@ type Baseline = { projectId: string; assignments: Assignment[]; live: boolean }
 type LoadMode = 'initial' | 'refresh' | 'silent'
 
 const realtimeDebounceMs = 300
-const loadTimeoutMs = 15_000
+const loadTimeoutMs = 10_000
 
 const loadProject = async (client: RochadeClient, knownId: string | null) => {
   const id = knownId ?? (await fetchProjects(client))[0]?.id
@@ -54,6 +54,11 @@ export const useProjectLoader = (): ProjectContextValue => {
     writeSnapshot({ projectId: id, data, updatedAt: now })
   }, [])
 
+  const showError = useCallback((caught: unknown) => {
+    setError(loadErrorMessage(caught))
+    setDiagnostics(serverLine)
+  }, [])
+
   const load = useCallback(async (mode: LoadMode) => {
     const client = supabase
     if (!client) return
@@ -63,20 +68,23 @@ export const useProjectLoader = (): ProjectContextValue => {
     if (mode === 'initial') setError(null)
     if (mode === 'refresh') setRefreshing(true)
     const attempt = () => withTimeout(loadProject(client, knownProjectId.current), loadTimeoutMs)
+    const surfaceAndRetry = (caught: unknown) => {
+      showError(caught)
+      return isConnectionFailure(caught)
+    }
     try {
-      const { id, data } = await (mode === 'refresh' ? attempt() : retryWithBackoff(attempt, isCurrent))
+      const { id, data } = await (mode === 'refresh' ? attempt() : retryWithBackoff(attempt, isCurrent, surfaceAndRetry))
       if (isCurrent()) apply(id, data)
     } catch (caught) {
       if (!isCurrent()) return
-      setError(loadErrorMessage(caught))
-      setDiagnostics(serverLine)
+      showError(caught)
       void connectionReport().then((report) => {
         if (isCurrent()) setDiagnostics(report)
       })
     } finally {
       if (isCurrent()) setRefreshing(false)
     }
-  }, [apply])
+  }, [apply, showError])
 
   useEffect(() => {
     mounted.current = true

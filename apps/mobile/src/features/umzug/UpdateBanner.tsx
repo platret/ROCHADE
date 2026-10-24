@@ -1,7 +1,7 @@
 import { planUpdatedTitle, spacing, typeScale, type Flat } from '@rochade/shared'
 import { Pressable, View } from 'react-native'
 import Animated, { FadeInDown, FadeOut, LinearTransition } from 'react-native-reanimated'
-import type { AssignmentChange } from '@/data/assignmentChanges'
+import { latestChangedAt, type AssignmentChange } from '@/data/assignmentChanges'
 import { formatTimestamp } from '@/lib/time'
 import { Card } from '@/ui/Card'
 import { Icon } from '@/ui/Icon'
@@ -16,8 +16,8 @@ const closeOverflow = (hitArea - typeScale.h3.lineHeight) / 2
 
 export const UpdateBanner = ({ changes, flats, onDismiss }: UpdateBannerProps) => {
   const lines = summariseChanges(changes)
-  const newest = changes[0]
-  if (lines.length === 0 || !newest) return null
+  const changedAt = latestChangedAt(changes)
+  if (lines.length === 0 || !changedAt) return null
   return (
     <Animated.View entering={FadeInDown.duration(250)} exiting={FadeOut.duration(200)} layout={LinearTransition.duration(250)}>
       <Card tone="sunken" accessibilityLiveRegion="polite" style={{ gap: spacing.md }}>
@@ -51,7 +51,7 @@ export const UpdateBanner = ({ changes, flats, onDismiss }: UpdateBannerProps) =
         <Text variant="bodySm" color="inkMuted">
           {'Geändert durch die Verwaltung am '}
           <Text variant="monoSm" color="inkMuted">
-            {formatTimestamp(newest.at)}
+            {formatTimestamp(changedAt)}
           </Text>
         </Text>
       </Card>

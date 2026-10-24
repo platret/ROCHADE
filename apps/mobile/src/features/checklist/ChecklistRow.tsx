@@ -30,7 +30,7 @@ export const ChecklistRow = ({ item, done, overdue, onToggle }: ChecklistRowProp
         backgroundColor: pressed ? colors.surfaceSunken : 'transparent',
       })}
     >
-      <Icon name={done ? 'checkmark.circle.fill' : 'circle'} size={checkboxSize} color={done ? 'success' : 'lineStrong'} />
+      <Icon name={done ? 'checkmark.circle.fill' : 'circle'} size={checkboxSize} color={done ? 'ink' : 'lineStrong'} />
       <View style={{ flex: 1, gap: spacing.xs }}>
         <Text color={done ? 'inkMuted' : 'ink'}>{item.title}</Text>
         <Text variant="bodySm" color={dateColor}>
