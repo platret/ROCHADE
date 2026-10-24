@@ -26,7 +26,11 @@
         "backgroundColor": "#F26A1B",
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "monochromeImage": "./assets/images/icon-tinted.png"
-      }
+      },
+      "permissions": [
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ]
     },
     "web": {
       "output": "single",
@@ -50,13 +54,25 @@
       [
         "expo-calendar",
         {
-          "calendarPermission": "ROCHADE tr\u00e4gt deine Umzugstermine in deinen Kalender ein."
+          "calendarPermission": "ROCHADE trägt deine Umzugstermine in deinen Kalender ein."
         }
-      ]
+      ],
+      "expo-image"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "688ae889-1d3f-42eb-900c-1479d988bdd9"
+      }
+    },
+    "owner": "platret"
   }
 }
