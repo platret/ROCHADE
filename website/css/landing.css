@@ -189,3 +189,36 @@
 .phone-back { position: absolute; left: 0; top: 70px; width: 78%; transform: rotate(-6deg); opacity: 0.9; z-index: 0; }
 .phone:not(.phone-back) { z-index: 1; }
 .phones figcaption { text-align: center; margin-top: 14px; }
+
+/* Rechtslage und Parteien */
+.law-grid { display: grid; gap: var(--space-4); }
+@media (min-width: 900px) { .law-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-6); } }
+.law-card { display: grid; gap: 10px; align-content: start; }
+.law-card .k, .holds .k { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+.holds .k { color: #B5C9CE; }
+.law-card h3 { font-family: "Hanken Grotesk", var(--font-sans); font-size: 1.375rem; font-weight: 600; letter-spacing: -0.012em; line-height: 1.15; }
+.law-card p { font-size: 0.9375rem; line-height: 1.55; }
+.cantons { list-style: none; padding: 0; margin: var(--space-6) 0 0; display: grid; gap: var(--space-3); }
+@media (min-width: 640px) { .cantons { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .cantons { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); } }
+.cantons li { display: grid; grid-template-columns: 12px 1fr; column-gap: 10px; row-gap: 4px; align-items: center; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--card-r); padding: 16px 18px; font-size: 0.875rem; line-height: 1.5; }
+.cantons .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--line-strong); }
+.cantons .dot.is-go { background: var(--success); }
+.cantons .dot.is-warn { background: var(--orange); }
+.cantons b { font-weight: 700; }
+.cantons span { grid-column: 2; color: var(--ink-muted); }
+.parties-wrap { margin-top: var(--space-8); align-items: start; }
+.parties-wrap .h3 { font-family: "Hanken Grotesk", var(--font-sans); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.015em; margin-bottom: var(--space-4); }
+.parties { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.parties li { display: grid; grid-template-columns: minmax(0, 140px) 1fr; gap: 6px 16px; align-items: center; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--slate); border-radius: var(--card-r); font-size: 0.9375rem; line-height: 1.5; }
+.parties li.is-key { border-left-color: var(--orange); }
+.parties b { font-weight: 700; }
+.parties span { color: var(--ink-muted); font-size: 0.875rem; }
+@media (max-width: 520px) { .parties li { grid-template-columns: 1fr; } }
+.holds ol { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: var(--space-4); counter-reset: hold; }
+.holds li { position: relative; padding-left: 44px; counter-increment: hold; display: grid; gap: 4px; }
+.holds li::before { content: counter(hold); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 9px; background: var(--orange); color: #fff; font-weight: 700; font-size: 0.875rem; display: grid; place-items: center; }
+.holds li b { font-size: 1.0625rem; font-weight: 700; }
+.holds li span { color: #D4E1E5; font-size: 0.875rem; line-height: 1.5; }
+.holds .fn { color: #FFB386; }
+.holds .body-sm { margin-top: var(--space-5); color: #B5C9CE; font-size: 0.8125rem; line-height: 1.5; }
