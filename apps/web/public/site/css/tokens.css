@@ -1,0 +1,68 @@
+/* ROCHADE design tokens — source: Design System (tokens.json, v1). Light on :root, dark under [data-theme="dark"]. */
+:root {
+  --paper: #FAF8F5;
+  --surface: #FFFFFF;
+  --surface-sunken: #F1EDE6;
+  --line: #E3DDD4;
+  --line-strong: #8A8178;
+  --ink: #1C2326;
+  --ink-muted: #5B6468;
+  --orange: #F26A1B;
+  --orange-strong: #B8460E;
+  --on-orange: #FFFFFF;
+  --orange-soft: #FDEBDD;
+  --slate: #24414A;
+  --slate-soft: #E2ECEE;
+  --success: #276B43;
+  --success-soft: #E3F1E8;
+  --danger: #B42318;
+  --danger-soft: #FBE6E3;
+
+  --font-sans: Manrope, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-16: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-card: 0 1px 2px rgba(28,35,38,0.06), 0 4px 12px rgba(28,35,38,0.06);
+  --shadow-pop: 0 8px 24px rgba(28,35,38,0.14);
+
+  --space-5: 20px;
+  --r-sm: 10px;
+  --r-md: 20px;
+  --r-lg: 32px;
+
+  --duration-fast: 200ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+  --paper: #14191B;
+  --surface: #1D2427;
+  --surface-sunken: #101416;
+  --line: #2E373B;
+  --line-strong: #6B777B;
+  --ink: #F2EEE8;
+  --ink-muted: #A8B0B3;
+  --orange: #FF7A2E;
+  --orange-strong: #FF8A42;
+  --on-orange: #1A1208;
+  --orange-soft: #3A1E0C;
+  --slate: #8CC0CC;
+  --slate-soft: #1C3138;
+  --success: #5CC28A;
+  --success-soft: #16301F;
+  --danger: #F4806F;
+  --danger-soft: #3A1714;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-pop: 0 8px 24px rgba(0,0,0,0.5);
+}

@@ -17,3 +17,4 @@ apps/web/.landing-verify/
 
 # ROCHADE website: local Supabase access (publishable key), see website/js/env.example.js
 website/js/env.js
+apps/web/public/site/js/env.js

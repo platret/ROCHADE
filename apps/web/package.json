@@ -9,9 +9,10 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --noEmit",
     "tokens": "tsx scripts/tokens-css.ts",
-    "predev": "npm run tokens",
-    "prebuild": "npm run tokens",
-    "pretypecheck": "npm run tokens"
+    "predev": "npm run tokens && npm run site:sync",
+    "prebuild": "npm run tokens && npm run site:sync",
+    "pretypecheck": "npm run tokens",
+    "site:sync": "node scripts/sync-site.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

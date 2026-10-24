@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de-CH" class="no-js">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROCHADE – Anmelden mit dem Verwaltungscode</title>
+<meta name="description" content="Anmeldung für die Verwaltung: Mit dem sechsstelligen Verwaltungscode aus dem Schreiben der Genossenschaft die Rochade-Planung öffnen.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAF8F5">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap"></noscript>
+<link rel="stylesheet" href="css/tokens.css?v=18">
+<link rel="stylesheet" href="css/base.css?v=18">
+<link rel="stylesheet" href="css/components.css?v=18">
+<link rel="stylesheet" href="css/planner.css?v=18">
+</head>
+<body class="page-app page-login">
+
+<header class="site-header" id="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="ROCHADE, zur Startseite"><svg class="mark"><use href="#mark"/></svg><span class="wordmark">ROCHADE</span></a>
+    <nav class="nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Website</a>
+      <a href="index.html#so-funktioniert-es">So funktioniert es</a>
+      <a href="index.html#recht">Rechtslage</a>
+      <a href="index.html#fuer-bewohnende">Für Bewohnende</a>
+      <a href="login.html" aria-current="page">Login</a>
+      <a class="btn btn-primary nav-cta" href="index.html#kontakt">Pilotprojekt besprechen</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm header-cta" href="index.html#kontakt">Pilotprojekt besprechen</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+</header>
+
+<main class="wrap app login">
+
+  <section class="login-intro intro-copy" aria-labelledby="login-heading">
+    <span class="k"><span class="dot" aria-hidden="true"></span>Verwaltung · Anmelden</span>
+    <h1 id="login-heading" class="h1">Anmelden mit dem Verwaltungscode.</h1>
+    <p class="lead">Der Code steht im Schreiben der Genossenschaft. Sechs Zeichen, Gross- oder Kleinschreibung spielt keine Rolle.</p>
+  </section>
+
+  <p id="login-current" class="login-current" hidden></p>
+
+  <form id="login-form" class="card login-card" novalidate aria-labelledby="login-heading">
+    <label class="field login-field" for="code"><span>Verwaltungscode</span>
+      <input id="code" class="code-input" name="code" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-describedby="code-hint code-msg" required>
+    </label>
+    <p id="code-hint" class="field-hint">Sechs Zeichen, Buchstaben und Ziffern.</p>
+    <p id="code-msg" class="login-msg" role="alert" hidden></p>
+    <div class="login-actions">
+      <button type="submit" class="btn btn-primary btn-lg" id="login-submit">Anmelden</button>
+    </div>
+    <div class="login-demo">
+      <span>Demo: Verwaltungscode <code class="data">V7Q3KD</code></span>
+      <button type="button" class="btn btn-sm" data-action="fill-demo">Demo-Code einsetzen</button>
+    </div>
+    <a class="link-arrow" href="app.html">Ohne Anmeldung mit Beispieldaten weiter</a>
+  </form>
+
+  <div id="login-notice" class="card login-card login-notice" role="status" hidden>
+    <span class="k">Konfiguration</span>
+    <p><b>Supabase-Zugang fehlt.</b> Legen Sie <code>js/env.js</code> nach dem Muster <code>js/env.example.js</code> an.</p>
+    <a class="link-arrow" href="app.html">Ohne Anmeldung mit Beispieldaten weiter</a>
+  </div>
+
+  <p class="login-foot body-sm muted">Hinweis Prototyp: Der Code ist eine Zugangskennung ohne Passwort, wie in der App der Bewohnenden.</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="index.html"><svg class="mark"><use href="#mark"/></svg><span class="wordmark">ROCHADE</span></a>
+      <p>Rochade-Planung für Sanierungen. Ein Prototyp aus Zürich, ZentralHack 2026.</p>
+    </div>
+    <nav aria-label="Fusszeile">
+      <a href="index.html">Website</a>
+      <a href="index.html#recht">Rechtslage</a>
+      <a href="index.html#quellen">Quellen</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </nav>
+    <small>Der Prototyp rechnet mit festen Regeln und erfundenen Beispieldaten. Er ist keine Optimierungssoftware und ersetzt keine Beratung. Keine Cookies, kein Tracking. Entwickelt in Zürich.</small>
+  </div>
+  <div class="footer-word" aria-hidden="true">ROCHADE</div>
+</footer>
+
+<script type="module" src="js/login.js?v=18"></script>
+</body>
+</html>

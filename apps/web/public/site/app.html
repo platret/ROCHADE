@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="de-CH" class="no-js">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROCHADE Prototyp – Rochade planen</title>
+<meta name="description" content="Interaktiver Prototyp: Bauetappen verschieben, Rochade-Wohnungen zuteilen, Konflikte erkennen. Fiktive Beispieldaten.">
+<meta name="theme-color" content="#FAF8F5">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap"></noscript>
+<link rel="stylesheet" href="css/tokens.css?v=18">
+<link rel="stylesheet" href="css/base.css?v=18">
+<link rel="stylesheet" href="css/components.css?v=18">
+<link rel="stylesheet" href="css/stage.css?v=18">
+<link rel="stylesheet" href="css/planner.css?v=18">
+</head>
+<body class="page-app">
+
+<header class="site-header" id="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="ROCHADE, zur Startseite"><svg class="mark"><use href="#mark"/></svg><span class="wordmark">ROCHADE</span></a>
+    <nav class="nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Website</a>
+      <a href="index.html#so-funktioniert-es">So funktioniert es</a>
+      <a href="index.html#recht">Rechtslage</a>
+      <a href="index.html#fuer-bewohnende">Für Bewohnende</a>
+      <a class="btn btn-primary nav-cta" href="index.html#kontakt">Pilotprojekt besprechen</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm header-cta" href="index.html#kontakt">Pilotprojekt besprechen</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen"><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+</header>
+
+<main class="wrap app">
+
+  <div id="session-bar" class="session-bar" hidden></div>
+
+  <section class="app-section" aria-labelledby="overview-heading">
+    <div class="intro">
+      <div class="intro-copy">
+        <span class="k"><span class="dot" aria-hidden="true"></span>Prototyp · Beispieldaten · Siedlung Brunnenwiese, fiktiv</span>
+        <h1 id="overview-heading" class="h1">Rochade planen.</h1>
+        <p class="lead">Die Genossenschaft erfasst Liegenschaften, Wohnungen und Haushalte. ROCHADE plant daraus automatisch die Etappen und berechnet, wer wann in welche freie Wohnung zieht und wann zurück. Beispielsiedlung: drei Häuser, 24 Haushalte, elf freie Wohnungen, drei Bauetappen.</p>
+      </div>
+      <div class="card intro-howto">
+        <span class="k">So probieren Sie es aus</span>
+        <ol class="howto">
+          <li><b>Erfassen.</b><span>Unter «Erfassen» Liegenschaften, Wohnungen und Haushalte eingeben, oder die Beispielsiedlung nehmen.</span></li>
+          <li><b>ROCHADE berechnet.</b><span>Der ganze Plan entsteht automatisch: welche Liegenschaft wann saniert wird, wer wann wohin zieht und wann zurück. Keine Tabelle, keine Handarbeit.</span></li>
+          <li><b>Anpassen.</b><span>Etappe verschieben oder Haushalt ergänzen: Der Plan rechnet sofort neu. Bei Konflikten zeigt «Status» zwei Lösungen: Etappe verschieben oder echte Inserate von Flatfox im Umkreis, gefiltert nach dem Bedarf der Haushalte.</span></li>
+        </ol>
+        <button type="button" class="btn btn-primary" data-action="demo"><svg class="icon"><use href="#i-play"/></svg> Beispiel abspielen <span class="muted-on-primary">· Etappe 1 verzögert sich</span></button>
+      </div>
+    </div>
+    <dl id="overview" class="kpis" aria-label="Übersicht"></dl>
+  </section>
+
+  <section class="app-section app-plan" aria-labelledby="phases-heading">
+    <div class="app-plan-left card">
+      <span class="k">Abb. 01 · Bauetappen</span>
+      <h2 id="phases-heading" class="h2">Wann wird welches Haus saniert?</h2>
+      <div id="phases"></div>
+    </div>
+    <div class="app-plan-right card">
+      <span class="k">Abb. 02 · Status</span>
+      <h2 class="h2">Geht der Plan auf?</h2>
+      <div id="status" role="status" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </section>
+
+  <section class="app-section card" aria-labelledby="views-heading">
+    <div class="views-head">
+      <div><span class="k">Abb. 03 · Der Plan</span><h2 id="views-heading" class="h2">Wer wohnt wann wo</h2></div>
+      <div id="view-tabs" class="tabs" role="tablist" aria-label="Ansicht"></div>
+    </div>
+    <div id="scrubber" class="scrub" hidden></div>
+    <div id="view-content" class="view" role="tabpanel"></div>
+    <div id="view-legend"></div>
+  </section>
+
+  <aside class="app-note" aria-label="Hinweis zur Methode">
+    <span class="k">So rechnet der Prototyp</span>
+    <p>Eine deterministische Heuristik mit vier harten Regeln: Zimmerzahl, Hindernisfreiheit, Verfügbarkeit im Zeitfenster, keine Doppelbelegung. Die Etappen entstehen aus den Liegenschaften: je Haus drei Monate plus ein Monat je sechs Wohnungen, ein Monat Puffer dazwischen, in der Reihenfolge der Erfassung. Etappen werden in Startreihenfolge geplant, Haushalte mit den strengsten Anforderungen zuerst. Das ist keine mathematische Optimierung, und es ist ehrlich: Findet die Heuristik keine Wohnung, zeigt sie den Konflikt und seinen Grund, statt eine Regel zu brechen.</p>
+    <p class="body-sm muted">Siedlung, Haushalte und Adressen sind erfunden. Der Code der Regeln ist offen: <code>js/planner.js</code>. Die Seite braucht JavaScript und einen Webserver; per Doppelklick auf die Datei laden die Module nicht.</p>
+  </aside>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="logo" href="index.html"><svg class="mark"><use href="#mark"/></svg><span class="wordmark">ROCHADE</span></a>
+      <p>Rochade-Planung für Sanierungen. Ein Prototyp aus Zürich, ZentralHack 2026.</p>
+    </div>
+    <nav aria-label="Fusszeile">
+      <a href="index.html">Website</a>
+      <a href="index.html#recht">Rechtslage</a>
+      <a href="index.html#quellen">Quellen</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </nav>
+    <small>Der Prototyp rechnet mit festen Regeln und erfundenen Beispieldaten. Er ist keine Optimierungssoftware und ersetzt keine Beratung. Keine Cookies, kein Tracking. Entwickelt in Zürich.</small>
+  </div>
+  <div class="footer-word" aria-hidden="true">ROCHADE</div>
+</footer>
+
+<script type="module" src="js/app.js?v=18"></script>
+</body>
+</html>
