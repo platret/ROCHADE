@@ -92,3 +92,11 @@
 .site-footer p { color: #D4E1E5; max-width: 48ch; font-size: 0.9375rem; }
 .site-footer-compact { padding-block: var(--space-8); }
 .site-footer-compact .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+
+/* Badges: status pills used by the landing mock and the scrolly panel. */
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.01em; padding: 5px 10px; border-radius: 999px; background: var(--surface-sunken); color: var(--ink); white-space: nowrap; }
+.badge-ok { background: var(--success-soft); color: var(--success); }
+.badge-conflict { background: var(--danger-soft); color: var(--danger); }
+
+/* Focus rings on dark surfaces */
+.card-slate :focus-visible, .card-ink :focus-visible, .site-footer :focus-visible, .band-dark :focus-visible, .hero-stage :focus-visible, .cta-block :focus-visible { outline-color: #FFB386; }

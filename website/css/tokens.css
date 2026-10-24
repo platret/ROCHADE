@@ -36,6 +36,11 @@
   --shadow-card: 0 1px 2px rgba(28,35,38,0.06), 0 4px 12px rgba(28,35,38,0.06);
   --shadow-pop: 0 8px 24px rgba(28,35,38,0.14);
 
+  --space-5: 20px;
+  --r-sm: 10px;
+  --r-md: 20px;
+  --r-lg: 32px;
+
   --duration-fast: 200ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }

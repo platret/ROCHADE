@@ -9,7 +9,7 @@
 .st-head b { font-weight: 700; font-size: 14px; }
 .st-head small { color: var(--ink-muted); font-size: 11px; margin-left: auto; white-space: nowrap; }
 .st-card[data-building="EXT"] .st-head small { display: none; }
-.st-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px; background: var(--orange); color: #fff; opacity: 0; transition: opacity 300ms; white-space: nowrap; }
+.st-badge { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px; background: var(--orange-strong); color: #fff; opacity: 0; transition: opacity 300ms; white-space: nowrap; }
 .st-card.is-renovating .st-badge { opacity: 1; }
 .st-card.is-done .st-badge { opacity: 1; background: var(--success); }
 .st-slot { position: absolute; border-radius: 8px; border: 1.5px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; font: 500 10px var(--font-mono); color: var(--ink-muted); transition: border-color 300ms, background-color 300ms, opacity 300ms; }

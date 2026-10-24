@@ -55,7 +55,7 @@ function buildLayout(project, mode) {
 
 const shortName = (h) => h.short || h.name.replace(/^(Frau|Hr\.|Fam\.|Hr\. und Frau)\s+/, '');
 
-export function createStage(root, project, { plan, reducedMotion = false } = {}) {
+export function createStage(root, project, { plan, reducedMotion = false, maxScale = 1 } = {}) {
   let currentPlan = plan;
   let month = 0;
   let mode = null;
@@ -87,7 +87,7 @@ export function createStage(root, project, { plan, reducedMotion = false } = {})
     const w = root.clientWidth || lay.width;
     const next = modeFor(w);
     if (next !== mode) { mount(next); render(month, false); }
-    const s = Math.min(1, w / lay.width);
+    const s = Math.min(maxScale, w / lay.width);
     stage.style.transform = `scale(${s})`;
     scaleBox.style.height = `${Math.round(lay.height * s)}px`;
   }

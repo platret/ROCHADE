@@ -7,118 +7,224 @@
 <meta name="description" content="ROCHADE plant, wer während einer Sanierung wann in welche freie Wohnung zieht und wann zurück. Für Genossenschaften und Verwaltungen, die sanieren, ohne zu kündigen.">
 <meta property="og:title" content="ROCHADE – Sanieren, ohne jemanden rauszuwerfen">
 <meta property="og:description" content="Rochade-Planung für Sanierungen: Wer zieht wann wohin, und wann zurück. Prototyp aus Zürich.">
+<meta name="theme-color" content="#FAF8F5">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/fonts.css?v=9" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="css/fonts.css?v=9"></noscript>
-<link rel="stylesheet" href="css/tokens.css?v=9">
-<link rel="stylesheet" href="css/base.css?v=9">
-<link rel="stylesheet" href="css/components.css?v=9">
-<link rel="stylesheet" href="css/planner.css?v=9">
-<link rel="stylesheet" href="css/stage.css?v=9">
-<link rel="stylesheet" href="css/landing.css?v=9">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap"></noscript>
+<link rel="stylesheet" href="css/tokens.css?v=10">
+<link rel="stylesheet" href="css/base.css?v=10">
+<link rel="stylesheet" href="css/components.css?v=10">
+<link rel="stylesheet" href="css/stage.css?v=10">
+<link rel="stylesheet" href="css/landing.css?v=10">
 </head>
 <body class="page-landing">
 
-<header class="site-header">
+<a class="top-strip" href="#fuer-bewohnende">Sie wohnen in einem Haus, das saniert wird? <b>Was eine Rochade für Sie bedeutet →</b></a>
+
+<header class="site-header" id="site-header">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="ROCHADE, zum Seitenanfang"><svg class="mark"><use href="#mark"/></svg><span class="wordmark">ROCHADE</span></a>
-    <nav class="nav" aria-label="Hauptnavigation">
-      <a href="#so-funktioniert-es">So funktioniert es</a>
+    <nav class="nav" id="site-nav" aria-label="Hauptnavigation">
+      <a href="#so-funktioniert-es">Produkt</a>
       <a href="#problem">Warum</a>
       <a href="#recht">Rechtslage</a>
-      <a href="#fuer-verwaltungen">Für Verwaltungen</a>
       <a href="#fuer-bewohnende">Für Bewohnende</a>
-      <a href="#fuer-wen">Für wen</a>
       <a href="#kontakt">Kontakt</a>
+      <a class="btn btn-primary nav-cta" href="app.html">Prototyp starten</a>
     </nav>
-    <a class="btn btn-primary btn-sm" href="app.html">Prototyp starten</a>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm header-cta" href="app.html">Prototyp starten</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen"><span></span><span></span></button>
+    </div>
   </div>
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
 </header>
 
 <main id="top">
 
   <section class="hero" aria-labelledby="hero-heading">
-    <div class="wrap">
+    <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="pill"><i aria-hidden="true"></i> Prototyp aus Zürich · ZentralHack 2026</span>
-        <h1 id="hero-heading" class="display">Sanieren, ohne jemanden <br class="br-wide">rauszuwerfen.</h1>
-        <p class="lead">Wenn ein Haus saniert wird, müssen die Bewohnerinnen und Bewohner raus. ROCHADE plant, wer wann in welche freie Wohnung zieht und wann zurück. Niemand wird gekündigt.</p>
+        <p class="k hero-k"><span class="dot" aria-hidden="true"></span>Prototyp · ZentralHack 2026 · Zürich</p>
+        <h1 id="hero-heading" class="display hero-title"><span class="w" style="--i:0">Sanieren,</span> <em><span class="w" style="--i:1">ohne</span> <span class="w" style="--i:2">jemanden</span> <span class="w" style="--i:3">rauszuwerfen.</span></em></h1>
+      </div>
+      <div class="hero-aside">
+        <p class="lead">ROCHADE plant, wer während der Sanierung wann in welche freie Wohnung zieht. Und wann zurück. Der Mietvertrag bleibt.</p>
         <div class="btn-group">
           <a class="btn btn-primary btn-lg" href="app.html">Prototyp ausprobieren <svg class="icon"><use href="#i-arrow"/></svg></a>
-          <a class="btn btn-lg" href="#so-funktioniert-es">So funktioniert es</a>
+          <a class="link-arrow" href="#so-funktioniert-es">So funktioniert es</a>
         </div>
-      </div>
-      <div class="hero-stage reveal">
-        <div class="hero-stage-head">
-          <div><p class="h3">So sieht eine Rochade aus</p><p class="body-sm muted">Beispielsiedlung mit drei Häusern und 24 Haushalten. Jeder Chip ist ein Haushalt, der echte Plan läuft ab.</p></div>
-          <div class="hero-controls" id="hero-controls">
-            <button type="button" class="btn btn-sm btn-icon" data-hero="prev" aria-label="Einen Monat zurück"><svg class="icon"><use href="#i-minus"/></svg></button>
-            <button type="button" class="btn btn-sm btn-icon" data-hero="toggle" aria-label="Pause" aria-pressed="true"><svg class="icon"><use href="#i-pause"/></svg></button>
-            <button type="button" class="btn btn-sm btn-icon" data-hero="next" aria-label="Einen Monat weiter"><svg class="icon"><use href="#i-plus"/></svg></button>
-          </div>
-        </div>
-        <div id="hero-visual" role="group" aria-label="Animierter Belegungsplan der Beispielsiedlung über 20 Monate">
-          <noscript><p class="muted">Die Animation braucht JavaScript. Drei Häuser werden nacheinander saniert, die Haushalte ziehen in freie Wohnungen und kommen zurück.</p></noscript>
-        </div>
-        <ul class="legend hero-legend" aria-label="Legende"><li><i class="sw sw-ink"></i>Haushalt zu Hause</li><li><i class="sw sw-temp"></i>Haushalt in einer Rochade-Wohnung</li><li><i class="sw sw-renovation"></i>Wohnung in Sanierung</li><li><i class="sw sw-vacant"></i>Freie Wohnung</li></ul>
+        <ul class="trust" aria-label="Gut zu wissen">
+          <li>Demo ohne Login</li>
+          <li>Rechnet lokal im Browser</li>
+          <li>Jede Zahl mit Quelle</li>
+        </ul>
       </div>
     </div>
+    <div class="wrap">
+      <figure class="hero-stage" id="hero-stage">
+        <figcaption class="hero-stage-head">
+          <div>
+            <span class="k k-light">Abb. 01 · Siedlung Brunnenwiese, fiktiv</span>
+            <p class="h3">Drei Häuser, 24 Haushalte, 11 Rochade-Wohnungen. Der echte Plan läuft.</p>
+          </div>
+          <p class="hero-stat data" id="hero-stat">Monat 1 von 20 · 0 Haushalte in Rochade-Wohnungen · 0 Kündigungen</p>
+        </figcaption>
+        <div id="hero-visual" role="group" aria-label="Animierter Belegungsplan der Beispielsiedlung über 20 Monate">
+          <noscript><p>Die Animation braucht JavaScript. Drei Häuser werden nacheinander saniert, die Haushalte ziehen in freie Wohnungen und kommen zurück.</p></noscript>
+        </div>
+        <div class="scrub" id="hero-controls">
+          <div class="scrub-buttons">
+            <button type="button" class="btn btn-sm btn-icon" data-hero="prev" aria-label="Einen Monat zurück"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="btn btn-sm btn-icon" data-hero="toggle" aria-label="Pause" aria-pressed="true"><svg class="icon"><use href="#i-pause"/></svg></button>
+            <button type="button" class="btn btn-sm btn-icon" data-hero="next" aria-label="Einen Monat weiter"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+          <div class="scrub-track">
+            <div class="phase-bands" id="phase-bands" aria-hidden="true"></div>
+            <input type="range" id="hero-scrub" min="0" max="19" step="1" value="0" aria-label="Monat wählen">
+            <div class="scrub-axis data" id="scrub-axis" aria-hidden="true"></div>
+          </div>
+        </div>
+        <ul class="legend hero-legend" aria-label="Legende"><li><i class="sw sw-ink"></i>Haushalt zu Hause</li><li><i class="sw sw-temp"></i>In einer Rochade-Wohnung</li><li><i class="sw sw-renovation"></i>Wohnung in Sanierung</li><li><i class="sw sw-vacant"></i>Freie Wohnung</li></ul>
+      </figure>
+    </div>
   </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Niemand wird gekündigt</span><i>✦</i><span>Der Mietvertrag bleibt</span><i>✦</i><span>Alle kommen zurück</span><i>✦</i><span>24 Haushalte, 0 Kündigungen</span><i>✦</i><span>Jede Zahl mit Quelle</span><i>✦</i>
+      <span>Niemand wird gekündigt</span><i>✦</i><span>Der Mietvertrag bleibt</span><i>✦</i><span>Alle kommen zurück</span><i>✦</i><span>24 Haushalte, 0 Kündigungen</span><i>✦</i><span>Jede Zahl mit Quelle</span><i>✦</i>
+    </div>
+  </div>
 
   <section class="section" id="so-funktioniert-es" aria-labelledby="how-heading">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow-pill">So funktioniert es</span>
+      <div class="section-head is-left reveal">
+        <span class="k">Abb. 02 · So funktioniert es</span>
         <h2 id="how-heading" class="h1">Drei Schritte. Ein Plan, der jeden Haushalt kennt.</h2>
         <p class="lead">Statt Tabellen, E-Mails und Bauchgefühl: Sie geben ein, was da ist und was die Menschen brauchen. ROCHADE legt den Plan und legt ihn bei jeder Änderung neu.</p>
       </div>
-      <ol class="steps3">
-        <li class="card card-slate step-card is-hover reveal" style="--d:0ms">
-          <span class="no">1</span>
-          <h3>Erfassen</h3>
-          <p class="muted">Häuser und Wohnungen mit Zimmerzahl und Lift. Haushalte mit dem, was sie brauchen: Grösse, Parterre, Schulkreis, Pflege. Freie Wohnungen in der Siedlung und ausserhalb.</p>
-          <div class="mini"><div class="mini-row"><span class="mini-chip">Meier</span><span>1 Person · 2,5 Zi. · hindernisfrei</span></div><div class="mini-row"><span class="mini-chip">Keller</span><span>4 Personen · 4,5 Zi.</span></div><div class="mini-row"><span class="mini-chip is-ghost">frei</span><span>Whg. C-01 · 2,5 Zi. · Parterre</span></div></div>
-        </li>
-        <li class="card card-orange step-card is-hover reveal" style="--d:120ms">
-          <span class="no">2</span>
-          <h3>Planen</h3>
-          <p>ROCHADE sucht für jeden Haushalt eine freie Wohnung, die passt: gross genug, hindernisfrei wenn nötig, im richtigen Zeitfenster frei, nie doppelt belegt. Wer die strengsten Anforderungen hat, kommt zuerst.</p>
-          <div class="mini"><div class="mini-row"><span class="mini-chip">Meier</span><span class="mini-arrow">→</span><span class="mini-chip is-slate">Whg. C-01</span><span class="mini-arrow">→</span><span class="mini-chip">zurück</span></div><div class="mini-row"><span class="mini-chip">Keller</span><span class="mini-arrow">→</span><span class="mini-chip is-slate">Whg. C-32</span><span class="mini-arrow">→</span><span class="mini-chip">zurück</span></div></div>
-        </li>
-        <li class="card card-sunken step-card is-hover reveal" style="--d:240ms">
-          <span class="no">3</span>
-          <h3>Anpassen</h3>
-          <p>Verzögert sich eine Etappe, legen Sie den Plan mit einem Klick neu. ROCHADE zeigt, welche Haushalte betroffen sind, wo es klemmt und warum. Dazu den nächsten Termin, der ohne Konflikt auskommt.</p>
-          <div class="mini"><div class="mini-row"><b>Etappe 1</b><span class="muted">verzögert sich um 2 Monate</span></div><div class="mini-bar"><i style="left:0;width:36%;background:var(--orange)"></i></div><div class="mini-row"><span class="danger">⚠ 11 Konflikte</span><span class="mini-arrow">→</span><span>Vorschlag: Etappe 2 ab November 2027</span></div></div>
-        </li>
-      </ol>
+      <div class="scrolly">
+        <ol class="scrolly-steps">
+          <li class="step" data-step="0">
+            <span class="step-no data">01</span>
+            <h3>Erfassen</h3>
+            <p>Häuser und Wohnungen mit Zimmerzahl und Lift. Haushalte mit dem, was sie brauchen: Grösse, Parterre, Schulkreis, Pflege. Freie Wohnungen in der Siedlung und ausserhalb.</p>
+            <div class="mini"><div class="mini-row"><span class="mini-chip">Meier</span><span>1 Person · 2,5 Zi. · hindernisfrei</span></div><div class="mini-row"><span class="mini-chip">Keller</span><span>4 Personen · 4,5 Zi.</span></div><div class="mini-row"><span class="mini-chip is-ghost">frei</span><span>Whg. C-01 · 2,5 Zi. · Parterre</span></div></div>
+          </li>
+          <li class="step" data-step="1">
+            <span class="step-no data">02</span>
+            <h3>Planen</h3>
+            <p>ROCHADE sucht für jeden Haushalt eine freie Wohnung, die passt: gross genug, hindernisfrei wenn nötig, im richtigen Zeitfenster frei, nie doppelt belegt. Wer die strengsten Anforderungen hat, kommt zuerst.</p>
+            <div class="mini"><div class="mini-row"><span class="mini-chip">Meier</span><span class="mini-arrow">→</span><span class="mini-chip is-slate">Whg. C-01</span><span class="mini-arrow">→</span><span class="mini-chip">zurück</span></div><div class="mini-row"><span class="mini-chip">Keller</span><span class="mini-arrow">→</span><span class="mini-chip is-slate">Whg. C-32</span><span class="mini-arrow">→</span><span class="mini-chip">zurück</span></div></div>
+          </li>
+          <li class="step" data-step="2">
+            <span class="step-no data">03</span>
+            <h3>Anpassen</h3>
+            <p>Verzögert sich eine Etappe, legen Sie den Plan mit einem Klick neu. ROCHADE zeigt, welche Haushalte betroffen sind, wo es klemmt und warum. Dazu den nächsten Termin, der ohne Konflikt auskommt.</p>
+            <div class="mini"><div class="mini-row"><b>Etappe 1</b><span class="muted">verzögert sich um 2 Monate</span></div><div class="mini-bar"><i class="mini-bar-fill"></i></div><div class="mini-row"><span class="danger">⚠ 11 Konflikte</span><span class="mini-arrow">→</span><span>Vorschlag: Etappe 2 ab November 2027</span></div></div>
+          </li>
+        </ol>
+        <div class="scrolly-visual" aria-hidden="true">
+          <div class="sticky-card">
+            <div class="sticky-head"><span class="k" id="scrolly-label">Schritt 1 · Erfassen</span><span class="badge" id="scrolly-badge">24 Haushalte · 11 freie Wohnungen</span></div>
+            <div id="scrolly-visual"></div>
+            <p class="scrolly-note" id="scrolly-note"></p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="problem" aria-labelledby="problem-heading">
+  <section class="section showcase-section" id="fuer-verwaltungen" aria-labelledby="admins-heading">
+    <div class="wrap showcase">
+      <div class="reveal">
+        <span class="k">Abb. 03 · Für Verwaltungen</span>
+        <h2 id="admins-heading" class="h1">Der Plan baut sich neu, wenn sich eine Etappe verschiebt.</h2>
+        <p class="lead">Ein Dashboard für die ganze Sanierung: Bauetappen, Rochade-Wohnungen und jeder Haushalt mit Auszug, Rückkehr und Status.</p>
+        <ul class="checks">
+          <li>Jede Etappe lässt sich mit einem Klick verschieben, der Plan rechnet sofort nach.</li>
+          <li>Konflikte werden erklärt: welche Wohnung fehlt, für wen, ab wann.</li>
+          <li>Zuteilungen, Auszug und Rückkehr in einer Tabelle, sortiert nach Etappe.</li>
+          <li>Nachweis fürs Baugesuch: bewohnt oder etappiert geprüft.</li>
+        </ul>
+        <div class="btn-group" style="margin-top:28px"><a class="btn btn-primary btn-lg" href="app.html">Dashboard öffnen <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+      </div>
+      <div class="browser reveal" style="--d:150ms">
+        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">rochade.ch/verwaltung</span></div>
+        <div class="browser-body" id="mock-dashboard"></div>
+        <p class="browser-foot">Probieren: Etappe 1 um zwei Monate verschieben. Der Plan rechnet hier lokal neu, geänderte Zeilen leuchten kurz auf.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section showcase-section" id="fuer-bewohnende" aria-labelledby="residents-heading">
+    <div class="wrap showcase showcase-reverse">
+      <div class="reveal">
+        <span class="k">Abb. 04 · Für Bewohnende</span>
+        <h2 id="residents-heading" class="h1">Mein Umzug: ein Datum, eine Wohnung und ein Satz, wenn sich etwas ändert.</h2>
+        <p class="lead">Die App zeigt jedem Haushalt nur, was ihn betrifft: Auszug, Rochade-Wohnung, Rückkehr. Gross geschrieben, verständlich erklärt.</p>
+        <ol class="promises" aria-label="Was Bewohnende zugesichert bekommen">
+          <li><b>Sie bleiben in der Siedlung.</b><span>Die Ausweichwohnung liegt im Quartier, wenn immer möglich im Nachbarhaus. <a class="fn" href="#recht" aria-label="Zur Rechtslage">§</a></span></li>
+          <li><b>Ihr Mietvertrag bleibt.</b><span>Keine Kündigung, keine Anfechtung, keine Erstreckung nötig.</span></li>
+          <li><b>Sie wissen, wann Sie zurückkommen.</b><span>Datum, Wohnung und jede Änderung live auf dem Handy, mit altem Datum zum Vergleich.</span></li>
+          <li><b>Die Vereinbarung ist schriftlich.</b><span>Auszug, Rückkehr, Übergaben und Umzugskosten stehen in der Rochade-Vereinbarung.</span></li>
+        </ol>
+        <p class="body-sm muted" style="margin-top:20px">Läuft in Expo Go auf dem iPhone, iOS 16.4 oder neuer.</p>
+      </div>
+      <figure class="phones reveal" style="--d:150ms">
+        <div class="phone phone-back"><picture><source srcset="assets/app-siedlung-640.webp" type="image/webp"><img src="assets/app-siedlung-640.png" width="640" height="1391" loading="lazy" decoding="async" alt="App-Screenshot Siedlung: Umzugsplan 2027 als Zeitstrahl"></picture></div>
+        <div class="phone"><picture><source srcset="assets/app-mein-umzug-640.webp" type="image/webp"><img src="assets/app-mein-umzug-640.png" width="640" height="1391" loading="lazy" decoding="async" alt="App-Screenshot Mein Umzug: Status Zugeteilt, Auszug, Rochade-Wohnung, Rückkehr"></picture></div>
+        <figcaption class="body-sm muted">Echte Screenshots aus der App.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band band-dark" id="problem" aria-labelledby="problem-heading">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow-pill">Warum das wichtig ist</span>
-        <h2 id="problem-heading" class="h1">Wer saniert, kündigt. Meistens allen.</h2>
-        <p class="lead">Frau Meier, 78, wohnt seit 1994 in Höngg. Dann kommt der Brief: Sanierung, alle müssen raus. In Zürich ist das kein Einzelfall.</p>
+      <div class="band-head reveal">
+        <div>
+          <span class="k k-light">Abb. 05 · Warum das wichtig ist</span>
+          <h2 id="problem-heading" class="h1">Wer saniert, kündigt. Meistens allen.</h2>
+        </div>
+        <p class="lead">Frau Meier, 78, wohnt seit 1994 in Höngg. Dann kommt der Brief: Sanierung, alle müssen raus. In Zürich ist das kein Einzelfall. Wir haben nachgerechnet.</p>
       </div>
-      <div class="tiles cols-4">
-        <div class="card tile is-hover reveal" style="--d:0ms"><span class="num" data-count="10900" data-format="ch">10'900</span><p>Mehrfamilienhäuser wurden 2018 bis 2022 in der Schweiz komplett leergekündigt. Jedes Jahr über 2'000 Häuser mit knapp 30'000 Menschen.</p><span class="src">Zürcher Kantonalbank auf Basis BFS, 2024 <a class="fn" href="#q1" aria-label="Quelle 1">1</a></span></div>
-        <div class="card tile is-hover reveal" style="--d:100ms"><span class="num" data-count="1270" data-format="ch">1'270</span><p>davon in der Stadt Zürich, fast 12 Prozent aller Fälle. Jedes vierte dieser Gebäude gehörte einem gemeinnützigen Wohnbauträger.</p><span class="src">Zürcher Kantonalbank, 2024 <a class="fn" href="#q1" aria-label="Quelle 1">1</a></span></div>
-        <div class="card tile is-hover reveal" style="--d:200ms"><span class="num">0,11<small>%</small></span><p>Leerwohnungsziffer der Stadt Zürich am 1. Juni 2026: nur 252 freie Wohnungen. Wer gekündigt wird, findet im Quartier kaum etwas.</p><span class="src">Statistik Stadt Zürich, 2026 <a class="fn" href="#q2" aria-label="Quelle 2">2</a></span></div>
-        <div class="card tile is-hover reveal" style="--d:300ms"><span class="num">1<small>von 10</small></span><p>Personen, die sich in Zürich für ein Altersheim anmelden, nennen eine Kündigung oder Sanierung als Grund. Schätzung der Fachstelle Zürich im Alter.</p><span class="src">Fachstelle Zürich im Alter, zitiert 2022 <a class="fn" href="#q3" aria-label="Quelle 3">3</a></span></div>
+      <div class="numbers">
+        <div class="number reveal" style="--d:0ms">
+          <span class="num"><span data-count="10900" data-format="ch">10'900</span></span>
+          <p>Mehrfamilienhäuser wurden 2018 bis 2022 in der Schweiz komplett leergekündigt. Jedes Jahr über 2'000 Häuser mit knapp 30'000 Menschen.</p>
+          <div class="strip" role="img" aria-label="Anteil der Stadt Zürich: 1'270 von 10'900 Häusern"><i></i></div>
+          <span class="src">davon <b>1'270</b> in der Stadt Zürich · ZKB auf Basis BFS, 2024 <a class="fn" href="#q1" aria-label="Quelle 1">1</a></span>
+        </div>
+        <div class="number reveal" style="--d:80ms">
+          <span class="num">0,11<small>%</small></span>
+          <p>Leerwohnungsziffer der Stadt Zürich am 1. Juni 2026: 252 freie Wohnungen für eine ganze Stadt. Wer gekündigt wird, findet im Quartier kaum etwas.</p>
+          <span class="src">Statistik Stadt Zürich, 2026 <a class="fn" href="#q2" aria-label="Quelle 2">2</a></span>
+        </div>
+        <div class="number reveal" style="--d:160ms">
+          <span class="num">1<small>von 3</small></span>
+          <p>Nur zwei Drittel der Leergekündigten finden in derselben Gemeinde wieder eine Wohnung. Jede dritte Person muss weg.</p>
+          <div class="houses" role="img" aria-label="Drei Häuser, eines orange: eine von drei Personen verlässt die Gemeinde"><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 2 2 11h3v9h14v-9h3z"/></svg><svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 2 2 11h3v9h14v-9h3z"/></svg><svg class="is-out" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 2 2 11h3v9h14v-9h3z"/></svg></div>
+          <span class="src">ZKB auf Basis BFS, 2024 <a class="fn" href="#q1" aria-label="Quelle 1">1</a></span>
+        </div>
+        <div class="number reveal" style="--d:240ms">
+          <span class="num"><span data-count="84">84</span><small>%</small></span>
+          <p>der Mietenden im Kanton Zürich sorgen sich wegen Leerkündigungen. Bei den über 55-Jährigen sind es 91 Prozent.</p>
+          <span class="src">Sotomo für den Mieterverband, Mai 2026 <a class="fn" href="#q16" aria-label="Quelle 16">16</a></span>
+        </div>
       </div>
-      <p class="bridge reveal">Die Alternative zur Kündigung gibt es: die <b>Rochade</b>. Haushalte ziehen in eine freie Wohnung, bis ihre eigene saniert ist, und dann zurück. Nur: Heute wird sie von Hand geplant.</p>
-      <div class="two-col">
-        <figure class="card card-slate quote-card reveal" style="--d:0ms">
-          <blockquote><p>«Die mit Abstand effektivste Massnahme zur Reduktion der Belastung sind Rochaden.» Eine Rochade braucht aber genügend Ausweichwohnungen und ist organisatorisch aufwändig.</p></blockquote>
-          <figcaption class="muted">Guy Keller, MAS-Abschlussarbeit CUREM, Universität Zürich, August 2025. Zwölf Interviews mit Eigentümern und Genossenschaften. <a class="fn" href="#q4" aria-label="Quelle 4" style="color:#FFB386">4</a></figcaption>
+      <div class="band-grid">
+        <figure class="pull reveal">
+          <blockquote><p>«Die mit Abstand effektivste Massnahme zur Reduktion der Belastung sind Rochaden.»</p></blockquote>
+          <figcaption>Guy Keller, MAS-Abschlussarbeit CUREM, Universität Zürich, 2025. Zwölf Interviews mit Eigentümern und Genossenschaften. Und im selben Atemzug: «organisatorisch aufwändig». <a class="fn" href="#q4" aria-label="Quelle 4">4</a></figcaption>
         </figure>
-        <div class="card case-card reveal" style="--d:120ms">
+        <div class="case reveal" style="--d:120ms">
+          <span class="k k-light">Aus der Praxis</span>
           <h3>49 Mietparteien, vierfacher Aufwand</h3>
-          <p>Die Baugenossenschaft für neuzeitliches Wohnen saniert ihre Siedlung Hönggerberg in Etappen und organisiert dafür eine Rochade für 49 Mietparteien, die danach zurückkehren. Der Vorstand beziffert den Aufwand allein in der Bewirtschaftung auf das Vierfache: pro Haushalt mehrere Übergaben, Abnahmen und Verträge.</p>
-          <p class="src muted">Mitgliederzeitschrift bgnzwo, Sommer 2026 <a class="fn" href="#q5" aria-label="Quelle 5">5</a></p>
+          <p>Die Baugenossenschaft für neuzeitliches Wohnen saniert ihre Siedlung Hönggerberg in Etappen und organisiert dafür eine Rochade für 49 Mietparteien, die danach zurückkehren. Der Vorstand beziffert den Aufwand allein in der Bewirtschaftung auf das Vierfache: pro Haushalt mehrere Übergaben, Abnahmen und Verträge. Geplant mit Tabellen und E-Mails.</p>
+          <span class="src">Mitgliederzeitschrift bgnzwo, Sommer 2026 <a class="fn" href="#q5" aria-label="Quelle 5">5</a></span>
         </div>
       </div>
     </div>
@@ -126,8 +232,8 @@
 
   <section class="section" id="recht" aria-labelledby="recht-heading">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow-pill">Darf man das?</span>
+      <div class="section-head is-left reveal">
+        <span class="k">Abb. 06 · Darf man das?</span>
         <h2 id="recht-heading" class="h1">Leerkündigen ist erlaubt, wenn es nicht anders geht. Zürich prüft das jetzt.</h2>
         <p class="lead">Niemand muss Mietende rauswerfen, um zu sanieren. Aber das Gesetz lässt es zu, solange es bewohnt oder in Etappen nicht geht. Genau diesen Nachweis verlangt der Kanton Zürich neu. ROCHADE rechnet ihn.</p>
       </div>
@@ -167,104 +273,96 @@
     </div>
   </section>
 
-  <section class="section" id="fuer-verwaltungen" aria-labelledby="admins-heading">
-    <div class="wrap showcase">
-      <div class="reveal">
-        <span class="eyebrow-pill">Für Verwaltungen</span>
-        <h2 id="admins-heading" class="h1">Der Plan baut sich neu, wenn sich eine Etappe verschiebt.</h2>
-        <p class="lead">Ein Dashboard für die ganze Sanierung: Bauetappen, Rochade-Wohnungen und jeder Haushalt mit Auszug, Rückkehr und Status.</p>
-        <ul class="checks">
-          <li>Jede Etappe lässt sich mit einem Klick verschieben, der Plan rechnet sofort nach.</li>
-          <li>Konflikte werden erklärt: welche Wohnung fehlt, für wen, ab wann.</li>
-          <li>Zuteilungen, Auszug und Rückkehr in einer Tabelle, sortiert nach Etappe.</li>
-          <li>Verwaltung und Haushalte sehen denselben Stand.</li>
-        </ul>
-        <div class="btn-group" style="margin-top:28px"><a class="btn btn-primary btn-lg" href="app.html">Dashboard öffnen <svg class="icon"><use href="#i-arrow"/></svg></a></div>
-      </div>
-      <div class="browser reveal" style="--d:150ms">
-        <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">rochade.ch/verwaltung</span></div>
-        <div class="browser-body" id="mock-dashboard"></div>
-        <p class="browser-foot">Probieren: Etappe 1 um zwei Monate verschieben. Der Plan rechnet hier lokal neu.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="fuer-bewohnende" aria-labelledby="residents-heading">
-    <div class="wrap showcase showcase-reverse">
-      <div class="reveal">
-        <span class="eyebrow-pill">Für Bewohnende</span>
-        <h2 id="residents-heading" class="h1">Mein Umzug: ein Datum, eine Wohnung und ein Satz, wenn sich etwas ändert.</h2>
-        <p class="lead">Die App zeigt jedem Haushalt nur, was ihn betrifft: Auszug, Rochade-Wohnung, Rückkehr. Gross geschrieben, nichts unter 13 Punkt.</p>
-        <ul class="checks">
-          <li>Live-Update, wenn die Verwaltung einen Termin ändert, mit altem Datum zum Vergleich.</li>
-          <li>Ein Konflikt wird erklärt, nicht rot gemalt: der genaue Grund in einem Satz.</li>
-          <li>Wünsche selbst erfassen: Zimmer, Hindernisfreiheit, Schulkreis, Notiz.</li>
-          <li>Die ganze Siedlung als Zeitstrahl: wer wann wohin zieht.</li>
-        </ul>
-        <p class="body-sm muted" style="margin-top:20px">Läuft in Expo Go auf dem iPhone, iOS 16.4 oder neuer.</p>
-      </div>
-      <figure class="phones reveal" style="--d:150ms">
-        <div class="phone phone-back"><img src="assets/app-siedlung.png" width="816" height="1774" loading="lazy" alt="App-Screenshot Siedlung: Umzugsplan 2027 als Zeitstrahl"></div>
-        <div class="phone"><img src="assets/app-mein-umzug.png" width="816" height="1774" loading="lazy" alt="App-Screenshot Mein Umzug: Status Zugeteilt, Auszug, Rochade-Wohnung, Rückkehr"></div>
-        <figcaption class="body-sm muted">Echte Screenshots aus der App.</figcaption>
-      </figure>
-    </div>
-  </section>
-
   <section class="section" id="warum" aria-labelledby="warum-heading">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow-pill">Warum nicht Excel</span>
+      <div class="section-head is-left reveal">
+        <span class="k">Abb. 07 · Warum nicht Excel</span>
         <h2 id="warum-heading" class="h1">Verwaltungssoftware kennt Mietverträge. Nicht Umzüge.</h2>
         <p class="lead">Garaio REM, Abacus AbaImmo oder Rimo R5 verwalten Verträge und Nebenkosten, emonitor und Flatfox die Bewerbung. Keines dieser Werkzeuge plant, wer während einer Sanierung wo wohnt. <a class="fn" href="#q8" aria-label="Quelle 8">8</a></p>
       </div>
-      <div class="why">
-        <div class="card why-card is-hover reveal" style="--d:0ms"><span class="ic"><svg class="icon"><use href="#i-building"/></svg></span><h3>Über alle Häuser und Etappen</h3><p>Nicht pro Liegenschaft, sondern über das ganze Vorhaben. Eine sanierte Wohnung aus Etappe 1 wird zur Rochade-Wohnung für Etappe 2.</p></div>
-        <div class="card why-card is-hover reveal" style="--d:100ms"><span class="ic"><svg class="icon"><use href="#i-accessibility"/></svg></span><h3>Bedürfnisse als harte Regeln</h3><p>Wer hindernisfrei wohnen muss, bekommt keine Wohnung im dritten Stock ohne Lift. Nie, auch nicht, wenn es gerade praktisch wäre.</p></div>
-        <div class="card why-card is-hover reveal" style="--d:200ms"><span class="ic"><svg class="icon"><use href="#i-alert"/></svg></span><h3>Konflikte mit Namen und Grund</h3><p>«Für Hr. Aydin fehlt ab Juni 2027 eine 2,5-Zimmer-Wohnung» statt «Fehler bei der Zuteilung». Dazu ein Vorschlag, der ihn löst.</p></div>
-        <div class="card why-card is-hover reveal" style="--d:300ms"><span class="ic"><svg class="icon"><use href="#i-check-circle"/></svg></span><h3>Ein Plan, den alle verstehen</h3><p>Für den Vorstand, für die Mietenden, für die Behörde. Jede Zuteilung lässt sich erklären, jede Änderung nachvollziehen.</p></div>
+      <div class="bento">
+        <article class="card bento-wide reveal" style="--d:0ms">
+          <span class="k">Vergleich</span>
+          <h3>Leerkündigung oder Rochade</h3>
+          <table class="compare">
+            <thead><tr><th scope="col"><span class="sr-only">Kriterium</span></th><th scope="col">Leerkündigung</th><th scope="col">Rochade</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Mietende</th><td>müssen gehen, jede dritte Person verlässt die Gemeinde</td><td>bleiben in der Siedlung und kommen zurück</td></tr>
+              <tr><th scope="row">Mietvertrag</th><td>gekündigt, anfechtbar, Erstreckung bis 4 Jahre</td><td>bleibt bestehen</td></tr>
+              <tr><th scope="row">Miete während der Bauzeit</th><td>fällt aus, Wohnungen stehen leer</td><td>läuft weiter</td></tr>
+              <tr><th scope="row">Baubewilligung in Zürich</th><td>Nachweis nötig, dass es nicht anders geht</td><td>Nachweis liegt vor</td></tr>
+              <tr><th scope="row">Reputation</th><td>Schlagzeilen, Schlichtungsbehörde</td><td>Quartier bleibt, Genossenschaft hält Wort</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="card card-slate bento-tall reveal" style="--d:100ms">
+          <span class="k">Werkzeuge</span>
+          <h3>Wer plant die Rochade?</h3>
+          <ul class="matrix">
+            <li><span>Garaio REM</span><small>Verträge, Nebenkosten</small></li>
+            <li><span>Abacus AbaImmo</span><small>Verträge, Buchhaltung</small></li>
+            <li><span>Rimo R5</span><small>Verträge, Bewirtschaftung</small></li>
+            <li><span>emonitor, Flatfox</span><small>Vermietung, Bewerbung</small></li>
+            <li><span>Excel</span><small>Rochade, von Hand</small></li>
+            <li class="is-us"><span>ROCHADE</span><small>Rochade: wer, wohin, wann, zurück</small></li>
+          </ul>
+        </article>
+        <article class="card reveal" style="--d:160ms">
+          <span class="ic"><svg class="icon"><use href="#i-accessibility"/></svg></span>
+          <h3>Bedürfnisse als harte Regeln</h3>
+          <p>Wer hindernisfrei wohnen muss, bekommt keine Wohnung im dritten Stock ohne Lift. Nie, auch nicht, wenn es gerade praktisch wäre.</p>
+        </article>
+        <article class="card card-orange reveal" style="--d:220ms">
+          <span class="ic"><svg class="icon"><use href="#i-alert"/></svg></span>
+          <h3>Konflikte mit Namen und Grund</h3>
+          <p>«Für Hr. Aydin fehlt ab Juni 2027 eine 2,5-Zimmer-Wohnung» statt «Fehler bei der Zuteilung». Dazu ein Vorschlag, der ihn löst.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="section" id="fuer-wen" aria-labelledby="fuer-wen-heading">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow-pill">Für wen</span>
+      <div class="section-head is-left reveal">
+        <span class="k">Abb. 08 · Für wen</span>
         <h2 id="fuer-wen-heading" class="h1">Für alle, die sanieren müssen und niemanden verlieren wollen.</h2>
       </div>
       <div class="audience">
-        <div class="card is-hover reveal" style="--d:0ms"><h3>Wohnbaugenossenschaften</h3><p>58'100 gemeinnützige Wohnungen gibt es in der Stadt Zürich, 27 Prozent aller Mietwohnungen. Bis 2050 soll es ein Drittel sein. <a class="fn" href="#q6" aria-label="Quelle 6">6</a></p></div>
-        <div class="card is-hover reveal" style="--d:100ms"><h3>Städtische Verwaltungen</h3><p>Wer den eigenen Bestand erneuert, muss erklären können, wo die Menschen in der Zwischenzeit wohnen. Ein belegbarer Plan ist die Antwort.</p></div>
-        <div class="card is-hover reveal" style="--d:200ms"><h3>Institutionelle Eigentümer</h3><p>Über eine Million Gebäude mit Wohnnutzung gelten als sanierungsbedürftig, saniert wird rund ein Prozent pro Jahr. Das Tempo muss steigen. <a class="fn" href="#q7" aria-label="Quelle 7">7</a></p></div>
+        <div class="card is-hover reveal" style="--d:0ms"><span class="num-sm">58'100</span><h3>Wohnbaugenossenschaften</h3><p>gemeinnützige Wohnungen gibt es in der Stadt Zürich, 27 Prozent aller Mietwohnungen. Bis 2050 soll es ein Drittel sein. Genossenschaften dürfen nicht kündigen und sanieren ohnehin in Etappen. <a class="fn" href="#q6" aria-label="Quelle 6">6</a></p></div>
+        <div class="card is-hover reveal" style="--d:100ms"><span class="num-sm">20<small>+</small></span><h3>Städtische Verwaltungen</h3><p>Mietverhältnisse: ab dieser Grösse verlangt Zürich den Nachweis, dass bewohnt oder etappiert geprüft wurde. Ein belegbarer Plan ist die Antwort. <a class="fn" href="#q10" aria-label="Quelle 10">10</a></p></div>
+        <div class="card is-hover reveal" style="--d:200ms"><span class="num-sm">1<small>Mio.</small></span><h3>Institutionelle Eigentümer</h3><p>Gebäude mit Wohnnutzung gelten als sanierungsbedürftig, saniert wird rund ein Prozent pro Jahr. Das Tempo muss steigen, ohne Schlagzeilen. <a class="fn" href="#q7" aria-label="Quelle 7">7</a></p></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="kontakt" aria-labelledby="kontakt-heading">
     <div class="wrap">
-      <div class="cta-card reveal">
-        <span class="eyebrow-pill">Pilotprojekt</span>
-        <h2 id="kontakt-heading" class="h1">Steht bei Ihnen eine Etappensanierung an?</h2>
-        <p class="lead">Schicken Sie uns Etappenplan und Wohnungsliste. Wir rechnen die Rochade und zeigen Ihnen den Plan in einem Gespräch von 30 Minuten.</p>
-        <div class="btn-group">
-          <a class="btn btn-primary btn-lg" href="mailto:kontakt@rochade.example?subject=ROCHADE%20Pilotprojekt">Pilotprojekt besprechen</a>
-          <a class="btn btn-lg" href="app.html">Prototyp öffnen</a>
+      <div class="cta-block reveal">
+        <div class="cta-copy">
+          <span class="k">Pilotprojekt 2027</span>
+          <h2 id="kontakt-heading" class="h1">Steht bei Ihnen eine Etappensanierung an?</h2>
+          <p class="lead">Schicken Sie uns Etappenplan und Wohnungsliste. Wir rechnen die Rochade und zeigen Ihnen den Plan in einem Gespräch von 30 Minuten.</p>
+          <div class="btn-group">
+            <a class="btn btn-ink btn-lg" href="mailto:kontakt@rochade.example?subject=ROCHADE%20Pilotprojekt">Pilotprojekt besprechen <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <a class="link-arrow" href="app.html">Prototyp öffnen</a>
+          </div>
+          <ul class="trust" aria-label="Gut zu wissen"><li>Zwei Pilotpartner gesucht</li><li>Keine Kosten im Pilot</li><li>Daten bleiben bei Ihnen</li></ul>
         </div>
-        <p class="note">ROCHADE ist ein Prototyp, entstanden am ZentralHack 2026 in Zürich. Wir suchen zwei Pilotpartner, die 2027 eine Etappensanierung planen.</p>
+        <div class="cta-logo" aria-hidden="true"><img src="assets/rochade-mark-on-orange.svg" alt="" width="320" height="320" loading="lazy"></div>
       </div>
     </div>
   </section>
 
   <section class="section" id="quellen" aria-labelledby="quellen-heading">
     <div class="wrap sources">
+      <h2 id="quellen-heading" class="sr-only">Quellen und Belege</h2>
       <details>
-        <summary id="quellen-heading">Quellen und Belege</summary>
+        <summary>Quellen und Belege <span class="muted">16 Einträge</span></summary>
         <ol>
-          <li id="q1">Zürcher Kantonalbank, Jörn Schellenberg und Ingrid Rappl: «Leerkündigungen – ein Dilemma», Immobilien aktuell 2-24, 26. November 2024, auf Basis anonymisierter Personenregisterdaten des Bundesamts für Statistik. <a href="https://www.zkb.ch/de/blog/immobilien/leerkuendigungen-ein-dilemma.html">zkb.ch</a></li>
+          <li id="q1">Zürcher Kantonalbank, Jörn Schellenberg und Ingrid Rappl: «Leerkündigungen – ein Dilemma», Immobilien aktuell 2-24, 26. November 2024, auf Basis anonymisierter Personenregisterdaten des Bundesamts für Statistik. Zwei Drittel der Betroffenen finden innerhalb der Gemeinde eine neue Wohnung, weitere 12 Prozent in einer Nachbargemeinde. <a href="https://www.zkb.ch/de/blog/immobilien/leerkuendigungen-ein-dilemma.html">zkb.ch</a></li>
           <li id="q2">Stadt Zürich, Statistik Stadt Zürich: «Leichter Anstieg: 252 Leerwohnungen in Zürich», Medienmitteilung, August 2026, Stichtag 1. Juni 2026. <a href="https://www.stadt-zuerich.ch/de/aktuell/medienmitteilungen/2026/08/leichter-anstieg-252-leerwohnungen-in-zuerich.html">stadt-zuerich.ch</a></li>
-          <li id="q3">Mieterinnen- und Mieterverband Zürich: «Die Kosten der Verdrängung», Mieten + Wohnen, 25. Mai 2022, mit der Schätzung von Silvia Rigoni, Fachstelle Zürich im Alter («etwa jede zehnte Person»). Keine amtliche Statistik. <a href="https://www.mieterverband.ch/mv-zh/news/2022-news/die-kosten-der-verdraengung.html">mieterverband.ch</a></li>
-          <li id="q4">Guy Keller: «Gründe und Massnahmen für eine Sanierungen von Liegenschaften im bewohnten Zustand», MAS-Abschlussarbeit, CUREM Universität Zürich, 22. August 2025. Zitat aus dem Fazit; der zweite Satz ist paraphrasiert. <a href="https://www.curem.uzh.ch/dam/jcr:b951d737-75a7-42a5-86d1-21df0b9f0d8d/Keller%20Guy_AbAr_Lg24-25_web.pdf">curem.uzh.ch (PDF)</a></li>
+          <li id="q3">Mieterinnen- und Mieterverband Zürich: «Die Kosten der Verdrängung», Mieten + Wohnen, 25. Mai 2022, mit der Schätzung von Silvia Rigoni, Fachstelle Zürich im Alter («etwa jede zehnte Person»). Keine amtliche Statistik, auf dieser Seite nicht mehr als Zahl verwendet. <a href="https://www.mieterverband.ch/mv-zh/news/2022-news/die-kosten-der-verdraengung.html">mieterverband.ch</a></li>
+          <li id="q4">Guy Keller: «Gründe und Massnahmen für eine Sanierungen von Liegenschaften im bewohnten Zustand», MAS-Abschlussarbeit, CUREM Universität Zürich, 22. August 2025. Zitat aus dem Fazit; «organisatorisch aufwändig» aus Kapitel 2.1. <a href="https://www.curem.uzh.ch/dam/jcr:b951d737-75a7-42a5-86d1-21df0b9f0d8d/Keller%20Guy_AbAr_Lg24-25_web.pdf">curem.uzh.ch (PDF)</a></li>
           <li id="q5">Baugenossenschaft für neuzeitliches Wohnen (bgnzwo), Zürich: «Die grosse Rochade», Mitgliederzeitschrift, Ausgabe Sommer 2026. Aussage eines Vorstandsmitglieds, keine unabhängige Prüfung. <a href="https://bgnzwo.ch/media/docs/info-post/nvo_sommer_2026.pdf">bgnzwo.ch (PDF)</a></li>
           <li id="q6">Stadt Zürich, Stadtrat: «Stadtrat setzt aktive Wohnpolitik mit Nachdruck fort», Medienmitteilung, Dezember 2024, Bericht zum wohnpolitischen Grundsatzartikel 2020–2023. <a href="https://www.stadt-zuerich.ch/de/aktuell/medienmitteilungen/2024/12/stadtrat-setzt-aktive-wohnpolitik-mit-nachdruck-fort.html">stadt-zuerich.ch</a></li>
           <li id="q7">Bundesamt für Energie: Publikation zum Gebäudepark, April 2024; Hochschule Luzern, Beitrag in «Schweizer Wirtschaft», 13. Oktober 2023. Die oft zitierten «1,5 Millionen» stammen aus einem Ratgeber ohne Studienbeleg und werden hier nicht verwendet. <a href="https://pubdb.bfe.admin.ch/de/publication/download/11688">pubdb.bfe.admin.ch</a>, <a href="https://sites.hslu.ch/architektur/wp-content/uploads/sites/11/2023/11/Artikel_SchweizerWirtschaft_20231013.pdf">hslu.ch (PDF)</a></li>
@@ -276,8 +374,9 @@
           <li id="q13">Kanton Schwyz, Postulat P 4/26 «Mietenexplosion stoppen», Antwort des Regierungsrats Juni 2026; Homegate/ZKB-Mietindex Februar 2024 bis Februar 2025 (+10,5 Prozent). Kantonale Regeln zu Leerkündigungen haben wir nicht gefunden.</li>
           <li id="q14">Obergericht des Kantons Zürich, ZMP 2025 Nr. 25 (MJ240044, 15. Mai 2025): Mietzinsminderung und Schadenersatz wegen Umbauarbeiten; ein gleichwertiges Ersatzangebot schliesst die Mängelrechte aus (OR 259c). <a href="https://www.gerichte-zh.ch/fileadmin/user_upload/entscheide/oeffentlich/ZMP_2025_Nr_25.pdf">gerichte-zh.ch (PDF)</a></li>
           <li id="q15">OR 269a lit. b und VMWG Art. 14: Bei umfassenden Überholungen gilt die widerlegbare Vermutung, dass 50 bis 70 Prozent der Kosten wertvermehrend sind (Bundesgericht 4A_416/2007 E. 3.1). Übersicht bei <a href="https://law.ch/lawinfo/energetische-gebaeudesanierung/investitionskosten-ueberwaelzung-bei-umfassenden-ueberholungen/">law.ch</a>.</li>
+          <li id="q16">Sotomo im Auftrag des Mieterinnen- und Mieterverbands Schweiz, Umfrage mit knapp 35'000 Teilnehmenden, davon gut zwei Drittel Verbandsmitglieder; berichtet von Blick am 13. Mai 2026: 84 Prozent der Befragten im Kanton Zürich machen sich wegen Leerkündigungen grosse Sorgen, 91 Prozent der über 55-Jährigen. Verbandsumfrage, keine amtliche Statistik. <a href="https://www.blick.ch/wirtschaft/neue-umfrage-im-kanton-zuerich-zeigt-immer-mehr-leerkuendigungen-84-prozent-der-mieter-haben-angst-vor-einem-rauswurf-id21946663.html">blick.ch</a></li>
         </ol>
-        <p class="body-sm muted" style="margin-top:16px">Nicht verwendet, weil nicht belegbar: «13-mal häufiger als in Genf» und «1,5 Millionen sanierungsbedürftige Gebäude». Die Siedlung im Prototyp ist erfunden.</p>
+        <p class="body-sm muted" style="margin-top:16px">Nicht verwendet, weil nicht belegbar: «13-mal häufiger als in Genf» und «1,5 Millionen sanierungsbedürftige Gebäude». Die Siedlung Brunnenwiese im Prototyp ist erfunden.</p>
       </details>
     </div>
   </section>
@@ -297,10 +396,11 @@
       <a href="#quellen">Quellen</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
-    <small>Der Prototyp rechnet mit festen Regeln und erfundenen Beispieldaten. Er ist keine Optimierungssoftware und ersetzt keine Beratung.</small>
+    <small>Der Prototyp rechnet mit festen Regeln und erfundenen Beispieldaten. Er ist keine Optimierungssoftware und ersetzt keine Beratung. Keine Cookies, kein Tracking. Entwickelt in Zürich.</small>
   </div>
+  <div class="footer-word" aria-hidden="true">ROCHADE</div>
 </footer>
 
-<script type="module" src="js/landing.js?v=9"></script>
+<script type="module" src="js/landing.js?v=10"></script>
 </body>
 </html>
