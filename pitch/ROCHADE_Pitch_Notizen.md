@@ -8,14 +8,14 @@ Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). 
 |---|---|---|---|
 | 1 | Titel | Frau Meier, 78, bekommt den Brief. | 0:00–0:15 |
 | 2 | Wer saniert, kündigt. Allen. | Das Problem ist real: 10'900 Häuser, 30'000 Menschen pro Jahr, Diagramm Zürich/Basel/Genf, 84 % der Zürcher Mietenden sorgen sich. | 0:15–0:40 |
-| 3 | Drei Menschen, drei Probleme. Einer davon zahlt. | Personas: Rosa Meier (Bewohnerin, 0,11 %, +30 %, 1 von 3 verlässt die Gemeinde), Sandra Keller (Bewirtschafterin, 49 Mietparteien, Excel, 4× Aufwand), Reto Huber (Vorstand, Sugus-Risiko, Zürcher Nachweis; er zahlt). | 0:40–1:05 |
+| 3 | Drei Menschen, drei Probleme (ausgeblendet, Reserve) | Personas: Rosa Meier (Bewohnerin, 0,11 %, +30 %, 1 von 3 verlässt die Gemeinde), Sandra Keller (Bewirtschafterin, 49 Mietparteien, Excel, 4× Aufwand), Reto Huber (Vorstand, Sugus-Risiko, Zürcher Nachweis; er zahlt). | 0:40–1:05 |
 | 4 | Es geht anders: die Rochade. Heute Handarbeit. | Was eine Rochade ist, «mit Abstand effektivste Massnahme» und «enorm aufwändig» (UZH). | 1:05–1:25 |
-| 5 | Leerkündigen ist erlaubt, wenn es nicht anders geht. Zürich prüft das jetzt. | Rechtslage: Bund (BGE), Kanton Zürich (Prüfpflicht ab 20 Mietverhältnissen), Genossenschaften (OR 846), vier Kantone. | 1:25–1:55 |
-| 6 | Fünf Parteien, ein Plan. | Wer mitredet und wie die Rochade vertraglich hält (4 Punkte). | 1:55–2:20 |
-| 7 | ROCHADE plant die Rochade. Vier Regeln. | Prototyp: Siedlungsansicht, vier Regeln, Konflikt mit Vorschlag, zwei Handys. | 2:20–2:50 |
-| 8 | Wie wir Geld verdienen. | Drei Erlösquellen (Projektlizenz 1 ‰, Nachweis-Dossier, Portfolio-Abo), Rechenbeispiel CHF 216'000 Mietzinsausfall, Kosten, Break-even, Marge. | 2:50–3:15 |
-| 9 | Der Markt: jede Sanierung ab 20 Wohnungen. | Markt Schweiz und Zürich, Einstieg, Wettbewerbstabelle. | 3:15–3:40 |
-| 10 | Aufruf | Stand nach 24 h, drei Bitten, Team. | 3:40–4:00 |
+| 5 | Dürfen wir das? Ja. Und das sind die Mitspieler. | Was ROCHADE darf (Planungswerkzeug, Rochade legal, Daten im Auftrag) und sechs Mitspieler: Genossenschaft, Bewirtschaftung, Mietende, Bauleitung, Gemeinde, Mieterverband. | 0:52–1:10 |
+| 6 | Rechtslage (ausgeblendet, Reserve) | Bund (BGE), Kanton Zürich (Prüfpflicht ab 20 Mietverhältnissen), Genossenschaften (OR 846), vier Kantone. | Fragerunde |
+| 7 | ROCHADE plant die Rochade. Vier Regeln. | Prototyp: Siedlungsansicht, vier Regeln, Konflikt mit Vorschlag, zwei Handys. | 1:10–1:38 |
+| 8 | Wie wir Geld verdienen. | Drei Erlösquellen (Projektlizenz 1 ‰, Nachweis-Dossier, Portfolio-Abo), Rechenbeispiel CHF 216'000 Mietzinsausfall, Kosten, Break-even, Marge. | 1:38–1:52 |
+| 9 | Der Markt (ausgeblendet, Reserve) | Markt Schweiz und Zürich, Einstieg, Wettbewerbstabelle. | Fragerunde |
+| 10 | Aufruf | Stand nach 24 h, drei Bitten, Team. | 1:52–2:02 |
 
 Gestaltung: alle Karten, Chips und Marker sind eckig; nur die Handy-Rahmen bleiben rund, weil sie ein Handy zeigen. Das Siedlungsbild wurde mit eckigen Karten neu gerendert.
 
@@ -32,7 +32,7 @@ Gestaltung: alle Karten, Chips und Marker sind eckig; nur die Handy-Rahmen bleib
 | Zielgruppe, Personas, First Customer | 3, 8, 9 |
 | Markt und Markteintritt (Kawasaki 6) | 9 |
 | Wettbewerb als Tabelle (Kawasaki 7) | 9 |
-| Rechtliche Machbarkeit, Parteien | 5, 6 |
+| Rechtliche Machbarkeit des Projekts, Parteien | 5 (sichtbar), 6 (Reserve) |
 | Team, Status nach 24 h, Meilensteine (Kawasaki 8 und 9) | 10 |
 | Call to Action und Vision (Kawasaki 10) | 10 |
 | SDG-11-Bezug (Unterziel 11.1) | 1 |
