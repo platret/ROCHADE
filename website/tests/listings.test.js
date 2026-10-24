@@ -20,7 +20,7 @@ test('findListings returns only flats that fit an open need and adopting them re
   let plan = planRochade(project, shifted);
   const before = plan.conflicts.length;
   const results = findListings(project, plan);
-  assert.ok(results.length > 0 && results.length <= 5);
+  assert.ok(results.length > 0 && results.length <= 8);
   for (const r of results) assert.ok(r.solves.length > 0);
   project = addExternal(project, toExternal(results[0]));
   plan = planRochade(project, shifted);

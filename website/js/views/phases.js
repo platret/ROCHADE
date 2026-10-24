@@ -1,5 +1,6 @@
 /* Bauetappen control: three phases on the project axis, nudged month by month. Draft vs. applied. */
 import { esc, icon, month, percent } from './format.js';
+import { scheduleSummary } from '../schedule.js';
 
 export function renderPhases(project, applied, draft, plan) {
   const months = project.timeline.months;
@@ -15,7 +16,7 @@ export function renderPhases(project, applied, draft, plan) {
     const conflicts = plan.conflicts.filter((c) => c.phaseId === p.id).length;
     const shifted = start !== was;
     return `<div class="ph-row${shifted ? ' is-shifted' : ''}" data-phase="${p.id}">
-      <div class="ph-name"><b>${esc(p.name)}</b><small>${esc(building.name)} · ${p.duration} Monate${conflicts ? ` · <span class="danger">${conflicts} Konflikt${conflicts > 1 ? 'e' : ''}</span>` : ''}</small></div>
+      <div class="ph-name"><b>${esc(p.name)}</b><small>${esc(building.name)} · ${p.apartments} Wohnungen · ${p.duration} Monate${conflicts ? ` · <span class="danger">${conflicts} Konflikt${conflicts > 1 ? 'e' : ''}</span>` : ''}</small></div>
       <div class="ph-track">
         ${shifted ? `<i class="ph-bar ph-bar-was" style="left:${percent(was, months)};width:${percent(p.duration, months)}"></i>` : ''}
         <i class="ph-bar" style="left:${percent(start, months)};width:${percent(p.duration, months)}"><span>${esc(month(project, start, 'short'))} – ${esc(month(project, start + p.duration, 'short'))}</span></i>
@@ -33,7 +34,7 @@ export function renderPhases(project, applied, draft, plan) {
     ${rows}
   </div>
   <div class="ph-actions">
-    <p class="ph-hint body-sm muted">${icon('i-swap')} Jede Verschiebung wird sofort neu berechnet.</p>
+    <p class="ph-hint body-sm muted">${icon('i-swap')} ${esc(scheduleSummary(project))} Verschieben Sie einzelne Etappen, wenn der Bauablauf es verlangt; jede Verschiebung wird sofort neu berechnet.</p>
     <button type="button" class="btn btn-ghost" data-action="reset" ${project.phases.every((p) => applied[p.id] === p.start) ? 'hidden' : ''}>Ausgangslage</button>
   </div>`;
 }

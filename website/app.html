@@ -12,11 +12,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap"></noscript>
-<link rel="stylesheet" href="css/tokens.css?v=13">
-<link rel="stylesheet" href="css/base.css?v=13">
-<link rel="stylesheet" href="css/components.css?v=13">
-<link rel="stylesheet" href="css/stage.css?v=13">
-<link rel="stylesheet" href="css/planner.css?v=13">
+<link rel="stylesheet" href="css/tokens.css?v=14">
+<link rel="stylesheet" href="css/base.css?v=14">
+<link rel="stylesheet" href="css/components.css?v=14">
+<link rel="stylesheet" href="css/stage.css?v=14">
+<link rel="stylesheet" href="css/planner.css?v=14">
 </head>
 <body class="page-app">
 
@@ -45,14 +45,14 @@
       <div class="intro-copy">
         <span class="k"><span class="dot" aria-hidden="true"></span>Prototyp · Beispieldaten · Siedlung Brunnenwiese, fiktiv</span>
         <h1 id="overview-heading" class="h1">Rochade planen.</h1>
-        <p class="lead">Die Genossenschaft erfasst Liegenschaften, Wohnungen und Haushalte. ROCHADE berechnet daraus automatisch, wer wann in welche freie Wohnung zieht und wann zurück. Beispielsiedlung: drei Häuser, 24 Haushalte, elf freie Wohnungen, drei Bauetappen.</p>
+        <p class="lead">Die Genossenschaft erfasst Liegenschaften, Wohnungen und Haushalte. ROCHADE plant daraus automatisch die Etappen und berechnet, wer wann in welche freie Wohnung zieht und wann zurück. Beispielsiedlung: drei Häuser, 24 Haushalte, elf freie Wohnungen, drei Bauetappen.</p>
       </div>
       <div class="card intro-howto">
         <span class="k">So probieren Sie es aus</span>
         <ol class="howto">
           <li><b>Erfassen.</b><span>Unter «Erfassen» Liegenschaften, Wohnungen und Haushalte eingeben, oder die Beispielsiedlung nehmen.</span></li>
-          <li><b>ROCHADE berechnet.</b><span>Der ganze Plan entsteht automatisch: wer wann wohin zieht und wann zurück. Keine Tabelle, keine Handarbeit.</span></li>
-          <li><b>Anpassen.</b><span>Etappe verschieben oder Haushalt ergänzen: Der Plan rechnet sofort neu. Bei Konflikten zeigt «Status» zwei Lösungen: Etappe verschieben oder passende Wohnungen ausserhalb suchen.</span></li>
+          <li><b>ROCHADE berechnet.</b><span>Der ganze Plan entsteht automatisch: welche Liegenschaft wann saniert wird, wer wann wohin zieht und wann zurück. Keine Tabelle, keine Handarbeit.</span></li>
+          <li><b>Anpassen.</b><span>Etappe verschieben oder Haushalt ergänzen: Der Plan rechnet sofort neu. Bei Konflikten zeigt «Status» zwei Lösungen: Etappe verschieben oder echte Inserate von Flatfox im Umkreis, gefiltert nach dem Bedarf der Haushalte.</span></li>
         </ol>
         <button type="button" class="btn btn-primary" data-action="demo"><svg class="icon"><use href="#i-play"/></svg> Beispiel abspielen <span class="muted-on-primary">· Etappe 1 verzögert sich</span></button>
       </div>
@@ -85,7 +85,7 @@
 
   <aside class="app-note" aria-label="Hinweis zur Methode">
     <span class="k">So rechnet der Prototyp</span>
-    <p>Eine deterministische Heuristik mit vier harten Regeln: Zimmerzahl, Hindernisfreiheit, Verfügbarkeit im Zeitfenster, keine Doppelbelegung. Etappen werden in Startreihenfolge geplant, Haushalte mit den strengsten Anforderungen zuerst. Das ist keine mathematische Optimierung, und es ist ehrlich: Findet die Heuristik keine Wohnung, zeigt sie den Konflikt und seinen Grund, statt eine Regel zu brechen.</p>
+    <p>Eine deterministische Heuristik mit vier harten Regeln: Zimmerzahl, Hindernisfreiheit, Verfügbarkeit im Zeitfenster, keine Doppelbelegung. Die Etappen entstehen aus den Liegenschaften: je Haus drei Monate plus ein Monat je sechs Wohnungen, ein Monat Puffer dazwischen, in der Reihenfolge der Erfassung. Etappen werden in Startreihenfolge geplant, Haushalte mit den strengsten Anforderungen zuerst. Das ist keine mathematische Optimierung, und es ist ehrlich: Findet die Heuristik keine Wohnung, zeigt sie den Konflikt und seinen Grund, statt eine Regel zu brechen.</p>
     <p class="body-sm muted">Siedlung, Haushalte und Adressen sind erfunden. Der Code der Regeln ist offen: <code>js/planner.js</code>. Die Seite braucht JavaScript und einen Webserver; per Doppelklick auf die Datei laden die Module nicht.</p>
   </aside>
 
@@ -108,6 +108,6 @@
   <div class="footer-word" aria-hidden="true">ROCHADE</div>
 </footer>
 
-<script type="module" src="js/app.js?v=13"></script>
+<script type="module" src="js/app.js?v=14"></script>
 </body>
 </html>

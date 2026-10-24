@@ -9,7 +9,7 @@ export function nextBuildingId(project) {
   return `X${project.buildings.length}`;
 }
 
-export function addBuilding(project, { name = '', street = '', floors = 3, perFloor = 3, rooms = 'mixed', lift = false } = {}) {
+export function addBuilding(project, { name = '', street = '', floors = 3, perFloor = 3, rooms = 'mixed', lift = false, renovate = true } = {}) {
   const id = nextBuildingId(project);
   const f = Math.min(Math.max(1, Number(floors) || 1), 4);
   const per = Math.min(Math.max(1, Number(perFloor) || 1), 3);
@@ -18,20 +18,34 @@ export function addBuilding(project, { name = '', street = '', floors = 3, perFl
   for (let floor = 0; floor < f; floor++) {
     for (let c = 1; c <= per; c++) apartments.push({ id: `${id}-${floor}${c}`, building: id, floor, rooms: sizes[(c - 1) % sizes.length], stepFree: Boolean(lift) || floor === 0 });
   }
-  const building = { id, name: name.trim() || `Haus ${id}`, street: street.trim(), built: null, lift: Boolean(lift) };
+  const building = { id, name: name.trim() || `Haus ${id}`, street: street.trim(), built: null, lift: Boolean(lift), renovate: Boolean(renovate) };
   return { ...project, buildings: [...project.buildings, building], apartments: [...project.apartments, ...apartments] };
 }
 
-/** Buildings with a renovation phase are part of the plan and stay; added buildings can go again. */
+/** A building can go as long as nobody lives in it; its Etappe disappears with it. */
 export function removeBuilding(project, id) {
-  if (project.phases.some((p) => p.building === id)) return project;
   const gone = new Set(project.apartments.filter((a) => a.building === id).map((a) => a.id));
+  if (project.households.some((h) => gone.has(h.apartment))) return project;
   return {
     ...project,
     buildings: project.buildings.filter((b) => b.id !== id),
     apartments: project.apartments.filter((a) => a.building !== id),
-    households: project.households.filter((h) => !gone.has(h.apartment)),
   };
+}
+
+/** Whether the building is renovated (gets an Etappe) or only serves as Ausweichfläche. */
+export function setRenovate(project, id, renovate) {
+  return { ...project, buildings: project.buildings.map((b) => (b.id === id ? { ...b, renovate: Boolean(renovate) } : b)) };
+}
+
+/** Order of the buildings is the order of the Etappen. */
+export function moveBuilding(project, id, delta) {
+  const from = project.buildings.findIndex((b) => b.id === id);
+  const to = Math.min(Math.max(0, from + Number(delta)), project.buildings.length - 1);
+  if (from < 0 || to === from) return project;
+  const buildings = project.buildings.filter((b) => b.id !== id);
+  buildings.splice(to, 0, project.buildings[from]);
+  return { ...project, buildings };
 }
 
 export function setLift(project, id, lift) {
@@ -70,7 +84,7 @@ export function addExternal(project, { id: wanted, name = '', rooms = 3.5, stepF
   let id = wanted && !project.external.some((e) => e.id === wanted) ? wanted : `E-${n}`;
   while (project.external.some((e) => e.id === id)) { n += 1; id = `E-${n}`; }
   const from = Math.min(Math.max(0, Number(availableFrom) || 0), months - 1);
-  const to = availableTo == null || availableTo === '' ? months : Math.min(Math.max(from + 1, Number(availableTo)), months);
+  const to = availableTo == null || availableTo === '' || !Number.isFinite(Number(availableTo)) ? Number.POSITIVE_INFINITY : Math.min(Math.max(from + 1, Number(availableTo)), months);
   const flat = { id, name: name.trim() || `Externe Wohnung ${n}`, rooms: Number(rooms) || 3.5, stepFree: Boolean(stepFree), availableFrom: from, availableTo: to };
   return { ...project, external: [...project.external, flat] };
 }

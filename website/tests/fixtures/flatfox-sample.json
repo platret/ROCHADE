@@ -1,0 +1,704 @@
+{
+ "count": 40,
+ "results": [
+  {
+   "pk": 86321299,
+   "slug": "baslerstrasse-44-8048-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Baslerstrasse 44, 8048 Zürich",
+   "street": "Baslerstrasse 44",
+   "zipcode": 8048,
+   "city": "Zürich",
+   "number_of_rooms": "1.5",
+   "surface_living": 41,
+   "price_display": 1509,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 1509,
+   "rent_net": 1319,
+   "rent_charges": 190,
+   "is_temporary": false,
+   "moving_date": "2026-11-01",
+   "moving_date_type": "dat",
+   "floor": 1,
+   "year_built": 1968,
+   "latitude": 47.3856038,
+   "longitude": 8.500280499999999,
+   "url": "/en/flat/baslerstrasse-44-8048-zurich/86321299/",
+   "short_url": "/86321299/",
+   "public_title": "Baslerstrasse 44, 8048 Zürich - CHF 1’509 incl. utilities per month",
+   "short_title": "1 ½ rooms apartment",
+   "attributes": [
+    {
+     "name": "cable"
+    },
+    {
+     "name": "petsallowed"
+    },
+    {
+     "name": "garage"
+    },
+    {
+     "name": "parkingspace"
+    }
+   ],
+   "cover_image": 50933886,
+   "agency": {
+    "name": "Halter AG",
+    "name_2": null,
+    "street": "Zürcherstrasse 39",
+    "zipcode": "8952",
+    "city": "Schlieren",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2017/01/5p4nivnfm9pp4z8jz6e7ztwheobzcijamdmwjf7p1bhtaivmt0.png",
+     "url_org_logo_m": "/thumb/org/2017/01/5p4nivnfm9pp4z8jz6e7ztwheobzcijamdmwjf7p1bhtaivmt0.png?alias=org_logo_m&signature=cj4D1ZuB54RT2UtOoMasMSfCCnYOb6FDmBZPFnch3p4"
+    }
+   },
+   "published": "2026-10-23T02:11:31.867493+02:00"
+  },
+  {
+   "pk": 86340485,
+   "slug": "langgrutstrasse-100-8047-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Langgrütstrasse 100, 8047 Zürich",
+   "street": "Langgrütstrasse 100",
+   "zipcode": 8047,
+   "city": "Zürich",
+   "number_of_rooms": "2.5",
+   "surface_living": 52,
+   "price_display": 2510,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 2510,
+   "rent_net": 2370,
+   "rent_charges": 140,
+   "is_temporary": false,
+   "moving_date": "2027-01-01",
+   "moving_date_type": "dat",
+   "floor": 3,
+   "year_built": null,
+   "latitude": 47.37364050000001,
+   "longitude": 8.4960149,
+   "url": "/en/flat/langgrutstrasse-100-8047-zurich/86340485/",
+   "short_url": "/86340485/",
+   "public_title": "Langgrütstrasse 100, 8047 Zürich - CHF 2’510 incl. utilities per month",
+   "short_title": "2 ½ rooms apartment",
+   "attributes": [
+    {
+     "name": "view"
+    },
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "lift"
+    }
+   ],
+   "cover_image": 50894036,
+   "agency": {
+    "name": "Kornhaus Verwaltungs AG",
+    "name_2": null,
+    "street": "Okenstrasse 6",
+    "zipcode": "8037",
+    "city": "Zürich",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2021/07/4e2no1d15scd9n6cdlvj5bot7k3ya49i0l4d7c1dapzk43s8sh.png",
+     "url_org_logo_m": "/thumb/org/2021/07/4e2no1d15scd9n6cdlvj5bot7k3ya49i0l4d7c1dapzk43s8sh.png?alias=org_logo_m&signature=FE_o2zq7DuBEt6C42fDGAFf1em5ip8MyMTo8T_fxi7Y"
+    }
+   },
+   "published": "2026-10-21T16:10:27.925659+02:00"
+  },
+  {
+   "pk": 86416426,
+   "slug": "sustenstrasse-20-8048-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Sustenstrasse 20, 8048 Zürich",
+   "street": "Sustenstrasse 20",
+   "zipcode": 8048,
+   "city": "Zürich",
+   "number_of_rooms": "2.0",
+   "surface_living": 42,
+   "price_display": 1830,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 1830,
+   "rent_net": 1700,
+   "rent_charges": 130,
+   "is_temporary": false,
+   "moving_date": "2027-02-01",
+   "moving_date_type": "dat",
+   "floor": 1,
+   "year_built": 2016,
+   "latitude": 47.3880966,
+   "longitude": 8.4783822,
+   "url": "/en/flat/sustenstrasse-20-8048-zurich/86416426/",
+   "short_url": "/86416426/",
+   "public_title": "Sustenstrasse 20, 8048 Zürich - CHF 1’830 incl. utilities per month",
+   "short_title": "2 rooms apartment",
+   "attributes": [
+    {
+     "name": "view"
+    },
+    {
+     "name": "balconygarden"
+    }
+   ],
+   "cover_image": 50933856,
+   "agency": {
+    "name": "Auwiesen Immobilien AG",
+    "name_2": null,
+    "street": "Klosterstrasse 17",
+    "zipcode": "8406",
+    "city": "Winterthur",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2026/08/o3jev3aq36t81knhm4on1gc930ghoe7fdnvfsgx9b6r83l8wdz.jpg",
+     "url_org_logo_m": "/thumb/org/2026/08/o3jev3aq36t81knhm4on1gc930ghoe7fdnvfsgx9b6r83l8wdz.jpg?alias=org_logo_m&signature=aYKbVaVFHAuLMDgkXv_Xja84YN889ltvD3UjflVwmV8"
+    }
+   },
+   "published": "2026-10-23T02:11:23.418369+02:00"
+  },
+  {
+   "pk": 86422946,
+   "slug": "8047-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "8047 Zurich",
+   "street": null,
+   "zipcode": 8047,
+   "city": "Zurich",
+   "number_of_rooms": "2.5",
+   "surface_living": 45,
+   "price_display": 1840,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 1840,
+   "rent_net": null,
+   "rent_charges": null,
+   "is_temporary": false,
+   "moving_date": null,
+   "moving_date_type": "agr",
+   "floor": null,
+   "year_built": null,
+   "latitude": 47.37288000063416,
+   "longitude": 8.490632822132227,
+   "url": "/en/flat/8047-zurich/86422946/",
+   "short_url": "/86422946/",
+   "public_title": "8047 Zurich - CHF 1’840 incl. utilities per month",
+   "short_title": "2 ½ rooms apartment",
+   "attributes": [
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "view"
+    },
+    {
+     "name": "dishwasher"
+    }
+   ],
+   "cover_image": 50454378,
+   "agency": {
+    "name": null,
+    "name_2": null,
+    "street": null,
+    "zipcode": null,
+    "city": null,
+    "country": null,
+    "logo": null
+   },
+   "published": "2026-10-06T07:28:46.264177+02:00"
+  },
+  {
+   "pk": 86456339,
+   "slug": "dorfstrasse-40-8037-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "DUPLEX",
+   "public_address": "Dorfstrasse 40, 8037 Zürich",
+   "street": "Dorfstrasse 40",
+   "zipcode": 8037,
+   "city": "Zürich",
+   "number_of_rooms": "2.5",
+   "surface_living": 70,
+   "price_display": 2720,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": null,
+   "rent_net": 2500,
+   "rent_charges": 220,
+   "is_temporary": false,
+   "moving_date": "2027-02-01",
+   "moving_date_type": "dat",
+   "floor": 3,
+   "year_built": null,
+   "latitude": 47.3945956,
+   "longitude": 8.5222979,
+   "url": "/en/flat/dorfstrasse-40-8037-zurich/86456339/",
+   "short_url": "/86456339/",
+   "public_title": "Dorfstrasse 40, 8037 Zürich - CHF 2’720 incl. utilities per month",
+   "short_title": "2 ½ rooms duplex",
+   "attributes": [
+    {
+     "name": "garage"
+    },
+    {
+     "name": "lift"
+    },
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "dishwasher"
+    },
+    {
+     "name": "washingmachine"
+    },
+    {
+     "name": "tumbler"
+    },
+    {
+     "name": "parquetflooring"
+    }
+   ],
+   "cover_image": 50884371,
+   "agency": {
+    "name": "Sandra Fischer Immobilien AG",
+    "name_2": "",
+    "street": "Bühlstrasse 8",
+    "zipcode": "8112",
+    "city": "Otelfingen",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2022/03/iyb89g2wz2zzlskqts5xc05y4rek8i6qy8air0awja0p0rvswf.png",
+     "url_org_logo_m": "/thumb/org/2022/03/iyb89g2wz2zzlskqts5xc05y4rek8i6qy8air0awja0p0rvswf.png?alias=org_logo_m&signature=p7kY1Llavtiq8kNj7qIOer2MX83T0apkstcKhedHRM0"
+    }
+   },
+   "published": "2026-10-21T11:19:15.560307+02:00"
+  },
+  {
+   "pk": 86460106,
+   "slug": "kornerstrasse-10-8004-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Körnerstrasse 10, 8004 Zürich",
+   "street": "Körnerstrasse 10",
+   "zipcode": 8004,
+   "city": "Zürich",
+   "number_of_rooms": "3.0",
+   "surface_living": 69,
+   "price_display": 1890,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 1890,
+   "rent_net": null,
+   "rent_charges": null,
+   "is_temporary": true,
+   "moving_date": "2026-11-01",
+   "moving_date_type": "dat",
+   "floor": null,
+   "year_built": null,
+   "latitude": 47.37404309999999,
+   "longitude": 8.5218736,
+   "url": "/en/flat/kornerstrasse-10-8004-zurich/86460106/",
+   "short_url": "/86460106/",
+   "public_title": "Körnerstrasse 10, 8004 Zürich - CHF 1’890 incl. utilities per month",
+   "short_title": "3 rooms apartment",
+   "attributes": [],
+   "cover_image": 50948579,
+   "agency": {
+    "name": "NOVAC-SOLUTIONS AG (Wohnung)",
+    "name_2": "",
+    "street": "Kuttelgasse 7",
+    "zipcode": "8001",
+    "city": "Zürich",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2025/07/brydvb565jkpas6stzg5h6mmjhdfisez3gvoi06gn60flodd0k.png",
+     "url_org_logo_m": "/thumb/org/2025/07/brydvb565jkpas6stzg5h6mmjhdfisez3gvoi06gn60flodd0k.png?alias=org_logo_m&signature=zupA5RLk51Rtf0jW2TagsolyvghgCwbAlQNBkf8ZDoY"
+    }
+   },
+   "published": "2026-10-23T13:32:06.714679+02:00"
+  },
+  {
+   "pk": 86467723,
+   "slug": "schontalstrasse-30-8004-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Schöntalstrasse 30, 8004 Zürich",
+   "street": "Schöntalstrasse 30",
+   "zipcode": 8004,
+   "city": "Zürich",
+   "number_of_rooms": "3.0",
+   "surface_living": 70,
+   "price_display": 1415,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": null,
+   "rent_net": 1200,
+   "rent_charges": 215,
+   "is_temporary": true,
+   "moving_date": "2026-12-01",
+   "moving_date_type": "dat",
+   "floor": 3,
+   "year_built": 1911,
+   "latitude": 47.37125959999999,
+   "longitude": 8.5259346,
+   "url": "/en/flat/schontalstrasse-30-8004-zurich/86467723/",
+   "short_url": "/86467723/",
+   "public_title": "Schöntalstrasse 30, 8004 Zürich - CHF 1’415 incl. utilities per month",
+   "short_title": "3 rooms apartment",
+   "attributes": [
+    {
+     "name": "lift"
+    },
+    {
+     "name": "balconygarden"
+    }
+   ],
+   "cover_image": 50861376,
+   "agency": {
+    "name": "Collofunda AG",
+    "name_2": "",
+    "street": "Rämistrasse 7",
+    "zipcode": "8001",
+    "city": "Zürich",
+    "country": "",
+    "logo": {
+     "url": "/media/org/2026/04/xy52ubg0o6qmpwdpkkz70tw0cawdjl9ewnbsz30vwgclg49yz6.jpg",
+     "url_org_logo_m": "/thumb/org/2026/04/xy52ubg0o6qmpwdpkkz70tw0cawdjl9ewnbsz30vwgclg49yz6.jpg?alias=org_logo_m&signature=eh-x8jPjGrw6h5FS9kl4aQFjxJnVCuAVYb_hisoodqI"
+    }
+   },
+   "published": "2026-10-22T10:57:13.807638+02:00"
+  },
+  {
+   "pk": 86468247,
+   "slug": "josefstrasse-143-8005-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Josefstrasse 143, 8005 Zürich",
+   "street": "Josefstrasse 143",
+   "zipcode": 8005,
+   "city": "Zürich",
+   "number_of_rooms": "3.5",
+   "surface_living": 76,
+   "price_display": 3290,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 3290,
+   "rent_net": 2940,
+   "rent_charges": 350,
+   "is_temporary": false,
+   "moving_date": "2026-11-16",
+   "moving_date_type": "dat",
+   "floor": 2,
+   "year_built": 1891,
+   "latitude": 47.3843982,
+   "longitude": 8.527922000000002,
+   "url": "/en/flat/josefstrasse-143-8005-zurich/86468247/",
+   "short_url": "/86468247/",
+   "public_title": "Josefstrasse 143, 8005 Zürich - CHF 3’290 incl. utilities per month",
+   "short_title": "3 ½ rooms apartment",
+   "attributes": [],
+   "cover_image": 50903082,
+   "agency": {
+    "name": "Halter AG",
+    "name_2": null,
+    "street": "Zürcherstrasse 39",
+    "zipcode": "8952",
+    "city": "Schlieren",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2017/01/5p4nivnfm9pp4z8jz6e7ztwheobzcijamdmwjf7p1bhtaivmt0.png",
+     "url_org_logo_m": "/thumb/org/2017/01/5p4nivnfm9pp4z8jz6e7ztwheobzcijamdmwjf7p1bhtaivmt0.png?alias=org_logo_m&signature=cj4D1ZuB54RT2UtOoMasMSfCCnYOb6FDmBZPFnch3p4"
+    }
+   },
+   "published": "2026-10-22T02:07:35.462689+02:00"
+  },
+  {
+   "pk": 86470489,
+   "slug": "turbinenstrasse-60-8005-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Turbinenstrasse 60, 8005 Zurich",
+   "street": "Turbinenstrasse 60",
+   "zipcode": 8005,
+   "city": "Zurich",
+   "number_of_rooms": "2.5",
+   "surface_living": 80,
+   "price_display": 3480,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 3480,
+   "rent_net": null,
+   "rent_charges": 280,
+   "is_temporary": false,
+   "moving_date": "2026-12-01",
+   "moving_date_type": "dat",
+   "floor": 4,
+   "year_built": 2012,
+   "latitude": 47.3871467,
+   "longitude": 8.5129109,
+   "url": "/en/flat/turbinenstrasse-60-8005-zurich/86470489/",
+   "short_url": "/86470489/",
+   "public_title": "Turbinenstrasse 60, 8005 Zurich - CHF 3’480 incl. utilities per month",
+   "short_title": "2 ½ rooms apartment",
+   "attributes": [
+    {
+     "name": "view"
+    },
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "minergie"
+    },
+    {
+     "name": "garage"
+    },
+    {
+     "name": "lift"
+    },
+    {
+     "name": "accessiblewithwheelchair"
+    },
+    {
+     "name": "parquetflooring"
+    },
+    {
+     "name": "dishwasher"
+    },
+    {
+     "name": "washingmachine"
+    },
+    {
+     "name": "broadbandinternet"
+    },
+    {
+     "name": "cable"
+    },
+    {
+     "name": "tumbler"
+    },
+    {
+     "name": "petsallowed"
+    }
+   ],
+   "cover_image": 50884908,
+   "agency": {
+    "name": null,
+    "name_2": null,
+    "street": null,
+    "zipcode": null,
+    "city": null,
+    "country": null,
+    "logo": null
+   },
+   "published": "2026-10-21T10:56:09.917834+02:00"
+  },
+  {
+   "pk": 86470876,
+   "slug": "8003-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "8003 Zürich",
+   "street": null,
+   "zipcode": 8003,
+   "city": "Zürich",
+   "number_of_rooms": "2.0",
+   "surface_living": 57,
+   "price_display": 2600,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 2600,
+   "rent_net": null,
+   "rent_charges": null,
+   "is_temporary": true,
+   "moving_date": "2026-11-01",
+   "moving_date_type": "dat",
+   "floor": null,
+   "year_built": null,
+   "latitude": 47.372250711597715,
+   "longitude": 8.516253490694064,
+   "url": "/en/flat/8003-zurich/86470876/",
+   "short_url": "/86470876/",
+   "public_title": "8003 Zürich - CHF 2’600 incl. utilities per month",
+   "short_title": "2 rooms apartment",
+   "attributes": [
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "parkingspace"
+    },
+    {
+     "name": "garage"
+    },
+    {
+     "name": "lift"
+    },
+    {
+     "name": "parquetflooring"
+    },
+    {
+     "name": "dishwasher"
+    }
+   ],
+   "cover_image": 50887884,
+   "agency": {
+    "name": null,
+    "name_2": null,
+    "street": null,
+    "zipcode": null,
+    "city": null,
+    "country": null,
+    "logo": null
+   },
+   "published": "2026-10-21T12:26:26.129402+02:00"
+  },
+  {
+   "pk": 86473002,
+   "slug": "zurcherstrasse-64-8952-schlieren",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "FURNISHED_FLAT",
+   "public_address": "Zürcherstrasse 64, 8952 Schlieren",
+   "street": "Zürcherstrasse 64",
+   "zipcode": 8952,
+   "city": "Schlieren",
+   "number_of_rooms": "2.0",
+   "surface_living": 38,
+   "price_display": 2450,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 2450,
+   "rent_net": null,
+   "rent_charges": null,
+   "is_temporary": false,
+   "moving_date": null,
+   "moving_date_type": "agr",
+   "floor": 3,
+   "year_built": 2022,
+   "latitude": 47.39813119999999,
+   "longitude": 8.4561309,
+   "url": "/en/flat/zurcherstrasse-64-8952-schlieren/86473002/",
+   "short_url": "/86473002/",
+   "public_title": "Zürcherstrasse 64, 8952 Schlieren - CHF 2’450 incl. utilities per month",
+   "short_title": "2 rooms furnished flat",
+   "attributes": [
+    {
+     "name": "lift"
+    },
+    {
+     "name": "minergie"
+    },
+    {
+     "name": "balconygarden"
+    },
+    {
+     "name": "view"
+    },
+    {
+     "name": "dishwasher"
+    },
+    {
+     "name": "tumbler"
+    },
+    {
+     "name": "washingmachine"
+    },
+    {
+     "name": "parquetflooring"
+    },
+    {
+     "name": "broadbandinternet"
+    }
+   ],
+   "cover_image": 50906035,
+   "agency": {
+    "name": "VARIAS Immobilien AG",
+    "name_2": "",
+    "street": "Zürcherstrasse 137",
+    "zipcode": "8406",
+    "city": "Winterthur",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2026/10/yr9frdvgye5zjdrxxquxtbqnwcphca9wsnswpzl42kv3dipdr9.jpg",
+     "url_org_logo_m": "/thumb/org/2026/10/yr9frdvgye5zjdrxxquxtbqnwcphca9wsnswpzl42kv3dipdr9.jpg?alias=org_logo_m&signature=2sfI4H3qcl06D89rIJ7iCEEP9YkBsMZViEFNEbNEXSs"
+    }
+   },
+   "published": "2026-10-22T08:31:41.472677+02:00"
+  },
+  {
+   "pk": 86473993,
+   "slug": "vulkanstr-110b-8048-zurich",
+   "status": "act",
+   "offer_type": "RENT",
+   "object_category": "APARTMENT",
+   "object_type": "APARTMENT",
+   "public_address": "Vulkanstr. 110b, 8048 Zürich",
+   "street": "Vulkanstr. 110b",
+   "zipcode": 8048,
+   "city": "Zürich",
+   "number_of_rooms": "3.5",
+   "surface_living": 84,
+   "price_display": 3340,
+   "price_display_type": "TOTAL",
+   "price_unit": "monthly",
+   "rent_gross": 3340,
+   "rent_net": 3150,
+   "rent_charges": 190,
+   "is_temporary": false,
+   "moving_date": "2026-12-01",
+   "moving_date_type": "dat",
+   "floor": 21,
+   "year_built": null,
+   "latitude": 47.3936548,
+   "longitude": 8.484676,
+   "url": "/en/flat/vulkanstr-110b-8048-zurich/86473993/",
+   "short_url": "/86473993/",
+   "public_title": "Vulkanstr. 110b, 8048 Zürich - CHF 3’340 incl. utilities per month",
+   "short_title": "3 ½ rooms apartment",
+   "attributes": [],
+   "cover_image": 50914610,
+   "agency": {
+    "name": null,
+    "name_2": "Zürich Central",
+    "street": "Weinbergstrasse 5",
+    "zipcode": "8001",
+    "city": "Zürich",
+    "country": "CH",
+    "logo": {
+     "url": "/media/org/2017/10/6peni9fymo2cc61786gar305ykswouj2ocxop0wmxv0jck0arl.png",
+     "url_org_logo_m": "/thumb/org/2017/10/6peni9fymo2cc61786gar305ykswouj2ocxop0wmxv0jck0arl.png?alias=org_logo_m&signature=0BCWhew-1bZpPau6YIglRjORUrFMhgC2uy01MG4JEAA"
+    }
+   },
+   "published": "2026-10-22T12:11:58.146465+02:00"
+  }
+ ]
+}

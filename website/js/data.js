@@ -3,10 +3,13 @@
    9 apartments deliberately kept vacant before the renovation, 2 external replacement flats.
    Names and addresses are invented. */
 
+import { scheduleProject } from './schedule.js';
+
+/* All three buildings are renovated; the order of this list is the order of the Etappen. */
 const buildings = [
-  { id: 'A', name: 'Haus A', street: 'Brunnenwiesstrasse 4', built: 1962, lift: false },
-  { id: 'B', name: 'Haus B', street: 'Brunnenwiesstrasse 6', built: 1964, lift: false },
-  { id: 'C', name: 'Haus C', street: 'Brunnenwiesstrasse 8', built: 1975, lift: true },
+  { id: 'A', name: 'Haus A', street: 'Brunnenwiesstrasse 4', built: 1962, lift: false, renovate: true },
+  { id: 'B', name: 'Haus B', street: 'Brunnenwiesstrasse 6', built: 1964, lift: false, renovate: true },
+  { id: 'C', name: 'Haus C', street: 'Brunnenwiesstrasse 8', built: 1975, lift: true, renovate: true },
 ];
 
 /* floor 0 = Parterre. Without a lift only the Parterre is step-free. */
@@ -27,10 +30,11 @@ const apartments = buildings.flatMap((b) =>
   }))
 );
 
-/* Replacement flats outside the Siedlung, owned by the cooperative. availableTo is exclusive. */
+/* Replacement flats outside the Siedlung, owned by the cooperative, available for the whole project.
+   availableTo is exclusive; Infinity means open-ended. */
 const external = [
-  { id: 'E-1', name: 'Rotbuchstrasse 12, 2. OG', rooms: 3.5, stepFree: true, availableFrom: 0, availableTo: 20 },
-  { id: 'E-2', name: 'Hönggerstrasse 41, 1. OG', rooms: 4.5, stepFree: false, availableFrom: 0, availableTo: 20 },
+  { id: 'E-1', name: 'Rotbuchstrasse 12, 2. OG', rooms: 3.5, stepFree: true, availableFrom: 0, availableTo: Number.POSITIVE_INFINITY },
+  { id: 'E-2', name: 'Hönggerstrasse 41, 1. OG', rooms: 4.5, stepFree: false, availableFrom: 0, availableTo: Number.POSITIVE_INFINITY },
 ];
 
 /* Households: 8 per building, in 02, 03, 11, 12, 13, 21, 23, 31. 01, 22 and 32 are vacant. */
@@ -63,21 +67,14 @@ const households = [
   { id: 'H24', name: 'Frau Bosshard', short: 'Bosshard', apartment: 'C-31', persons: 1, roomsMin: 3.5, stepFree: false, note: 'Pflegt die Mutter im Quartier' },
 ];
 
-/* Renovation phases: one per building, start as month index on the project timeline, duration in months.
-   Starts sit on the Zürich Zügeltermine 1. April and 1. Oktober; one month of reserve between the phases. */
-const phases = [
-  { id: 'P1', name: 'Etappe 1', building: 'A', start: 0, duration: 5 },
-  { id: 'P2', name: 'Etappe 2', building: 'B', start: 6, duration: 5 },
-  { id: 'P3', name: 'Etappe 3', building: 'C', start: 12, duration: 5 },
-];
-
-export const PROJECT = Object.freeze({
+/* The Etappen are not entered by hand: scheduleProject derives them from the buildings
+   (Etappe 1 Haus A months 0–5, Etappe 2 Haus B 6–11, Etappe 3 Haus C 12–17, 20 months in total). */
+export const PROJECT = Object.freeze(scheduleProject({
   name: 'Siedlung Brunnenwiese',
   owner: 'Baugenossenschaft Brunnenwiese (fiktiv)',
-  timeline: { startYear: 2027, startMonth: 4, months: 20 },
+  timeline: { startYear: 2027, startMonth: 4 },
   buildings,
   apartments,
   external,
   households,
-  phases,
-});
+}));

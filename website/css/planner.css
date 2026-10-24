@@ -230,6 +230,15 @@
 .listing-meta { font-size: 0.8125rem; color: var(--ink); }
 .listing-fit { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8125rem; font-weight: 600; color: var(--success); }
 .listing .btn { justify-self: start; margin-top: 4px; }
+.search-state { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; font-size: 0.875rem; color: var(--ink-muted); }
+.search-state.is-error { color: var(--danger); }
+.search-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0; font-size: 0.875rem; }
+.listing-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.listing-actions .btn { margin-top: 0; }
+.search[aria-busy="true"] .search-actions .btn { opacity: 0.6; }
+.inp-order { display: inline-flex; gap: 4px; margin-right: 8px; vertical-align: middle; }
+.inp-order .btn-icon { width: 32px; padding: 0; font-family: var(--font-mono); }
+.inp-actions { white-space: nowrap; }
 .prompt summary { cursor: pointer; font-size: 0.8125rem; font-weight: 600; color: var(--ink-muted); }
 .prompt pre { white-space: pre-wrap; font: 500 0.75rem/1.5 var(--font-mono); background: var(--surface-sunken); padding: 12px 14px; border-radius: 10px; margin: 8px 0 0; color: var(--ink); }
 .status-panel .label { margin-top: 4px; }

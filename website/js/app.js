@@ -11,8 +11,10 @@ import { renderTable } from './views/table.js';
 import { renderPhases } from './views/phases.js';
 import { renderStatus } from './views/status.js';
 import { renderInput } from './views/input.js';
-import { addBuilding, removeBuilding, setLift, addHousehold, removeHousehold, addExternal, removeExternal } from './edit.js';
-import { findListings, toExternal, needsFor, searchPrompt } from './listings.js';
+import { addBuilding, removeBuilding, setLift, setRenovate, moveBuilding, addHousehold, removeHousehold, addExternal, removeExternal } from './edit.js';
+import { LISTINGS, toExternal, needsFor, searchPrompt } from './listings.js';
+import { scheduleProject, rebaseStarts } from './schedule.js';
+import { searchFlatfox } from './flatfox.js';
 
 const VIEWS = [
   { id: 'erfassen', name: 'Erfassen' },
@@ -21,6 +23,7 @@ const VIEWS = [
   { id: 'haushalte', name: 'Haushalte' },
 ];
 const PLAY_INTERVAL_MS = 1100;
+const IDLE_SEARCH = Object.freeze({ status: 'idle', items: [], loaded: 0, error: null, source: null, fetchedAt: null });
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const defaultStarts = () => Object.fromEntries(PROJECT.phases.map((p) => [p.id, p.start]));
@@ -40,7 +43,7 @@ function readUrl() {
 
 function writeUrl(state) {
   const q = new URLSearchParams();
-  for (const p of PROJECT.phases) if (state.applied[p.id] !== p.start) q.set(p.id.toLowerCase(), state.applied[p.id]);
+  for (const p of state.project.phases) if (state.applied[p.id] !== p.start) q.set(p.id.toLowerCase(), state.applied[p.id]);
   if (state.view !== 'zeitplan') q.set('view', state.view);
   if (state.view === 'gebaeude' && state.month) q.set('m', state.month);
   if (state.building !== 'all') q.set('b', state.building);
@@ -61,7 +64,7 @@ let state = {
   changed: new Set(),
   lastChanged: null,
   playing: false,
-  searchOpen: false,
+  search: IDLE_SEARCH,
 };
 let timer = null;
 let stage = null;
@@ -102,7 +105,8 @@ function renderScrubber() {
   const months = PROJECT.timeline.months;
   const max = months - 1;
   const bands = PROJECT.phases.map((p) => { const b = PROJECT.buildings.find((x) => x.id === p.building); return `<span style="left:${(p.start / months) * 100}%;width:${(p.duration / months) * 100}%"><b>${esc(p.name)}</b> · ${esc(b.name)}</span>`; }).join('');
-  const axis = [0, 5, 10, 15, max].map((i) => `<span style="left:${(i / max) * 100}%">${esc(month(PROJECT, i, 'short'))}</span>`).join('');
+  const ticks = [...new Set([...Array.from({ length: Math.floor(max / 5) + 1 }, (_, i) => i * 5), max])];
+  const axis = ticks.map((i) => `<span style="left:${(i / max) * 100}%">${esc(month(PROJECT, i, 'short'))}</span>`).join('');
   els.scrub.innerHTML = `
     <div class="scrub-buttons">
       <button type="button" class="btn btn-sm btn-icon" data-action="step" data-delta="-1" aria-label="Einen Monat zurück" ${state.month <= 0 ? 'disabled' : ''}>${CHEVRON_LEFT}</button>
@@ -121,7 +125,7 @@ function renderContent() {
   const project = state.project;
   const opts = { changed: state.changed, building: state.building };
   if (state.view === 'erfassen') {
-    els.content.innerHTML = renderInput(project);
+    els.content.innerHTML = renderInput(project, state.applied);
     els.legend.innerHTML = '';
   } else if (state.view === 'zeitplan') {
     els.content.innerHTML = renderTimeline(project, state.plan, opts);
@@ -155,6 +159,9 @@ function focusKey(el) {
   if (d.filterBuilding) return `button[data-filter-building="${d.filterBuilding}"]`;
   if (d.action) return `button[data-action="${d.action}"]`;
   if (d.adopt) return `button[data-action="search"], .listing .btn`;
+  if (d.moveBuilding && d.delta) return `button[data-move-building="${d.moveBuilding}"][data-delta="${d.delta}"]`;
+  if (d.lift) return `input[data-lift="${d.lift}"]`;
+  if (d.renovate) return `input[data-renovate="${d.renovate}"]`;
   if (el.id) return `#${el.id}`;
   return null;
 }
@@ -163,7 +170,7 @@ function render() {
   const key = focusKey(document.activeElement);
   renderOverview();
   els.phases.innerHTML = renderPhases(state.project, state.applied, state.draft, state.plan);
-  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { searchOpen: state.searchOpen });
+  els.status.innerHTML = renderStatus(state.project, state.plan, state.applied, state.diff, state.lastChanged, { search: state.search });
   renderTabs();
   renderScrubber();
   renderContent();
@@ -179,13 +186,34 @@ function setState(patch) {
 
 function pulseStatus() { els.status.classList.add('is-pulse'); setTimeout(() => els.status.classList.remove('is-pulse'), 1600); }
 
-function setProject(project) {
+/* Every edit re-plans the Etappen automatically; manual shifts are kept relative to the automatic start. */
+function setProject(raw) {
+  const project = scheduleProject(raw);
   const errors = validateProject(project);
   if (errors.length) { console.warn('Projekt ungültig', errors); return; }
-  const plan = planRochade(project, state.applied);
+  const applied = rebaseStarts(state.project, state.applied, project);
+  const plan = planRochade(project, applied);
   const diff = diffPlans(state.plan, plan);
-  setState({ project, plan, diff, changed: new Set(diff.affected.map((x) => x.householdId)), lastChanged: null });
+  setState({ project, applied, draft: applied, plan, diff, changed: new Set(diff.affected.map((x) => x.householdId)), lastChanged: null, month: Math.min(state.month, project.timeline.months - 1) });
   pulseStatus();
+}
+
+/* Live search for external flats on Flatfox; only area, category and rooms leave the browser. */
+let searchSeq = 0;
+async function runSearch() {
+  const seq = ++searchSeq;
+  setState({ search: { ...IDLE_SEARCH, status: 'loading' } });
+  const needs = needsFor(state.project, state.plan);
+  const minRooms = needs.length ? Math.min(...needs.map((n) => n.roomsMin)) : null;
+  try {
+    const result = await searchFlatfox(state.project, { minRooms });
+    if (seq !== searchSeq) return;
+    setState({ search: { status: 'ready', items: result.items, loaded: result.loaded, error: null, source: 'flatfox', fetchedAt: Date.now() } });
+  } catch (err) {
+    if (seq !== searchSeq) return;
+    console.warn('Flatfox-Suche fehlgeschlagen', err);
+    setState({ search: { ...IDLE_SEARCH, status: 'error', error: err instanceof Error ? err.message : String(err) } });
+  }
 }
 
 function recalc(starts, lastChanged) {
@@ -204,7 +232,7 @@ function startPlaying() {
   stopPlaying();
   timer = setInterval(() => {
     const next = state.month + 1;
-    if (next >= PROJECT.timeline.months) { stopPlaying(); return; }
+    if (next >= state.project.timeline.months) { stopPlaying(); return; }
     setState({ month: next });
   }, PLAY_INTERVAL_MS);
   setState({ playing: true });
@@ -214,8 +242,8 @@ document.addEventListener('click', (e) => {
   const nudge = e.target.closest('button.nudge[data-phase]');
   if (nudge) {
     const id = nudge.dataset.phase;
-    const phase = PROJECT.phases.find((p) => p.id === id);
-    const max = PROJECT.timeline.months - phase.duration;
+    const phase = state.project.phases.find((p) => p.id === id);
+    const max = state.project.timeline.months - phase.duration;
     const next = Math.min(Math.max(state.applied[id] + Number(nudge.dataset.delta), 0), max);
     recalc({ ...state.applied, [id]: next }, id);
     return;
@@ -229,6 +257,8 @@ document.addEventListener('click', (e) => {
   if (tab) { stopPlaying(); els.content.classList.remove('is-fade'); void els.content.offsetWidth; els.content.classList.add('is-fade'); setState({ view: tab.dataset.view }); return; }
   const filter = e.target.closest('button[data-filter-building]');
   if (filter) { setState({ building: filter.dataset.filterBuilding }); return; }
+  const mv = e.target.closest('button[data-move-building]');
+  if (mv) { setProject(moveBuilding(state.project, mv.dataset.moveBuilding, mv.dataset.delta)); return; }
   const rb = e.target.closest('button[data-remove-building]');
   if (rb) { setProject(removeBuilding(state.project, rb.dataset.removeBuilding)); return; }
   const rh = e.target.closest('button[data-remove-household]');
@@ -237,7 +267,7 @@ document.addEventListener('click', (e) => {
   if (re) { setProject(removeExternal(state.project, re.dataset.removeExternal)); return; }
   const adopt = e.target.closest('button[data-adopt]');
   if (adopt) {
-    const listing = findListings(state.project, state.plan).find((l) => l.id === adopt.dataset.adopt);
+    const listing = state.search.items.find((l) => l.id === adopt.dataset.adopt);
     if (listing) setProject(addExternal(state.project, toExternal(listing)));
     return;
   }
@@ -245,11 +275,12 @@ document.addEventListener('click', (e) => {
   if (!action) return;
   if (action.dataset.action === 'recalc') recalc(state.draft, state.lastChanged);
   if (action.dataset.action === 'discard') setState({ draft: state.applied });
-  if (action.dataset.action === 'reset') { state = { ...state, project: PROJECT }; stage = null; recalc(defaultStarts(), null); }
+  if (action.dataset.action === 'reset') { state = { ...state, project: PROJECT, search: IDLE_SEARCH }; stage = null; recalc(defaultStarts(), null); }
   if (action.dataset.action === 'play') (state.playing ? stopPlaying() : startPlaying());
-  if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), PROJECT.timeline.months - 1) }); }
+  if (action.dataset.action === 'step') { stopPlaying(); setState({ month: Math.min(Math.max(state.month + Number(action.dataset.delta), 0), state.project.timeline.months - 1) }); }
   if (action.dataset.action === 'demo') runDemo();
-  if (action.dataset.action === 'search') setState({ searchOpen: true });
+  if (action.dataset.action === 'search') runSearch();
+  if (action.dataset.action === 'search-demo') setState({ search: { status: 'ready', items: LISTINGS, loaded: LISTINGS.length, error: null, source: 'demo', fetchedAt: Date.now() } });
   if (action.dataset.action === 'copy-prompt') {
     const text = searchPrompt(state.project, needsFor(state.project, state.plan));
     const done = () => { action.textContent = 'Kopiert'; setTimeout(() => { action.textContent = 'KI-Suchauftrag kopieren'; }, 1800); };
@@ -279,12 +310,14 @@ document.addEventListener('submit', (e) => {
   const data = Object.fromEntries(fd.entries());
   data.lift = fd.has('lift'); data.stepFree = fd.has('stepFree');
   const kind = form.dataset.form;
+  data.renovate = fd.has('renovate');
   if (kind === 'building') setProject(addBuilding(state.project, data));
   if (kind === 'household') setProject(addHousehold(state.project, data));
-  if (kind === 'external') setProject(addExternal(state.project, { ...data, availableTo: Number(data.availableTo) + 1 }));
+  if (kind === 'external') setProject(addExternal(state.project, { ...data, availableTo: data.availableTo === '' ? '' : Number(data.availableTo) + 1 }));
 });
 document.addEventListener('change', (e) => {
   if (e.target.matches('input[data-lift]')) setProject(setLift(state.project, e.target.dataset.lift, e.target.checked));
+  if (e.target.matches('input[data-renovate]')) setProject(setRenovate(state.project, e.target.dataset.renovate, e.target.checked));
 });
 
 document.addEventListener('input', (e) => {
