@@ -1,6 +1,6 @@
 # ROCHADE · Pitch-Deck: Abdeckung, Rechtslage, Parteien, offene Punkte
 
-Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Sprechernotizen mit Zeitmarken für 4 Minuten stehen in jeder Folie.
+Stand: 24. Oktober 2026, Version 4 (eckige Karten, Personas, Geschäftsmodell). Gehört zu `ROCHADE_Pitch.pptx` (10 Folien, Kawasaki-Struktur, Website-Farben). Der Pitch dauert 2 Minuten: gezeigt werden die Folien 1, 2, 4, 5, 7, 8 und 10; die Folien 3, 6 und 9 sind ausgeblendet und dienen der Fragerunde. Sprechtext in `ROCHADE_Pitch_Skript.md` und in den Notizen jeder Folie.
 
 ## 1. Dramaturgie der 10 Folien
 
