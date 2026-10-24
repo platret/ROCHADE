@@ -13,18 +13,16 @@ export const changeFieldLabels: Record<ChangeField, string> = {
 
 const displayOrder = Object.keys(changeFieldLabels) as ChangeField[]
 
+const latestChange = (changes: AssignmentChange[], field: ChangeField) => changes.find((change) => change.field === field)
+
 export const summariseChanges = (changes: AssignmentChange[]): FieldChange[] =>
   displayOrder.flatMap((field) => {
-    const ofField = changes.filter((change) => change.field === field)
-    const newest = ofField[0]
-    const oldest = ofField[ofField.length - 1]
-    if (!newest || !oldest || oldest.from === newest.to) return []
-    if (field === 'conflict_reason' && newest.to === null) return []
-    return [{ field, from: oldest.from, to: newest.to }]
+    const latest = latestChange(changes, field)
+    if (!latest || (field === 'conflict_reason' && latest.to === null)) return []
+    return [{ field, from: latest.from, to: latest.to }]
   })
 
-export const latestChangeAt = (changes: AssignmentChange[], field: ChangeField) =>
-  changes.find((change) => change.field === field)?.at ?? null
+export const latestChangeAt = (changes: AssignmentChange[], field: ChangeField) => latestChange(changes, field)?.at ?? null
 
 export const isAssignmentStatus = (value: string): value is AssignmentStatus =>
   (assignmentStatuses as readonly string[]).includes(value)

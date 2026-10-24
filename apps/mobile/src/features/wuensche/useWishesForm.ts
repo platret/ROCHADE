@@ -9,7 +9,7 @@ import { formFromHousehold, isDirty, needsFromForm, type NeedsForm } from './nee
 export type SavePhase = 'idle' | 'saving' | 'saved'
 
 export const useWishesForm = (household: Household) => {
-  const { reload } = useProject()
+  const { reloadSilently } = useProject()
   const [initial] = useState(() => formFromHousehold(household))
   const [form, setForm] = useState(initial)
   const [phase, setPhase] = useState<SavePhase>('idle')
@@ -26,7 +26,7 @@ export const useWishesForm = (household: Household) => {
       await updateHouseholdNeeds(supabase, household.id, needsFromForm(form))
       haptics.success()
       setPhase('saved')
-      reload()
+      reloadSilently()
     } catch (caught) {
       haptics.error()
       setError(messageOf(caught))

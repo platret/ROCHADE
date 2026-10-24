@@ -12,6 +12,7 @@ export type ProjectStatus = ProjectState['status']
 export type ProjectContextValue = ProjectState & {
   refreshing: boolean
   reload: () => void
+  reloadSilently: () => void
   changes: AssignmentChange[]
   lastChangeAt: Date | null
   dismissChanges: (householdId: string) => void

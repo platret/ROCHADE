@@ -95,6 +95,7 @@ export const useProjectLoader = (): ProjectContextValue => {
 
   const hasSnapshot = snapshot !== null
   const reload = useCallback(() => void load(hasSnapshot ? 'refresh' : 'initial'), [load, hasSnapshot])
+  const reloadSilently = useCallback(() => void load('silent'), [load])
 
   const dismissChanges = useCallback(
     (householdId: string) => setChanges((current) => current.filter((change) => change.householdId !== householdId)),
@@ -109,5 +110,5 @@ export const useProjectLoader = (): ProjectContextValue => {
         ? { status: 'error', error, diagnostics }
         : { status: 'loading' }
 
-  return { ...state, refreshing, reload, changes, lastChangeAt, dismissChanges }
+  return { ...state, refreshing, reload, reloadSilently, changes, lastChangeAt, dismissChanges }
 }
