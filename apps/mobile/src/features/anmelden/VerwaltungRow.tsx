@@ -1,22 +1,26 @@
+import Animated from 'react-native-reanimated'
+import { riseIn } from '@/ui/entering'
 import { Icon } from '@/ui/Icon'
-import { LeadingCircle } from '@/ui/LeadingCircle'
 import { ListGroup } from '@/ui/ListGroup'
-import { ListRow } from '@/ui/ListRow'
+import { RingCircle } from '@/ui/RingCircle'
+import { TactileRow } from '@/ui/TactileRow'
 
-export type VerwaltungRowProps = { onPress: () => void }
+export type VerwaltungRowProps = { delay: number; onPress: () => void }
 
-export const VerwaltungRow = ({ onPress }: VerwaltungRowProps) => (
-  <ListGroup>
-    <ListRow
-      title="Verwaltung"
-      subtitle="Nur Ansicht · keine Änderungen möglich"
-      accessibilityLabel="Verwaltung (nur Ansicht)"
-      leading={
-        <LeadingCircle>
-          <Icon name="building.2" size={20} color="inkMuted" />
-        </LeadingCircle>
-      }
-      onPress={onPress}
-    />
-  </ListGroup>
+export const VerwaltungRow = ({ delay, onPress }: VerwaltungRowProps) => (
+  <Animated.View entering={riseIn(delay)}>
+    <ListGroup>
+      <TactileRow
+        title="Verwaltung"
+        subtitle="Nur Ansicht"
+        accessibilityLabel="Verwaltung (nur Ansicht)"
+        leading={
+          <RingCircle>
+            <Icon name="building.2" size={20} color="inkMuted" />
+          </RingCircle>
+        }
+        onPress={onPress}
+      />
+    </ListGroup>
+  </Animated.View>
 )

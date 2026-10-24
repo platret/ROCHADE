@@ -8,8 +8,6 @@ export const noteMaxLength = 500
 
 export const clampRooms = (rooms: number) => Math.min(roomsRange.max, Math.max(roomsRange.min, rooms))
 
-export const roomsLabel = (rooms: number) => `${rooms} Zimmer`
-
 export const stepFreeLabel = (stepFree: boolean) => (stepFree ? 'Nötig' : 'Nicht nötig')
 
 export const formFromHousehold = (household: Household): NeedsForm => ({

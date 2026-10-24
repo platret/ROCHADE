@@ -24,6 +24,11 @@ describe('buildSeedSql', () => {
     expect(sql).toContain("'Für Herrn Brunner fehlt vom 01.09.2027 bis 30.11.2027 eine hindernisfreie 2-Zimmer-Wohnung.'")
   })
 
+  it('contains the access codes', () => {
+    expect(sql).toContain("'B3H7QK'")
+    expect(sql).toContain("'V7Q3KD'")
+  })
+
   it('uses Swiss spelling', () => {
     expect(sql).not.toContain('ß')
   })

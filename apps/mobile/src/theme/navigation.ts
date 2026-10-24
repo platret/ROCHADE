@@ -2,7 +2,7 @@ import { radius, typeScale, type Palette } from '@rochade/shared'
 import type { NativeStackNavigationOptions } from 'expo-router'
 import { fontFamilyFor } from './fonts'
 
-export const headerOptions = (colors: Palette): NativeStackNavigationOptions => ({
+const headerOptions = (colors: Palette): NativeStackNavigationOptions => ({
   headerShadowVisible: false,
   headerTintColor: colors.ink,
   headerTitleStyle: { fontFamily: fontFamilyFor(700), color: colors.ink },

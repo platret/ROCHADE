@@ -20,8 +20,8 @@ export const WishesContent = () => {
       <EmptyState
         symbol="person.crop.circle.badge.questionmark"
         title="Haushalt nicht gefunden"
-        body="Dieser Haushalt ist nicht mehr im Projekt. Wähle einen anderen Haushalt."
-        action={{ label: 'Haushalt wechseln', onPress: signOut, variant: 'secondary' }}
+        body="Dieser Haushalt ist nicht mehr im Projekt. Melde dich mit deinem Code neu an."
+        action={{ label: 'Abmelden', onPress: signOut, variant: 'secondary' }}
       />
     )
   }

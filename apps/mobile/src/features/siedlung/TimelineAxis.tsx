@@ -18,7 +18,7 @@ export const TimelineAxis = ({ range, scale, plotWidth, onPlotLayout }: Timeline
   const { colors } = useTheme()
   const { fontScale } = useWindowDimensions()
   const columnWidth = plotWidth / range.months.length / fontScale
-  const labelEvery = plotWidth > 0 && columnWidth < minLabelColumn ? 2 : 1
+  const labelEvery = plotWidth > 0 ? Math.max(1, Math.ceil(minLabelColumn / columnWidth)) : 1
   const measure = (event: LayoutChangeEvent) => onPlotLayout(event.nativeEvent.layout.width)
   return (
     <View
@@ -30,8 +30,10 @@ export const TimelineAxis = ({ range, scale, plotWidth, onPlotLayout }: Timeline
       <View onLayout={measure} style={{ flex: 1, height: axisHeight, borderBottomWidth: 1, borderBottomColor: colors.line }}>
         {range.months.map((month, index) => {
           if (index % labelEvery !== 0) return null
-          const left = scale(month)
-          const width = scale(range.months[index + 1] ?? range.end) - left
+          const start = scale(month)
+          const column = scale(range.months[index + 1] ?? range.end) - start
+          const width = column * labelEvery
+          const left = start - (width - column) / 2
           return (
             <Text
               key={month}

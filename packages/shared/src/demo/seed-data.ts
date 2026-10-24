@@ -10,6 +10,7 @@ export const demoProject: Project = {
   id: projectId,
   name: 'Siedlung Sonnenhalde',
   city: 'Zürich',
+  admin_code: 'V7Q3KD',
   created_at: createdAt,
 }
 
@@ -66,9 +67,9 @@ export const demoFlats: Flat[] = (
   ] satisfies FlatSpec[]
 ).map(flat)
 
-type HouseholdSpec = [n: number, name: string, members: number, homeFlat: number, needs_rooms: number, needs_step_free: boolean, school_district: string | null, note: string | null]
+type HouseholdSpec = [n: number, name: string, members: number, homeFlat: number, needs_rooms: number, needs_step_free: boolean, school_district: string | null, note: string | null, invite_code: string]
 
-const household = ([n, name, members, homeFlat, needs_rooms, needs_step_free, school_district, note]: HouseholdSpec): Household => ({
+const household = ([n, name, members, homeFlat, needs_rooms, needs_step_free, school_district, note, invite_code]: HouseholdSpec): Household => ({
   id: householdId(n),
   project_id: projectId,
   name,
@@ -78,22 +79,23 @@ const household = ([n, name, members, homeFlat, needs_rooms, needs_step_free, sc
   needs_step_free,
   school_district,
   note,
+  invite_code,
   created_at: createdAt,
 })
 
 export const demoHouseholds: Household[] = (
   [
-    [1, 'Familie Keller', 4, 3, 3.5, false, 'Waidberg', 'Zwei Kinder im Schulhaus Waidberg, der Schulweg soll gleich bleiben.'],
-    [2, 'Frau Schmid', 1, 1, 2, false, null, null],
-    [3, 'Familie Bianchi', 3, 4, 3.5, false, 'Waidberg', null],
-    [4, 'Herr Zimmermann', 1, 2, 2, false, null, 'Arbeitet im Homeoffice.'],
-    [5, 'Familie Kaya', 5, 5, 4.5, false, 'Waidberg', 'Drei Kinder, grosse Wohnung nötig.'],
-    [6, 'Frau Meier', 1, 6, 2, true, null, '78 Jahre, geht am Rollator. Keine Treppen möglich.'],
-    [7, 'Herr und Frau Aeschbacher', 2, 7, 2.5, true, null, 'Herr Aeschbacher ist auf den Rollstuhl angewiesen.'],
-    [8, 'Familie Oliveira', 4, 8, 3.5, false, 'Waidberg', null],
-    [9, 'Herr Brunner', 1, 9, 2, true, null, 'Gehbehinderung. Braucht hindernisfreien Zugang und ein Arbeitszimmer.'],
-    [10, 'Frau Gerber', 1, 10, 2, false, null, null],
-    [11, 'Familie Steiner', 3, 11, 3.5, false, 'Waidberg', null],
+    [1, 'Familie Keller', 4, 3, 3.5, false, 'Waidberg', 'Zwei Kinder im Schulhaus Waidberg, der Schulweg soll gleich bleiben.', '7KW4PD'],
+    [2, 'Frau Schmid', 1, 1, 2, false, null, null, '3HTX9M'],
+    [3, 'Familie Bianchi', 3, 4, 3.5, false, 'Waidberg', null, 'Q8RZ2N'],
+    [4, 'Herr Zimmermann', 1, 2, 2, false, null, 'Arbeitet im Homeoffice.', '5MPC7E'],
+    [5, 'Familie Kaya', 5, 5, 4.5, false, 'Waidberg', 'Drei Kinder, grosse Wohnung nötig.', 'R2V6KX'],
+    [6, 'Frau Meier', 1, 6, 2, true, null, '78 Jahre, geht am Rollator. Keine Treppen möglich.', '9DQ3TW'],
+    [7, 'Herr und Frau Aeschbacher', 2, 7, 2.5, true, null, 'Herr Aeschbacher ist auf den Rollstuhl angewiesen.', 'X6N8HB'],
+    [8, 'Familie Oliveira', 4, 8, 3.5, false, 'Waidberg', null, '4PWY7C'],
+    [9, 'Herr Brunner', 1, 9, 2, true, null, 'Gehbehinderung. Braucht hindernisfreien Zugang und ein Arbeitszimmer.', 'B3H7QK'],
+    [10, 'Frau Gerber', 1, 10, 2, false, null, null, '6ZTR4M'],
+    [11, 'Familie Steiner', 3, 11, 3.5, false, 'Waidberg', null, 'P7XK2D'],
   ] satisfies HouseholdSpec[]
 ).map(household)
 

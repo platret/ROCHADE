@@ -1,7 +1,7 @@
 import type { SFSymbol } from 'expo-symbols'
-import { Pressable } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
 import { Icon } from '@/ui/Icon'
+import { Tactile } from '@/ui/Tactile'
 
 export type StepperButtonProps = {
   symbol: SFSymbol
@@ -15,25 +15,26 @@ const size = 44
 export const StepperButton = ({ symbol, label, onPress, disabled }: StepperButtonProps) => {
   const { colors } = useTheme()
   return (
-    <Pressable
+    <Tactile
       onPress={onPress}
       disabled={disabled}
+      scale={0.94}
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityState={{ disabled }}
-      style={({ pressed }) => ({
+      style={{
         width: size,
         height: size,
         borderRadius: size / 2,
         borderWidth: 1,
         borderColor: colors.lineStrong,
-        backgroundColor: pressed ? colors.surfaceSunken : colors.surface,
+        backgroundColor: colors.surface,
         alignItems: 'center',
         justifyContent: 'center',
         opacity: disabled ? 0.3 : 1,
-      })}
+      }}
     >
       <Icon name={symbol} size={20} weight="medium" />
-    </Pressable>
+    </Tactile>
   )
 }

@@ -1,7 +1,7 @@
 import { messageOf } from './errors'
 import { supabaseHost, supabaseUrl } from './supabase'
 
-export const connectionErrorMessage = 'Keine Verbindung zum Server. Prüfe WLAN und versuche es erneut.'
+const connectionErrorMessage = 'Keine Verbindung zum Server. Prüfe WLAN und versuche es erneut.'
 
 export const serverLine = `Server: ${supabaseHost ?? 'nicht konfiguriert'}`
 

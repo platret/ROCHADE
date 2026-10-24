@@ -4,7 +4,7 @@ import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
 
 export const listLeadingSize = 40
-export const listDividerInset = spacing.lg + listLeadingSize + spacing.md
+const listDividerInset = spacing.lg + listLeadingSize + spacing.md
 
 export type ListGroupProps = {
   children: ReactNode

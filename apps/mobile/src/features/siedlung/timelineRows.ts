@@ -47,6 +47,11 @@ const summaryFor = (who: string, assignment: Assignment | undefined) => {
     : `${who}: Termine folgen.`
 }
 
+const rowShape = (row: TimelineRow) =>
+  [row.id, row.moveOut, row.moveBack, ...row.segments.map((segment) => `${segment.kind}${segment.start}${segment.end}`)].join(':')
+
+export const timelineShape = (rows: TimelineRow[], range: TimelineRange) => [range.start, range.end, ...rows.map(rowShape)].join('|')
+
 export const timelineRows = (data: ProjectData, range: TimelineRange, ownHouseholdId: string | null): TimelineRow[] => {
   const assignmentByHousehold = new Map(data.assignments.map((assignment) => [assignment.household_id, assignment]))
   const initialsOf = householdInitials(data.households)

@@ -28,10 +28,10 @@ const plannedAssignments = () =>
 
 export const buildSeedSql = () => {
   const seeds: TableSeed[] = [
-    { table: 'projects', columns: ['id', 'name', 'city'], rows: [demoProject] },
+    { table: 'projects', columns: ['id', 'name', 'city', 'admin_code'], rows: [demoProject] },
     { table: 'phases', columns: ['id', 'project_id', 'name', 'building', 'start_date', 'end_date', 'sort_order'], rows: demoPhases },
     { table: 'flats', columns: ['id', 'project_id', 'label', 'building', 'floor', 'rooms', 'step_free', 'is_temporary', 'school_district'], rows: demoFlats },
-    { table: 'households', columns: ['id', 'project_id', 'name', 'members', 'home_flat_id', 'needs_rooms', 'needs_step_free', 'school_district', 'note'], rows: demoHouseholds },
+    { table: 'households', columns: ['id', 'project_id', 'name', 'members', 'home_flat_id', 'needs_rooms', 'needs_step_free', 'school_district', 'note', 'invite_code'], rows: demoHouseholds },
     { table: 'assignments', columns: ['id', 'project_id', 'household_id', 'temp_flat_id', 'move_out', 'move_back', 'status', 'conflict_reason'], rows: plannedAssignments() },
   ]
   return `${[header, ...seeds.map(insert)].join('\n\n')}\n`

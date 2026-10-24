@@ -13,3 +13,4 @@ apps/web/src/styles/tokens.css
 .DS_Store
 .vercel
 .vitest/
+apps/web/.landing-verify/

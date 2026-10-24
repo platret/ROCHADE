@@ -49,6 +49,18 @@ export const fetchProjectData = async (client: RochadeClient, projectId: UUID): 
   return { project, phases, flats, households, assignments }
 }
 
+const normaliseCode = (code: string) => code.trim().toUpperCase()
+
+export const fetchHouseholdByInviteCode = async (client: RochadeClient, code: string): Promise<Household | null> => {
+  const query = client.from('households').select('*').eq('invite_code', normaliseCode(code)).maybeSingle()
+  return unwrap(await query)
+}
+
+export const fetchProjectByAdminCode = async (client: RochadeClient, code: string): Promise<Project | null> => {
+  const query = client.from('projects').select('*').eq('admin_code', normaliseCode(code)).maybeSingle()
+  return unwrap(await query)
+}
+
 export type HouseholdNeeds = Pick<Household, 'needs_rooms' | 'needs_step_free' | 'school_district' | 'note'>
 
 export const updateHouseholdNeeds = async (client: RochadeClient, householdId: UUID, needs: HouseholdNeeds) => {

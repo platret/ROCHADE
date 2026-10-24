@@ -5,9 +5,7 @@ export type ProjectState =
   | { status: 'unconfigured' }
   | { status: 'loading' }
   | { status: 'error'; error: string; diagnostics: string | null }
-  | { status: 'ready'; data: ProjectData; updatedAt: Date; error: string | null }
-
-export type ProjectStatus = ProjectState['status']
+  | { status: 'ready'; data: ProjectData; updatedAt: Date; error: string | null; stale: boolean }
 
 export type ProjectContextValue = ProjectState & {
   refreshing: boolean
@@ -15,5 +13,5 @@ export type ProjectContextValue = ProjectState & {
   reloadSilently: () => void
   changes: AssignmentChange[]
   lastChangeAt: Date | null
-  dismissChanges: (householdId: string) => void
+  dismissChanges: (householdId?: string) => void
 }

@@ -6,33 +6,43 @@ When a housing cooperative renovates a building, residents move into temporary f
 
 ZentralHack 2026, EntrepreneurSkills Challenge, SDG 11. Final pitch and MVP upload: Saturday 16:30.
 
-## Stand (für Francesco, Samstagmorgen)
+## Stand (für Francesco)
 
-Letzter Stand siehe `git log`. Alles auf `main`, jede Änderung ist gepusht.
+Alles liegt auf `main`, jede Änderung ist gepusht. Alle Checks grün: `npm run typecheck`, `npm test` (23 Solver-Tests), Web-Build, iOS-Bundle.
 
-- Supabase: Schema und Seed sind im Projekt eingespielt (11 Haushalte, Etappe 3 = 01.09.–30.11.2027, Herr Brunner im Konflikt). Keys stehen bei Alex in `apps/mobile/.env` und `apps/web/.env` (nicht im Repo). `schema.sql` und `seed.sql` dürfen jederzeit neu eingespielt werden.
-- Shared: Solver (`solve`, `replan`), Typen, Queries, Tokens, Demo-Fixture. 23 Tests grün (`npm test`).
-- App (`apps/mobile`): Anmelden-Picker, Mein Umzug (Statuskarte, Ablauf, Live-Banner, Haptik), Meine Wünsche (Sheet), Siedlung (Etappen, Umzugsplan-Timeline), Dark Mode, Verbindungstest im Fehlerzustand. Läuft in Expo Go 58 (`npm run mobile`, dann `exp://<LAN-IP>:8081`).
-- Web (`apps/web`): `/verwaltung` ist das Dashboard-Skelett (Etappen mit −1/+1 Woche, Replan, Live-Tabelle). Die Startseite `/` wird gerade als animierte Landingpage gebaut. Dein Spielfeld: alles unter `src/components` und `src/hooks`; Tokens kommen aus `packages/shared`, keine Hex-Farben im Web.
-- Nächste Schritte: Dashboard-Design auf `/verwaltung`, Haushalte und Wohnungen bearbeiten, Etappen-Datumspicker statt ±1 Woche.
+- **Supabase**: Schema und Seed sind im gehosteten Projekt eingespielt (11 Haushalte, Etappe 3 = 01.09.–30.11.2027, Herr Brunner im Konflikt). Keys stehen bei Alex in `apps/mobile/.env` und `apps/web/.env` (nicht im Repo). `schema.sql` und `seed.sql` dürfen jederzeit neu eingespielt werden.
+- **Shared** (`packages/shared`): Solver (`solve`, `replan`), Typen, Supabase-Queries, Design-Tokens, Demo-Fixture.
+- **App** (`apps/mobile`): fertig und auf dem iOS-Simulator gegen die echte Datenbank verifiziert. Anmelden-Picker, Mein Umzug (Statuskarte, Ablauf, Live-Banner mit altem und neuem Datum, Haptik, Checkliste), Meine Wünsche (natives Formular-Sheet), Siedlung (Etappen, Umzugsplan-Timeline), Rochade-Wohnung-Sheet mit Kalenderexport und Teilen, Verwaltungs-Übersicht, Offline-Cache, Dark Mode, Dynamic Type.
+- **Web** (`apps/web`): `/` ist die animierte Startseite (3D-Marke, Shader-Hintergrund, «Der Moment»-Animation, Live-Zahlen aus Supabase). `/verwaltung` ist das Dashboard-Skelett: Etappen mit −1/+1 Woche, Replan, Live-Tabelle der Zuteilungen. Dein Spielfeld ist `apps/web/src/verwaltung` und `apps/web/src/components`; Farben nur über die Tailwind-Tokens (`bg-paper`, `text-ink`, …), keine Hex-Werte.
+- **Nächste Schritte Web**: Dashboard-Design, Haushalte und Wohnungen bearbeiten, Datumspicker für Etappen, Konfliktliste mit Vorschlägen.
+- **Übergabe Web**: [`docs/web-handoff.md`](docs/web-handoff.md) mit Verbindung, `.env`, Datenbank, Vertrag mit der App (`shiftPhase` plus `replan`), Demo-Codes, Prompt für den Coding-Assistenten und Checkliste vor der Demo.
+
+## Demo-Ablauf (der Moment)
+
+1. Laptop: `npm run web`, dann http://localhost:5173/verwaltung. Telefon: Expo Go, als **Herr Brunner** anmelden. Mein Umzug zeigt den Konflikt mit dem genauen Grund.
+2. Laptop: bei Etappe 3 auf **+1 Woche**. Der Plan wird neu berechnet, Brunner bleibt im Konflikt (das Telefon zeigt das Banner mit dem neuen Datum).
+3. Laptop: noch einmal **+1 Woche**. Innerhalb einer Sekunde: Banner «Dein Plan wurde aktualisiert», die Daten blinken kurz auf, Status **Zugeteilt**, Haptik.
+4. Zurück mit **−1 Woche** zweimal, der Konflikt kommt zurück. Als **Verwaltung** angemeldet zeigt das Telefon die Übersicht mit Zählern und Liste, die ebenfalls live mitgeht.
+
+Fallback bei schlechtem WLAN: Handy-Hotspot für Laptop und Telefon. Die App startet aus dem Cache und zeigt «Offline · Stand …», bis die Verbindung zurück ist.
 
 ## What is in the repo
 
 ```
 apps/mobile        Expo SDK 58 app for residents (Expo Router, native tabs, realtime)
-apps/web           Vite + React + Tailwind v4 skeleton for the administration
+apps/web           Vite 8 + React 19 + Tailwind 4: landing page (/) and administration dashboard (/verwaltung)
 packages/shared    Types, Supabase client and queries, solver, design tokens, demo data
-supabase/          schema.sql and seed.sql for the Supabase SQL editor
-docs/              design-notes.md (Mobbin references per screen)
+supabase/          schema.sql, seed.sql, config.toml for a local stack
+docs/              design-notes.md (Mobbin references per screen and for the landing page)
 ```
 
 One Supabase database, one shared TypeScript package. Types, queries, colours and the solver live only in `packages/shared`; both apps import them.
 
 ## Prerequisites
 
-- Node 24 LTS (Expo supports even Node versions only) and npm 11
+- Node 24 LTS (Expo supports even Node versions only; 25 works with warnings) and npm 11
 - Xcode 26 with an iPhone 17 simulator, or Expo Go 58 on an iPhone (iOS 16.4+)
-- A Supabase project (URL and anon key from Alex)
+- A Supabase project (URL and publishable key from Alex)
 - Optional: Docker Desktop for a local Supabase stack
 
 ## Setup
@@ -41,9 +51,31 @@ One Supabase database, one shared TypeScript package. Types, queries, colours an
 
 Open the Supabase dashboard, SQL Editor. Paste `supabase/schema.sql`, run it. Then paste `supabase/seed.sql`, run it.
 
-`schema.sql` drops and recreates the five tables, enables Realtime on `phases`, `households` and `assignments`, and adds demo-only Row Level Security policies that let the anon key read and write everything. Replace those policies before any real use.
+`schema.sql` drops and recreates the five tables, enables Realtime on `phases`, `households` and `assignments`, skips no-op updates with a trigger, and adds demo-only Row Level Security policies that let the anon key read and write everything. Replace those policies before any real use.
 
 `seed.sql` is generated from `packages/shared/src/demo/seed-data.ts` with `npm run seed:sql`. It contains Siedlung Sonnenhalde in Zürich: 3 phases, 11 households, 16 flats of which 5 are Rochade-Wohnungen, and the computed plan with exactly one conflict (Herr Brunner, Etappe 3).
+
+### 1b. Zugangscodes (Migration für das gehostete Projekt)
+
+Die App kennt keine Konten. Mietende tippen den **Zugangscode** aus dem Brief der Verwaltung ein, die Verwaltung öffnet die Übersicht mit dem **Verwaltungscode**. Beide Codes liegen in der Datenbank (`households.invite_code`, `projects.admin_code`, je `text unique`).
+
+Bestehendes gehostetes Projekt: `supabase/migrations/20261024_invite_codes.sql` im SQL-Editor ausführen (idempotent, endet mit einer Kontrollabfrage). Ein frisches Projekt braucht nur `schema.sql` und `seed.sql`, die Codes sind dort schon drin.
+
+| Haushalt | Zugangscode |
+| --- | --- |
+| Familie Keller | `7KW4PD` |
+| Frau Schmid | `3HTX9M` |
+| Familie Bianchi | `Q8RZ2N` |
+| Herr Zimmermann | `5MPC7E` |
+| Familie Kaya | `R2V6KX` |
+| Frau Meier | `9DQ3TW` |
+| Herr und Frau Aeschbacher | `X6N8HB` |
+| Familie Oliveira | `4PWY7C` |
+| Herr Brunner | `B3H7QK` |
+| Frau Gerber | `6ZTR4M` |
+| Familie Steiner | `P7XK2D` |
+
+Verwaltungscode für die App: `V7Q3KD`. Das Dashboard unter `/verwaltung` zeigt alle Codes mit Kopierknopf.
 
 ### 2. Environment files
 
@@ -52,7 +84,7 @@ cp apps/mobile/.env.example apps/mobile/.env
 cp apps/web/.env.example apps/web/.env
 ```
 
-Fill in the project URL and the anon key. Never put the service_role key into either file. Restart the dev servers after changing them.
+Fill in the project URL and the publishable key (`sb_publishable_…`, Supabase's new name for the anon key). Never put the secret key into either file. Expo and Vite reload the files automatically; the running app needs a reload afterwards.
 
 ### 3. Install
 
@@ -77,7 +109,7 @@ Expo Go:
 npm run mobile
 ```
 
-Press `i` for the iOS simulator or scan the QR code with Expo Go. On a physical iPhone you must be signed in to the same Expo account in the CLI (`npx expo login`) and in Expo Go.
+Press `i` for the iOS simulator. On a physical iPhone: Expo Go 58 from the App Store, signed in to the **same Expo account** as the CLI (`npx expo login`), same Wi-Fi, then "Enter URL manually" with the `exp://<LAN-IP>:8081` address that the CLI prints.
 
 Development build on the simulator (no Apple login needed):
 
@@ -92,13 +124,17 @@ npx expo run:ios
 npm run web
 ```
 
-Opens on http://localhost:5173. The page lists the phases with "−1 Woche / +1 Woche" controls, runs the solver after every shift and shows the live assignment table.
+Opens http://localhost:5173 (landing page) and http://localhost:5173/verwaltung (dashboard).
 
-### 7. The demo moment
+## The app in detail
 
-1. Phone: sign in as Herr Brunner. Mein Umzug shows the conflict with the exact reason.
-2. Laptop: click "+1 Woche" on Etappe 3. Still a conflict.
-3. Laptop: click "+1 Woche" again. The phone updates within a second: banner "Dein Plan wurde aktualisiert", flash on the changed dates, status Zugeteilt, haptic.
+- **Anmelden als**: demo picker from the database, choice stored on the device (no accounts yet).
+- **Mein Umzug**: status card (Zugeteilt / Konflikt / Offen with the exact reason), three-step journey (Auszug with countdown, Rochade-Wohnung, Rückkehr), live banner "Dein Plan wurde aktualisiert" with old and new values, orange-soft flash on changed values, haptics, checklist "Deine nächsten Schritte" with dates derived from the move (stored on the device).
+- **Rochade-Wohnung sheet**: flat details, "In Kalender eintragen" (two all-day events via expo-calendar), "Plan teilen" (share sheet).
+- **Meine Wünsche**: rooms (half rooms), step-free, school district, note; saved to `households` in a native form sheet.
+- **Siedlung**: phases with dates and the Umzugsplan timeline of all households (short labels for privacy) with the fixed colour meanings: grey = in own flat, slate = Rochade-Wohnung, orange tick = Umzug day, orange outline = back in renovated flat, red outline = Konflikt.
+- **Verwaltung (nur Ansicht)**: overview with counts, all households with status and reason, phases; updates live.
+- **Resilience**: last plan cached on the device, 15 s timeout, automatic retries, offline strip with "Erneut laden", connection test in the error state.
 
 ## How the solver works
 
@@ -116,9 +152,7 @@ Opens on http://localhost:5173. The page lists the phases with "−1 Woche / +1 
 
 Tokens are in `packages/shared/src/tokens.ts`. The mobile app reads them through `useTheme()`. The web app generates `src/styles/tokens.css` from them before every dev or build run, so Tailwind utilities like `bg-paper` or `text-ink` switch with the system colour scheme. Never write a hex colour in an app.
 
-Manrope for all text, JetBrains Mono only for dates and flat numbers. Orange is the only accent and covers at most a tenth of a screen. Fixed timeline meanings: grey = in own flat, slate = Rochade-Wohnung, orange = Umzug day, orange outline = back in renovated flat, red outline = Konflikt.
-
-See `docs/design-notes.md` for the Mobbin references used for each screen.
+Manrope for all text, JetBrains Mono only for dates and flat numbers. Orange is the only accent and covers at most a tenth of a screen. See `docs/design-notes.md` for the Mobbin references used for each screen and for the landing page.
 
 ## TestFlight build with EAS (later)
 
@@ -136,20 +170,25 @@ The first build asks for the Apple account and creates the certificates.
 
 ## Local Supabase (optional)
 
-With Docker running:
+With Docker running (`supabase/config.toml` applies `schema.sql` and `seed.sql` on start, API on port 55321):
 
 ```
 npx supabase start
-docker exec -i supabase_db_ROCHADE psql -U postgres -d postgres -v ON_ERROR_STOP=1 < supabase/schema.sql
-docker exec -i supabase_db_ROCHADE psql -U postgres -d postgres -v ON_ERROR_STOP=1 < supabase/seed.sql
 npx supabase status
 ```
 
-Use the printed API URL and anon key in the `.env` files. `npx supabase stop` shuts it down.
+Pass the printed values to a dev server explicitly instead of editing `.env`, for example `EXPO_PUBLIC_SUPABASE_URL=http://127.0.0.1:55321 EXPO_PUBLIC_SUPABASE_ANON_KEY=<anon> npx expo start`. `npx supabase stop` shuts it down.
+
+## Troubleshooting
+
+- "Project is incompatible with this version of Expo Go": update Expo Go to version 58.
+- "Could not connect to the server" on the phone: the bundle points at a URL the phone cannot reach. Check `apps/mobile/.env`, restart `expo start --clear`, reload the app. The error card shows the server host and a connection test.
+- Expo Go on a physical device needs the same Expo account in the CLI and in Expo Go.
+- `expo start --localhost` on Node 25 binds IPv6 only; use the default LAN mode.
 
 ## Conventions
 
 - TypeScript strict everywhere, no code comments, small files, clear names.
 - All UI text in German with Swiss spelling (ss, never ß). Dates as 01.03.2027. Buttons start with a verb.
-- Residents are "Bewohnende" or "Haushalte".
-- No user accounts yet: the app remembers the chosen household on the device.
+- Residents are "Bewohnende" or "Haushalte"; the app addresses them as "du".
+- No user accounts: a household is identified by its Zugangscode, the administration by the Verwaltungscode; the app remembers the choice on the device.
