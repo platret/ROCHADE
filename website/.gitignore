@@ -1,0 +1,4 @@
+# Local Supabase access (publishable key); copy js/env.example.js to create it
+js/env.js
+node_modules/
+shots/
