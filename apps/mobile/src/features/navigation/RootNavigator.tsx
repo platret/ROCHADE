@@ -17,6 +17,7 @@ export const RootNavigator = () => {
         </Stack.Protected>
         <Stack.Protected guard={signedOut}>
           <Stack.Screen name="code" />
+          <Stack.Screen name="willkommen" />
           <Stack.Screen name="anmelden" />
         </Stack.Protected>
         <Stack.Protected guard={!signedOut}>

@@ -1,7 +1,8 @@
 import { fetchHouseholdByInviteCode, fetchProjectByAdminCode, type RochadeClient } from '@rochade/shared'
-import { useState } from 'react'
+import { router, useFocusEffect } from 'expo-router'
+import { useCallback, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useIdentity } from '@/data/IdentityProvider'
+import { welcomeHref } from '@/features/welcome/route'
 import { isConnectionFailure, withTimeout } from '@/lib/connectivity'
 import { messageOf } from '@/lib/errors'
 import { haptics } from '@/lib/haptics'
@@ -10,6 +11,7 @@ import { codeLength, normaliseCode } from './code'
 
 export type CodeStatus = { kind: 'idle' } | { kind: 'loading' } | { kind: 'error'; message: string }
 
+const idle: CodeStatus = { kind: 'idle' }
 const invalidMessage = 'Dieser Code ist nicht gültig. Prüfe die sechs Zeichen im Brief.'
 const offlineMessage = 'Keine Verbindung. Versuche es gleich noch einmal.'
 const lookupTimeoutMs = 10_000
@@ -24,15 +26,16 @@ const resolveIdentity = async (client: RochadeClient, code: string): Promise<Ide
 const errorMessage = (error: unknown) => (isConnectionFailure(error) ? offlineMessage : messageOf(error))
 
 export const useCodeSignIn = (client: RochadeClient) => {
-  const { signIn } = useIdentity()
   const [code, setCodeState] = useState('')
-  const [status, setStatus] = useState<CodeStatus>({ kind: 'idle' })
+  const [status, setStatus] = useState<CodeStatus>(idle)
   const complete = code.length === codeLength
 
   const setCode = (raw: string) => {
     setCodeState(normaliseCode(raw))
-    setStatus({ kind: 'idle' })
+    setStatus(idle)
   }
+
+  useFocusEffect(useCallback(() => setStatus(idle), []))
 
   const fail = (message: string) => {
     haptics.warning()
@@ -48,7 +51,7 @@ export const useCodeSignIn = (client: RochadeClient) => {
         return
       }
       haptics.success()
-      signIn(identity)
+      router.push(welcomeHref(identity))
     } catch (error) {
       fail(errorMessage(error))
     }
