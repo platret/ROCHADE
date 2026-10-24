@@ -14,7 +14,7 @@ const openDemo = () => {
 }
 
 export const CodeFooter = ({ delay }: CodeFooterProps) => (
-  <Animated.View entering={fadeIn(delay)} style={{ marginTop: 'auto', paddingTop: spacing.xxl, gap: spacing.sm }}>
+  <Animated.View entering={fadeIn(delay)} style={{ marginTop: spacing.xxl, gap: spacing.sm }}>
     <Pressable
       onPress={openDemo}
       accessibilityRole="button"
