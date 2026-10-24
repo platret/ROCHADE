@@ -5,4 +5,6 @@ const anonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY
 
 export const supabase: RochadeClient | null = url && anonKey ? createRochadeClient(url, anonKey) : null
 
+export const supabaseUrl = url ?? null
+
 export const supabaseHost = url ? url.replace(/^https?:\/\//, '') : null

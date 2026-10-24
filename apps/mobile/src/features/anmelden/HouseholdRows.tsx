@@ -1,5 +1,6 @@
 import type { ProjectData } from '@rochade/shared'
 import { householdsByFlat } from '@/data/households'
+import { householdInitials } from '@/lib/initials'
 import { EmptyState } from '@/ui/EmptyState'
 import { ListGroup } from '@/ui/ListGroup'
 import { HouseholdRow } from './HouseholdRow'
@@ -12,6 +13,7 @@ export type HouseholdRowsProps = {
 
 export const HouseholdRows = ({ data, onSelect, onReload }: HouseholdRowsProps) => {
   const rows = householdsByFlat(data.households, data.flats)
+  const initialsOf = householdInitials(data.households)
   if (rows.length === 0) {
     return (
       <EmptyState
@@ -25,7 +27,13 @@ export const HouseholdRows = ({ data, onSelect, onReload }: HouseholdRowsProps) 
   return (
     <ListGroup>
       {rows.map(({ household, flat }) => (
-        <HouseholdRow key={household.id} household={household} flat={flat} onPress={() => onSelect(household.id)} />
+        <HouseholdRow
+          key={household.id}
+          household={household}
+          flat={flat}
+          initials={initialsOf(household.id)}
+          onPress={() => onSelect(household.id)}
+        />
       ))}
     </ListGroup>
   )

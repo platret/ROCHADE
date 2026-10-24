@@ -1,12 +1,12 @@
-import { initials, type Flat, type Household } from '@rochade/shared'
+import type { Flat, Household } from '@rochade/shared'
 import { splitFlatLabel } from '@/lib/flats'
 import { LeadingCircle } from '@/ui/LeadingCircle'
 import { ListRow } from '@/ui/ListRow'
 import { Text } from '@/ui/Text'
 
-export type HouseholdRowProps = { household: Household; flat: Flat | null; onPress: () => void }
+export type HouseholdRowProps = { household: Household; flat: Flat | null; initials: string; onPress: () => void }
 
-export const HouseholdRow = ({ household, flat, onPress }: HouseholdRowProps) => {
+export const HouseholdRow = ({ household, flat, initials, onPress }: HouseholdRowProps) => {
   const label = flat ? splitFlatLabel(flat.label) : null
   return (
     <ListRow
@@ -14,7 +14,7 @@ export const HouseholdRow = ({ household, flat, onPress }: HouseholdRowProps) =>
       accessibilityLabel={label && flat ? `${household.name}, Wohnung ${label.number}, ${flat.building}` : household.name}
       leading={
         <LeadingCircle>
-          <Text weight={600}>{initials(household.name)}</Text>
+          <Text weight={600}>{initials}</Text>
         </LeadingCircle>
       }
       subtitle={

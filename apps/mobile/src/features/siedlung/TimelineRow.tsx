@@ -1,4 +1,4 @@
-import { radius, spacing } from '@rochade/shared'
+import { radius, spacing, type ISODate } from '@rochade/shared'
 import { View } from 'react-native'
 import { useTheme } from '@/theme/useTheme'
 import { Text } from '@/ui/Text'
@@ -16,6 +16,8 @@ const fill = { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 } as c
 
 export const TimelineRow = ({ row, scale }: TimelineRowProps) => {
   const { colors } = useTheme()
+  const tickStyle = (day: ISODate) =>
+    ({ position: 'absolute', top: (barHeight - tickHeight) / 2, left: scale(day) - tickWidth / 2 }) as const
   return (
     <View
       accessible
@@ -46,12 +48,8 @@ export const TimelineRow = ({ row, scale }: TimelineRowProps) => {
           const width = Math.max(minSegmentWidth, scale(segment.end) - left)
           return <Segment key={segment.kind} kind={segment.kind} style={{ position: 'absolute', top: 0, bottom: 0, left, width }} />
         })}
-        {row.moveOut !== null && (
-          <Tick
-            height={tickHeight}
-            style={{ position: 'absolute', top: (barHeight - tickHeight) / 2, left: scale(row.moveOut) - tickWidth / 2 }}
-          />
-        )}
+        {row.moveOut !== null && <Tick height={tickHeight} style={tickStyle(row.moveOut)} />}
+        {row.moveBack !== null && <Tick height={tickHeight} style={tickStyle(row.moveBack)} />}
       </View>
     </View>
   )

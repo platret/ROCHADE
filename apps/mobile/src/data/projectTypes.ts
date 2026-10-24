@@ -4,7 +4,7 @@ import type { AssignmentChange } from './assignmentChanges'
 export type ProjectState =
   | { status: 'unconfigured' }
   | { status: 'loading' }
-  | { status: 'error'; error: string }
+  | { status: 'error'; error: string; diagnostics: string | null }
   | { status: 'ready'; data: ProjectData; updatedAt: Date; error: string | null }
 
 export type ProjectStatus = ProjectState['status']

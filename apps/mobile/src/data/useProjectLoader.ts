@@ -1,8 +1,7 @@
 import { fetchProjectData, fetchProjects, subscribeToProject, type Assignment, type ProjectData, type RochadeClient } from '@rochade/shared'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { connectionReport, withTimeout } from '@/lib/connectivity'
-import { messageOf } from '@/lib/errors'
-import { supabase, supabaseHost } from '@/lib/supabase'
+import { connectionReport, loadErrorMessage, serverLine, withTimeout } from '@/lib/connectivity'
+import { supabase } from '@/lib/supabase'
 import { diffAssignments, type AssignmentChange } from './assignmentChanges'
 import type { ProjectContextValue, ProjectState } from './projectTypes'
 
@@ -18,9 +17,16 @@ const firstProjectId = async (client: RochadeClient) => {
   return first.id
 }
 
+const loadProject = async (client: RochadeClient, knownId: string | null) => {
+  const id = knownId ?? (await firstProjectId(client))
+  const data = await fetchProjectData(client, id)
+  return { id, data }
+}
+
 export const useProjectLoader = (): ProjectContextValue => {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [diagnostics, setDiagnostics] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [projectId, setProjectId] = useState<string | null>(null)
   const [changes, setChanges] = useState<AssignmentChange[]>([])
@@ -39,8 +45,7 @@ export const useProjectLoader = (): ProjectContextValue => {
     if (mode === 'initial') setError(null)
     if (mode === 'refresh') setRefreshing(true)
     try {
-      const id = knownProjectId.current ?? (await withTimeout(firstProjectId(client), loadTimeoutMs))
-      const data = await withTimeout(fetchProjectData(client, id), loadTimeoutMs)
+      const { id, data } = await withTimeout(loadProject(client, knownProjectId.current), loadTimeoutMs)
       if (!isCurrent()) return
       const now = new Date()
       const previous = lastAssignments.current
@@ -56,8 +61,11 @@ export const useProjectLoader = (): ProjectContextValue => {
       setError(null)
     } catch (caught) {
       if (!isCurrent()) return
-      const report = await connectionReport()
-      if (isCurrent()) setError(`${messageOf(caught)} (Server: ${supabaseHost})\n${report}`)
+      setError(loadErrorMessage(caught))
+      setDiagnostics(serverLine)
+      void connectionReport().then((report) => {
+        if (isCurrent()) setDiagnostics(report)
+      })
     } finally {
       if (isCurrent()) setRefreshing(false)
     }
@@ -98,7 +106,7 @@ export const useProjectLoader = (): ProjectContextValue => {
     : snapshot
       ? { status: 'ready', data: snapshot.data, updatedAt: snapshot.updatedAt, error }
       : error !== null
-        ? { status: 'error', error }
+        ? { status: 'error', error, diagnostics }
         : { status: 'loading' }
 
   return { ...state, refreshing, reload, changes, lastChangeAt, dismissChanges }

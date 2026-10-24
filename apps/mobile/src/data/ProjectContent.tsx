@@ -18,7 +18,7 @@ export const ProjectContent = ({ skeleton, errorTitle, children }: ProjectConten
     case 'loading':
       return skeleton
     case 'error':
-      return <ErrorState title={errorTitle} detail={project.error} retry={project.reload} />
+      return <ErrorState title={errorTitle} body={project.error} detail={project.diagnostics ?? undefined} retry={project.reload} />
     case 'ready':
       return children(project.data)
   }
